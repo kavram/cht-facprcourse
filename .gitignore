@@ -13,8 +13,8 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
-/.settings/*
-/build/*
+ROOT/.settings/*
+ROOT/build/*
 
 
 # =========================
