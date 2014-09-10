@@ -1,17 +1,29 @@
 package com.cht.firstaidcpr4me.web.domain;
 
 
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import javax.validation.constraints.NotNull;
 
 @Component
 @Scope(value="session", proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class User {
 
 	private Long id;
+	
+	@NotNull
+	@NotEmpty
 	private String email;
+
+	@NotNull
+	@NotEmpty
 	private String firstName;
+
+	@NotNull
+	@NotEmpty
 	private String lastName;
 	private String password;
 	private Integer level;

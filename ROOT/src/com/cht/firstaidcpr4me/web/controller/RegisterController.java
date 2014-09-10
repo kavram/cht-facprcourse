@@ -49,6 +49,7 @@ public class RegisterController {
 		try{
 			user = userService.registerUser(user);
 		}catch(Exception e){
+			e.printStackTrace();
 			map.put("reason", "Email already exists");
 			return "register.jsp";
 			

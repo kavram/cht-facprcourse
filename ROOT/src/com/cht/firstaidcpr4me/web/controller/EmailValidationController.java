@@ -21,21 +21,15 @@ public class EmailValidationController {
 		return "emailForm.jsp";
 	}
 	
-	@RequestMapping(value = "/email", method = RequestMethod.POST)
-	public String processEmailSubmission(@ModelAttribute("email") String email){
-		
-		try {
-			userService.createUserAndSendEmailValidatioEmail(email);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "emailSubmission.jsp";
-	}
-	
-	
 	@RequestMapping(value = "/email-validation/{validationKey}", method = RequestMethod.GET)
 	public String getEmailValidationPage(@PathVariable("validationKey") String validationId){
 		
+		try {
+			userService.validateEmail(validationId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return "emailValidationPage.jsp";
 	}

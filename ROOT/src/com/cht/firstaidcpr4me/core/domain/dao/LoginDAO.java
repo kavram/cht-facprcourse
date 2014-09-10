@@ -9,5 +9,6 @@ public interface LoginDAO {
 	public Collection getLoginByEmail(String email);
 	public Login saveLogin(Login login);
 	public Collection getLoginById(Long id);
+	public void updateLogin(Login login);
 	
 }

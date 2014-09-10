@@ -40,4 +40,9 @@ public class LoginDAOImpl implements LoginDAO {
 		return login;
 	}
 
+	@Override
+	public void updateLogin(Login login) {
+		sessionFactory.getCurrentSession().update(login);
+	}
+
 }

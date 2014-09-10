@@ -6,8 +6,6 @@ public interface UserService {
 
 	public boolean isLoginExists(String email);
 	
-	public void createUserAndSendEmailValidatioEmail(String Email) throws Exception;
-	
 	public void validateEmail(String validationKey) throws Exception;
 	
 	public User registerUser(User user) throws Exception;

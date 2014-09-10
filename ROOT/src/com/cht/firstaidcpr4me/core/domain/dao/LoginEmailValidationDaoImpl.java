@@ -18,7 +18,7 @@ public class LoginEmailValidationDaoImpl implements LoginEmailValidationDao {
 	
 	@Override
 	public LoginEmailValidation save(LoginEmailValidation lev) {
-		lev = (LoginEmailValidation) sessionFactory.getCurrentSession().save(lev);
+		Long id = (Long) sessionFactory.getCurrentSession().save(lev);
 		return lev;
 	}
 
@@ -27,10 +27,18 @@ public class LoginEmailValidationDaoImpl implements LoginEmailValidationDao {
 	@Override
 	public Collection getLoginEmailValidationByKey(String key, Long status) {
 		return this.sessionFactory.getCurrentSession()
-                .createQuery("select l from LoginEmailVerification l where l.validationKey = :key and l.validationStatus = :status")
+                .createQuery("select l from LoginEmailValidation l where l.validationKey = :key and l.validationStatus = :status")
                 .setString("key", key)
                 .setLong("status", status)
                 .list();	
+	}
+
+
+
+	@Override
+	public void updateLoginEmailValidation(LoginEmailValidation lev) {
+		sessionFactory.getCurrentSession().update(lev);
+		
 	}
 
 

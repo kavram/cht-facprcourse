@@ -3,6 +3,7 @@ package com.cht.firstaidcpr4me.core.domain.services;
 import java.util.Collection;
 import java.util.UUID;
 
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,8 +43,11 @@ public class UserServiceImpl implements UserService {
 		lg.setEmail(user.getEmail());
 		lg.setFirstName(user.getFirstName());
 		lg.setLastName(user.getLastName());
+		lg.setLevel(USER_EMAIL_VALIDATION_PENDING);
+		lg.setSecureHash(UUID.randomUUID().toString());
 		lg = loginDao.saveLogin(lg);
 		user.setId(lg.getId());
+		sendEmailValidation(lg);
 		return user;
 	}
 
@@ -53,37 +57,48 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
-	@Override
-	@Transactional(propagation = Propagation.REQUIRES_NEW)	
-	public void createUserAndSendEmailValidatioEmail(String email) throws Exception {
-		if(isLoginExists(email)){
-			throw new Exception("Email exists");
-		}
-		Login lg = new Login();
-		lg.setLevel(USER_EMAIL_VALIDATION_PENDING);
-		lg.setSecureHash(UUID.randomUUID().toString());
-		lg.setEmail(email);
-		lg = loginDao.saveLogin(lg);
-		sendEmailValidation(lg);
-	}
-
 	private void sendEmailValidation(Login lg){
 		LoginEmailValidation lev = new LoginEmailValidation();
 		lev.setLoginId(lg.getId());
 		lev.setValidationKey(UUID.randomUUID().toString());
 		lev.setValidationStatus(USER_EMAIL_VALIDATION_PENDING);
 		lev = loginEmailValidationDao.save(lev);
-		//send email validation
+		String message = "Please click on this link to validate your email: http://localhost/email-validation/" +
+		lev.getValidationKey() + " Thank you.";
+		try {
+			send(lg.getEmail(), "firstaidcprcourse.com email validation", message);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
+	private void send(String recipient, String subject, String message) throws Exception{
+		HtmlEmail email = new HtmlEmail();
+		email.setHostName("firstaidcprcourse.com");
+		email.setFrom("mailer@firstaidcprcourse.com");
+		email.setSubject(subject);
+		email.setHtmlMsg(message);
+		email.addTo(recipient);
+		email.send();
+}
+	
+	
 	@Override
 	@SuppressWarnings("unchecked")
 	@Transactional(propagation = Propagation.REQUIRES_NEW)	
 	public void validateEmail(String validationKey) throws Exception {
-		//Collection<LoginEmailValidation> coll = loginEmailValidationDao.getLoginEmailValidationByKey(validationKey);
-		//if(coll.isEmpty())
-		//	throw new Exception("validation key is not found");
+		Collection<LoginEmailValidation> coll = loginEmailValidationDao.getLoginEmailValidationByKey(validationKey, USER_EMAIL_VALIDATION_PENDING);
+		if(coll.isEmpty())
+			throw new Exception("validation key is not found");
+	
+		LoginEmailValidation lev = (LoginEmailValidation) coll.toArray()[0];
+		lev.setValidationStatus(USER_EMAIL_VALIDATED);
+		loginEmailValidationDao.updateLoginEmailValidation(lev);
+		Collection<Login> collLogin = (Collection<Login>) loginDao.getLoginById(lev.getLoginId());
+		Login login = (Login) collLogin.toArray()[0];
+		login.setLevel(USER_EMAIL_VALIDATED);
+		loginDao.updateLogin(login);
 	}
 	
-	//coll.
 }

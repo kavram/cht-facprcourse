@@ -60,6 +60,14 @@
 			</span>
 	   </div>
 
+		<div>
+			<span>Password</span>
+			<span> 
+				<input type="password" onblur="if (this.value == '') {this.value = 'Your Password';}" onfocus="if(this.value == 'Your Password') {this.value = '';}" maxlength="50" value="${user.password}" class="text" id="password" name="password" /> 
+			</span>
+	   </div>
+
+
 	   <div>
 			<span>&nbsp;</span><span> <input type="submit" value="Submit" id="submit" /> </span>
 	   </div>
