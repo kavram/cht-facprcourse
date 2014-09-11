@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"  pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html5/loose.dtd">
 <!-- saved from url=(0033)http://www.firstaidcprcourse.com/ -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -34,8 +38,16 @@
                 </a>
             </div>
             <div class="span8" align="right">
-				<a href="/register"> Not a Member? Join Now For FREE </a> | 
-				<a href="/login"> Login</a><br>
+            	<c:if test="${user == null}"> 
+					<a href="/register"> Not a Member? Join Now For FREE </a> | 
+					<a href="/login"> Login</a><br>
+				</c:if>
+            	<c:if test="${user != null}"> 
+					<a> Welcome ${user.firstName} ${user.lastName} </a> | 
+					<a href="/logout"> Logout</a><br>
+				</c:if>
+				
+				
 				<span class="glyphicon glyphicon-phone" style="margin-right: 5px;"></span>1-888-888-8888 <br>          
 				Mon - Fri, 9am - 8pm EST <br>
 				<div class="pull-right social_links">

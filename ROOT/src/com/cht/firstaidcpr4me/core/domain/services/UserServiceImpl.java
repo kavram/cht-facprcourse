@@ -15,7 +15,6 @@ import com.cht.firstaidcpr4me.core.domain.objects.LoginEmailValidation;
 import com.cht.firstaidcpr4me.web.domain.User;
 
 
-//@Transactional
 public class UserServiceImpl implements UserService {
 
 	private static final Long USER_EMAIL_VALIDATION_PENDING = new Long(0);
@@ -47,16 +46,30 @@ public class UserServiceImpl implements UserService {
 		lg.setSecureHash(UUID.randomUUID().toString());
 		lg = loginDao.saveLogin(lg);
 		user.setId(lg.getId());
+		user.setUserHash(lg.getSecureHash());
 		sendEmailValidation(lg);
 		return user;
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public User getUserById(Long userId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public User getUserBySecurityHash(String hash) throws Exception {
+		Collection coll = loginDao.getLoginByHash(hash);
+		if(coll.isEmpty())
+			throw new Exception("User not found for hash: " + hash);
+		Login login = (Login) coll.toArray()[0];
+		User user = new User(login);
+		return user;
+	}
+	
+	
 	private void sendEmailValidation(Login lg){
 		LoginEmailValidation lev = new LoginEmailValidation();
 		lev.setLoginId(lg.getId());

@@ -45,4 +45,12 @@ public class LoginDAOImpl implements LoginDAO {
 		sessionFactory.getCurrentSession().update(login);
 	}
 
+	@Override
+	public Collection getLoginByHash(String hash) {
+		return this.sessionFactory.getCurrentSession()
+                .createQuery("select l from Login l where l.secureHash = :hash")
+                .setString("hash", hash)
+                .list();	
+	}
+
 }

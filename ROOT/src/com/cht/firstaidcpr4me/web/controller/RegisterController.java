@@ -2,6 +2,9 @@ package com.cht.firstaidcpr4me.web.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,21 +38,18 @@ public class RegisterController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String doRegister(@Validated @ModelAttribute("user") User user, BindingResult result,  Map<String, Object> map){
+	public String doRegister(@Validated @ModelAttribute("user") User user, BindingResult result,  Map<String, Object> map, HttpServletResponse response){
 		if(result.hasErrors()){
 			return "register.jsp";
 		}
-/*		
-		if(userService.isLoginExists(user.getEmail())){
-			map.put("reason", "Email already exists");
-			return "register.jsp";
-		}
-*/
-		
 		try{
 			user = userService.registerUser(user);
+			Cookie cookie = new Cookie("UID", user.getUserHash());
+			int exprInSeconds = 60 * 60 * 24 * 365 * 10;
+			cookie.setMaxAge(exprInSeconds);
+			response.addCookie(cookie);
 		}catch(Exception e){
-			e.printStackTrace();
+			LOG.error(e.getMessage(), e);
 			map.put("reason", "Email already exists");
 			return "register.jsp";
 			

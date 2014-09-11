@@ -10,5 +10,6 @@ public interface LoginDAO {
 	public Login saveLogin(Login login);
 	public Collection getLoginById(Long id);
 	public void updateLogin(Login login);
+	public Collection getLoginByHash(String hash);
 	
 }

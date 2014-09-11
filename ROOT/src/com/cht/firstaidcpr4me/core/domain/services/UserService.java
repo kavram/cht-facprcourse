@@ -11,4 +11,6 @@ public interface UserService {
 	public User registerUser(User user) throws Exception;
 	
 	public User getUserById(Long userId);
+
+	User getUserBySecurityHash(String hash) throws Exception;
 }

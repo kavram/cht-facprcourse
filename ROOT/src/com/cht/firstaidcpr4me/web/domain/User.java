@@ -6,6 +6,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+
+import com.cht.firstaidcpr4me.core.domain.objects.Login;
+
 import javax.validation.constraints.NotNull;
 
 @Component
@@ -26,13 +29,21 @@ public class User {
 	@NotEmpty
 	private String lastName;
 	private String password;
-	private Integer level;
-	
+	private Long level;
+	private String userHash;
 	
 	public User(){
 		
 	}
 	
+	public User(final Login login) {
+		id = login.getId();
+		email = login.getEmail();
+		firstName = login.getFirstName();
+		lastName = login.getLastName();
+		level = login.getLevel();
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -49,11 +60,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Integer getLevel() {
+	public Long getLevel() {
 		return level;
 	}
 
-	public void setLevel(Integer level) {
+	public void setLevel(Long level) {
 		this.level = level;
 	}
 
@@ -79,6 +90,14 @@ public class User {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getUserHash() {
+		return userHash;
+	}
+
+	public void setUserHash(String userHash) {
+		this.userHash = userHash;
 	}
 	
 	
