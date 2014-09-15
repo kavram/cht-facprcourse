@@ -51,6 +51,30 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	@Override 
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public User getOrRegisterUser(User user) throws Exception {
+		Collection coll = loginDao.getLoginByEmail(user.getEmail());
+		if(!coll.isEmpty()){
+			Login existLogin = (Login) coll.toArray()[0];
+			user.setId(existLogin.getId());
+			return user;
+		}
+		
+		Login lg = new Login();
+		lg.setEmail(user.getEmail());
+		lg.setFirstName(user.getFirstName());
+		lg.setLastName(user.getLastName());
+		lg.setLevel(USER_EMAIL_VALIDATION_PENDING);
+		lg.setSecureHash(UUID.randomUUID().toString());
+		lg = loginDao.saveLogin(lg);
+		user.setId(lg.getId());
+		user.setUserHash(lg.getSecureHash());
+		sendEmailValidation(lg);
+		return user;
+	}
+	
+	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public User getUserById(Long userId) {
@@ -112,6 +136,12 @@ public class UserServiceImpl implements UserService {
 		Login login = (Login) collLogin.toArray()[0];
 		login.setLevel(USER_EMAIL_VALIDATED);
 		loginDao.updateLogin(login);
+	}
+
+	@Override
+	public User getUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

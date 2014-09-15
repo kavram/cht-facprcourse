@@ -2,15 +2,11 @@ package com.cht.firstaidcpr4me.core.domain.objects;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -25,22 +21,16 @@ public class LoginPaidCourse implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name="login_payment_id", nullable = false)
-	private LoginPayment loginPayment;
+	@Column(name="login_id", nullable = false)
+	private Long loginId;
 	
-	public LoginPayment getLoginPayment(){
-		return loginPayment;
-	}
-	public void setLoginPayment(LoginPayment loginPayment){
-		this.loginPayment = loginPayment;
-	}
-
+	@Column(name="payment_transaction_id", nullable = false)
+	private String paymentTransactionId;
 	
-	@Column(name="course_id")
+	@Column(name="course_id", nullable = false)
 	private Long courseId;
 	
-	@Column(name="amount")
+	@Column(name="amount", nullable = false)
 	private Double amount;
 	
 	
@@ -75,6 +65,22 @@ public class LoginPaidCourse implements Serializable {
 
 	public void setAmount(Double amount) {
 		this.amount = amount;
+	}
+	public String getPaymentTransactionId() {
+		return paymentTransactionId;
+	}
+	public void setPaymentTransactionId(String paymentTransactionId) {
+		this.paymentTransactionId = paymentTransactionId;
+	}
+
+
+	public Long getLoginId() {
+		return loginId;
+	}
+
+
+	public void setLoginId(Long loginId) {
+		this.loginId = loginId;
 	}
 	
 	

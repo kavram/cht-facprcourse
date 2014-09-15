@@ -26,9 +26,10 @@ import com.cht.firstaidcpr4me.web.domain.User;
 @Controller
 @RequestMapping("/")
 public class SiteController {
-
 	private static final Logger log = LoggerFactory.getLogger(SiteController.class);
-
+	public static final String SESSION_ATTRIBUTE_USER = "user";
+	public static final String SESSION_ATTRIBUTE_COURSES = "courses";
+	
 	@Autowired
 	private UserService userService;
 	
@@ -53,12 +54,16 @@ public class SiteController {
 			}
 			user = loggedIn;
 		}
-		return "home.jsp";
+		return "index.jsp";
 	}
 	
 	@ModelAttribute
 	User getUser(){
 		return user;
+	}
+	
+	public void setUser(User user){
+		this.user = user;
 	}
 	
 }
