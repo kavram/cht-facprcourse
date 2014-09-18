@@ -53,4 +53,13 @@ public class LoginDAOImpl implements LoginDAO {
                 .list();	
 	}
 
+	@Override
+	public Collection getLoginByEmailAndPassword(String email, String password) {
+		return this.sessionFactory.getCurrentSession()
+                .createQuery("select l from Login l where l.email = :email and l.password = :password")
+                .setString("email", email)
+                .setString("password", password)
+                .list();	
+	}
+
 }

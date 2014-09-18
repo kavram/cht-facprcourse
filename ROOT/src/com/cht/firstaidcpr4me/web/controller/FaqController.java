@@ -9,13 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-@RequestMapping("/courses")
-public class CoursesController extends BaseController{
+@RequestMapping("/faq")
+public class FaqController extends BaseController {
 
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView courses(HttpServletRequest request){
-		ModelAndView mv = new ModelAndView("courses.jsp");
+	public ModelAndView getFaq(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("faq.jsp");
 		mv.addObject("user", getUser(request));
 		return mv;
 	}

@@ -42,6 +42,7 @@ public class User {
 		firstName = login.getFirstName();
 		lastName = login.getLastName();
 		level = login.getLevel();
+		userHash = login.getSecureHash();
 	}
 
 	public String getEmail() {

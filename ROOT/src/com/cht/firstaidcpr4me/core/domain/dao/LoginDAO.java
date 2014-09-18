@@ -11,5 +11,6 @@ public interface LoginDAO {
 	public Collection getLoginById(Long id);
 	public void updateLogin(Login login);
 	public Collection getLoginByHash(String hash);
+	public Collection getLoginByEmailAndPassword(String email, String password);
 	
 }

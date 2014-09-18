@@ -1,69 +1,36 @@
 package com.cht.firstaidcpr4me.web.controller;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.cht.firstaidcpr4me.core.domain.services.UserService;
-import com.cht.firstaidcpr4me.web.domain.User;
 
 
 
 
 @Controller
 @RequestMapping("/")
-public class SiteController {
+public class SiteController extends BaseController{
 	private static final Logger log = LoggerFactory.getLogger(SiteController.class);
 	public static final String SESSION_ATTRIBUTE_USER = "user";
 	public static final String SESSION_ATTRIBUTE_COURSES = "courses";
+	public static final String UID_COOKIE = "UID";
 	
-	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private User user;
 	
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String getHomePage(Model model, HttpServletRequest request) {
-		Cookie[] arrCookies = request.getCookies();
-		User loggedIn = null;
-		if(arrCookies != null){
-			for(int i = 0; i < arrCookies.length; i++){
-				if(arrCookies[i].getName().equals("UID")){
-					try {
-						loggedIn = userService.getUserBySecurityHash(arrCookies[i].getValue());
-					} catch (Exception e) {
-						log.error(e.getMessage());
-					}
-					break;
-				}
-			}
-			user = loggedIn;
-		}
-		return "index.jsp";
+	public ModelAndView getHomePage(Model model, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("index.jsp");
+		mv.addObject("user", getUser(request));
+		return mv;
 	}
 	
-	@ModelAttribute
-	User getUser(){
-		return user;
-	}
-	
-	public void setUser(User user){
-		this.user = user;
-	}
 	
 }

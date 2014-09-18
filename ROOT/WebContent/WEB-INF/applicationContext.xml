@@ -51,7 +51,12 @@
 		<property name="notes" value="${notes}" />
 	</bean>
 	
-	
+	<bean id="emailConf" class="com.cht.firstaidcpr4me.core.domain.objects.EmailConf">
+		<property name="smtpHost" value="${smtpHost}" />
+		<property name="siteDomain" value="${siteDomain}" />
+		<property name="fromAddress" value="${fromAddress}" />		
+	</bean>
+		
 	
    	<bean id="FADataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName">
@@ -115,12 +120,10 @@
         <property name="sessionFactory" ref="hibernateSessionFactory"/>
     </bean>    
 		
-<!-- 	
-	<bean id="coursesPayment" class="com.cht.firstaidcpr4me.web.domain.CoursesPayment" scope="session">
-		<aop:scoped-proxy  />    	
-    </bean>
- -->		
-	
+    <bean id="loginForgotPasswordDao" class="com.cht.firstaidcpr4me.core.domain.dao.LoginForgotPasswordDaoImpl">
+        <property name="sessionFactory" ref="hibernateSessionFactory"/>
+    </bean>    
+    	
 		
    <bean id="persistenceExceptionTranslationPostProcessor"
       class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />

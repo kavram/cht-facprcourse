@@ -1,5 +1,7 @@
 package com.cht.firstaidcpr4me.core.domain.services;
 
+import com.cht.firstaidcpr4me.core.domain.exceptions.EmailExistException;
+import com.cht.firstaidcpr4me.core.domain.exceptions.UserNotFoundException;
 import com.cht.firstaidcpr4me.web.domain.User;
 
 public interface UserService {
@@ -8,13 +10,15 @@ public interface UserService {
 	
 	public void validateEmail(String validationKey) throws Exception;
 	
-	public User registerUser(User user) throws Exception;
+	public User registerUser(User user) throws EmailExistException;
 	
 	public User getUserById(Long userId);
+	
+	public User getUserByEmailAndPassword(String email, String password) throws UserNotFoundException;
 
 	User getUserBySecurityHash(String hash) throws Exception;
 
-	public User getUserByEmail(String email);
+	public User getUserByEmail(String email) throws UserNotFoundException;
 
 	public User getOrRegisterUser(User user) throws Exception;
 }

@@ -1,7 +1,9 @@
 package com.cht.firstaidcpr4me.web.controller;
 
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,14 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cht.firstaidcpr4me.core.domain.exceptions.EmailExistException;
+import com.cht.firstaidcpr4me.core.domain.exceptions.UserNotFoundException;
 import com.cht.firstaidcpr4me.core.domain.services.UserService;
+import com.cht.firstaidcpr4me.web.domain.AjaxResponse;
 import com.cht.firstaidcpr4me.web.domain.User;
 
 
 
 @Controller
-public class AjaxController {
+public class AjaxController extends BaseController {
 	private static final Logger log = LoggerFactory.getLogger(AjaxController.class);
 	
 	@Autowired
@@ -26,21 +32,77 @@ public class AjaxController {
 	
 	
 	
-	@RequestMapping("ajax/register")
-	public String processRegistrationSubmission(@RequestParam(value="params", required=true) String params, HttpServletRequest request){
+	@RequestMapping("ajax/login")
+	public @ResponseBody AjaxResponse processLoginSubmission(@RequestParam(value="params", required=true) String params, HttpServletRequest request, HttpServletResponse response){
+		AjaxResponse resp = null;
 		try {
 			JSONObject data = new JSONObject(params);
-			User user = null;
-			
-			
+			User user = userService.getUserByEmailAndPassword(data.getString("email"), data.getString("password"));
+			setCookie(user, request, response);
+			request.getSession().setAttribute(SiteController.SESSION_ATTRIBUTE_USER, user);
+			resp = new AjaxResponse("success");
+			resp.setFirstName(user.getFirstName());
+			resp.setLastName(user.getLastName());
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
+			resp = new AjaxResponse("error");
+		} catch (UserNotFoundException e) {
+			resp = new AjaxResponse("error");
+			resp.setError("Wrong email or password.");
 		}
-		return null;
+		return resp;
+	}
+
+	@RequestMapping("ajax/logout")
+	public @ResponseBody AjaxResponse processLogout(HttpServletRequest request, HttpServletResponse response){
+		request.getSession().removeAttribute(SiteController.SESSION_ATTRIBUTE_USER);
+		removeCookie(request, response);
+		AjaxResponse resp = new AjaxResponse("success");
+		return resp;
 	}
 	
+	private void removeCookie(HttpServletRequest request, HttpServletResponse response) {
+		Cookie cookie = new Cookie(SiteController.UID_COOKIE, null);  //getCookie(SiteController.UID_COOKIE, request);
+		cookie.setMaxAge(0);
+		cookie.setPath("/");
+		response.addCookie(cookie);
+	}
+
+	@RequestMapping("ajax/register")
+	public @ResponseBody AjaxResponse processRegistrationSubmission(@RequestParam(value="params", required=true) String params, HttpServletRequest request, HttpServletResponse response) {
+		AjaxResponse resp = null;
+		try {
+			JSONObject data = new JSONObject(params);
+			User user = new User();
+			user.setEmail(data.getString("email"));
+			user.setFirstName(data.getString("firstname"));
+			user.setLastName(data.getString("lastname"));
+			user.setPassword(data.getString("password"));
+			user = userService.registerUser(user);
+			request.getSession().setAttribute(SiteController.SESSION_ATTRIBUTE_USER, user);
+			setCookie(user, request, response);
+			resp = new AjaxResponse("success");
+			resp.setFirstName(user.getFirstName());
+			resp.setLastName(user.getLastName());
+		} catch (JSONException e) {
+			log.error(e.getMessage(), e);
+			resp = new AjaxResponse("error");
+		} catch (EmailExistException e) {
+			resp = new AjaxResponse("error");
+			resp.setError("The email address already exists.");
+		}
+		return resp;
+	}
+	
+	
+	private void setCookie(User user, HttpServletRequest request, HttpServletResponse response){
+		Cookie cookie = getCookie(SiteController.UID_COOKIE, request); 
+		if(cookie == null)		
+			cookie = new Cookie(SiteController.UID_COOKIE, null);
+		cookie.setValue(user.getUserHash());
+		int exprInSeconds = 60 * 60 * 24 * 365 * 10;
+		cookie.setPath("/");
+		cookie.setMaxAge(exprInSeconds);
+		response.addCookie(cookie);
+	}
 }
