@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cht.firstaidcpr4me.core.domain.exceptions.EmailExistException;
 import com.cht.firstaidcpr4me.core.domain.exceptions.UserNotFoundException;
+import com.cht.firstaidcpr4me.core.domain.services.UserForgotPasswordService;
 import com.cht.firstaidcpr4me.core.domain.services.UserService;
 import com.cht.firstaidcpr4me.web.domain.AjaxResponse;
 import com.cht.firstaidcpr4me.web.domain.User;
@@ -30,7 +31,8 @@ public class AjaxController extends BaseController {
 	@Autowired
 	private UserService userService;
 	
-	
+	@Autowired
+	private UserForgotPasswordService userForgotPasswordService; 
 	
 	@RequestMapping("ajax/login")
 	public @ResponseBody AjaxResponse processLoginSubmission(@RequestParam(value="params", required=true) String params, HttpServletRequest request, HttpServletResponse response){
@@ -53,6 +55,24 @@ public class AjaxController extends BaseController {
 		return resp;
 	}
 
+	@RequestMapping("ajax/forgot-password")
+	public @ResponseBody AjaxResponse processForgotPassword(@RequestParam(value="params", required=true) String params, HttpServletRequest request, HttpServletResponse response){
+		AjaxResponse resp = null;
+		try {
+			JSONObject data = new JSONObject(params);
+			userForgotPasswordService.generateLoginForgotPassword(data.getString("email"));
+			resp = new AjaxResponse("success");
+		} catch (JSONException e) {
+			log.error(e.getMessage(), e);
+			resp = new AjaxResponse("error");
+		} catch (UserNotFoundException e) {
+			resp = new AjaxResponse("error");
+			resp.setError("Email address not found.");
+		}
+		return resp;
+	}
+	
+	
 	@RequestMapping("ajax/logout")
 	public @ResponseBody AjaxResponse processLogout(HttpServletRequest request, HttpServletResponse response){
 		request.getSession().removeAttribute(SiteController.SESSION_ATTRIBUTE_USER);

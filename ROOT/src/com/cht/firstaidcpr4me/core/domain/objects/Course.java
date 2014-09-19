@@ -1,12 +1,17 @@
 package com.cht.firstaidcpr4me.core.domain.objects;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -25,6 +30,24 @@ public class Course implements Serializable {
 	
 	@Column(name="crs_price")
 	private Double price;
+
+	
+	@OneToMany(
+			targetEntity=com.cht.firstaidcpr4me.core.domain.objects.Video.class,
+					 cascade={CascadeType.PERSIST, CascadeType.MERGE}
+	)
+    @JoinTable(
+            name="fa_video_ptr_tb",
+            joinColumns = @JoinColumn(name= "crs_id"),
+            inverseJoinColumns = @JoinColumn( name="vid_id")
+    )	
+	private Set<Video> videos;
+
+	public Set<Video> getVideos(){
+		return videos;
+	}
+	
+	
 	
 	public Long getId() {
 		return id;

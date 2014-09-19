@@ -27,7 +27,7 @@ public class SiteController extends BaseController{
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getHomePage(Model model, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("index.jsp");
+		ModelAndView mv = getModelAndView("index.jsp");
 		mv.addObject("user", getUser(request));
 		return mv;
 	}

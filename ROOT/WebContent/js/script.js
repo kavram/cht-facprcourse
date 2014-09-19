@@ -1,4 +1,4 @@
-$(window).load(function(){
+$(document).ready(function(){
 	$('.slider')._TMS({
 		preset:'diagonalExpand',
 		easing:'easeOutQuad',
@@ -6,7 +6,7 @@ $(window).load(function(){
 		slideshow:6000,
 		waitBannerAnimation:false,
 		banners:'fade'
-	})
+	});
 	$('ul#menu').superfish({
       delay:       600,
       animation:   {height:'show'},
@@ -14,5 +14,5 @@ $(window).load(function(){
       autoArrows:  false,
       dropShadows: false
     });
-})
+});
 

@@ -6,15 +6,8 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<jsp:include page="header.jsp" >
-  <jsp:param name="menu1" value="" />
-  <jsp:param name="menu2" value="" />
-  <jsp:param name="menu3" value="" />
-  <jsp:param name="menu4" value="" />
-  <jsp:param name="menu5" value="" />
-  <jsp:param name="menu6" value="" />
-  <jsp:param name="menu7" value="" />
-</jsp:include>
+<jsp:include page="resources.jsp" />
+<jsp:include page="header.jsp" />
 <script type="text/javascript" >
 	$(document).ready(function(){
 		$("#paymentform").submit(function(event){

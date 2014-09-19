@@ -12,13 +12,20 @@ public class CourseDaoImpl implements CourseDao {
         this.sessionFactory = sessionFactory;
     }
 	
-	
-	
 	@Override
 	public Collection getCourseById(Long courseId) {
 		return this.sessionFactory.getCurrentSession()
                 .createQuery("select c from Course c where c.id = :id")
                 .setLong("id", courseId)
+                .list();	
+	}
+
+
+
+	@Override
+	public Collection getCourses() {
+		return this.sessionFactory.getCurrentSession()
+                .createQuery("select c from Course c")
                 .list();	
 	}
 

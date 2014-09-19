@@ -13,7 +13,7 @@ import com.cht.firstaidcpr4me.core.domain.objects.EmailConf;
 import com.cht.firstaidcpr4me.core.domain.objects.LoginForgotPassword;
 import com.cht.firstaidcpr4me.web.domain.User;
 
-public class LoginForgotPasswordServiceImpl implements	LoginForgotPasswordService {
+public class UserForgotPasswordServiceImpl implements	UserForgotPasswordService {
 
 	@Autowired
 	LoginForgotPasswordDao loginForgotPasswordDao;
@@ -32,7 +32,7 @@ public class LoginForgotPasswordServiceImpl implements	LoginForgotPasswordServic
 		LoginForgotPassword lfp = new LoginForgotPassword();
 		lfp.setKey(UUID.randomUUID().toString());
 		lfp.setLoginId(user.getId());
-		lfp.setStatus(LoginForgotPasswordService.ACTIVE);
+		lfp.setStatus(UserForgotPasswordService.ACTIVE);
 		lfp = loginForgotPasswordDao.saveLoginForgotPassword(lfp);
 		sendForgotPasswordEmail(user, lfp);
 	}

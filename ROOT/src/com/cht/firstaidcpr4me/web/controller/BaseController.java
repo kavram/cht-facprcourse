@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.cht.firstaidcpr4me.core.domain.objects.EmailConf;
 import com.cht.firstaidcpr4me.core.domain.services.UserService;
 import com.cht.firstaidcpr4me.web.domain.User;
 
@@ -17,9 +19,18 @@ public abstract class BaseController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private EmailConf emailConf;
 	
 	public BaseController(){
 		
+	}
+
+	
+	public ModelAndView getModelAndView(String viewName){
+		ModelAndView mv = new ModelAndView(viewName);
+		mv.addObject("domain", emailConf.getSiteDomain());
+		return mv;
 	}
 	
 	public User getUser(HttpServletRequest request){

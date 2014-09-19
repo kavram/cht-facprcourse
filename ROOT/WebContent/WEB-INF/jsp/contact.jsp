@@ -10,6 +10,7 @@
   <jsp:param name="menu6" value="" />
   <jsp:param name="menu7" value="" />
 </jsp:include>
+<jsp:include page="topNav.jsp" />
 <script>
 $(document).ready( function(){
 	$('#alert1').hide();

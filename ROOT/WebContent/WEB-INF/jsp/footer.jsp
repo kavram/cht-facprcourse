@@ -29,12 +29,12 @@
 		<div class="span3" style=" line-height: 15px;">
 			<center>
         	Follow Us On<BR> <BR>
-       		<a href="#"><img src="images/g_plus.png" height=25px width=25px></a> 
-        	<a href="#" target="_blank"><img src="images/youtube.png" height=25px width=25px></a>           
-        	<a href="#"><img src="images/in.png" height=25px width=25px /></a>
-        	<a href="#" target="_blank"><img src="images/fb.png" height=25px width=25px /></a> 
-        	<a href="#"><img src="images/tweet.png" height=25px width=25px></a>
-        	<a href="#"><img src="images/email.png" height=25px width=25px></a> 
+       		<a href="#"><img src="${domain}/images/g_plus.png" height=25px width=25px></a> 
+        	<a href="#" target="_blank"><img src="${domain}/images/youtube.png" height=25px width=25px></a>           
+        	<a href="#"><img src="${domain}/images/in.png" height=25px width=25px /></a>
+        	<a href="#" target="_blank"><img src="${domain}/images/fb.png" height=25px width=25px /></a> 
+        	<a href="#"><img src="${domain}/images/tweet.png" height=25px width=25px></a>
+        	<a href="#"><img src="${domain}/images/email.png" height=25px width=25px></a> 
         </center>
 		</div>
 	</div>

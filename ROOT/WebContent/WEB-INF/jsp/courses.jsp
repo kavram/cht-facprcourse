@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html5/loose.dtd">
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <html>
+<jsp:include page="resources.jsp" />
 <jsp:include page="header.jsp" >
   <jsp:param name="menu1" value="" />
   <jsp:param name="menu2" value="" />
@@ -10,30 +16,151 @@
   <jsp:param name="menu6" value="" />
   <jsp:param name="menu7" value="" />
 </jsp:include>
-<script>
-$(document).ready( function(){
-   	$("a[data-target=#myVideo]").click(function(e) {
-       	e.preventDefault();
-       	var url = $(this).attr('href');
-       	$(".modal-body").html('<iframe width="860px" height="480px" frameborder="0" scrolling="no" allowtransparency="true" src="'+url+'"></iframe><br>This is the new stuff!!');
-      });
-   });
-</script>
-<!-- This is the video player -->
-	<div class="modal fade" id="myVideo">
-		<div class="modal-dialog modal-lg">
-		    <div class="modal-content">
-		      <div class="modal-header danger">
-		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		        <h4 class="modal-title"><center>CPR Video - Learning to Tie Your Shoe Lace</center></h4>
-		      </div>
-		      <div class="modal-body">
-		      	this is where the iFrame s/b placed	      
-		      </div>
-		    </div>
-		</div>
-	</div>
-<!-- End video player -->
+<jsp:include page="topNav.jsp" />
+<!-- player skin -->
+<link rel="stylesheet" href="content/minimalist.css">
+<!-- include flowplayer -->
+<script src="js/flowplayer.min.js"></script>
+<!-- 
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+ -->
+<style>
+.flowplayer {
+  width: 980px; /* same as grid */
+  margin: 0 0 424px 0; /* 414 + 10 margin bottom */
+  /* the following 3 directives not needed if the playlist is below the player from the start */
+  -webkit-transition: margin .8s;
+  -moz-transition: margin .8s;
+  transition: margin .8s;
+}
+.is-splash.flowplayer {
+  margin: 0;
+  padding: 0;
+}
+ 
+/* playlist as grid */
+.flowplayer .fp-playlist {
+  padding: 0;
+  height: 464px; /* (136 + 2) * 3 */
+  position: absolute;
+  left: 0;
+  bottom: -424px; /* -414 - 10 */
+  /* the following 3 directives not needed if the playlist is below the player from the start */
+  -webkit-transition: bottom .8s;
+  -moz-transition: bottom .8s;
+  transition: bottom .8s;
+}
+/* in splash state playlist should be on top of the player in the z-axis
+ * to avoid that the big white play button overlays the thumbnails */
+.is-splash.flowplayer .fp-playlist {
+  z-index: 2;
+  bottom: 68px; /* (980 / 16 * 9 - 414) / 2 */
+}
+ 
+/* the playlist item elements */
+.flowplayer .fp-playlist a {
+  width: 239px;
+  height: 136px;
+  display: inline-block;
+}
+.flowplayer .fp-playlist a.is-active, .flowplayer .fp-playlist a:hover {
+  background-image: url(//releases.flowplayer.org/5.5.0/skin/img/play_white.png);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .flowplayer .fp-playlist a.is-active, .flowplayer .fp-playlist a:hover {
+    background-image: url(//releases.flowplayer.org/5.5.0/skin/img/play_white@x2.png);
+  }
+}
+.flowplayer .fp-playlist a:hover {
+  background-size: 12%;
+}
+.flowplayer .fp-playlist a.is-active {
+  background-size: 24%;
+}
+ 
+#item0 {
+  top: 0;
+  left: 0;
+  margin: 1px 1px 1px 0; /* leftmost */
+}
+#item1 {
+  top: 0;
+  left: 249px;
+  margin: 1px;
+}
+#item2 {
+  top: 0;
+  left: 498px;
+  margin: 1px;
+}
+#item3 {
+  top: 0;
+  left: 747px;
+  margin: 1px 0 1px 1px; /* rightmost */
+}
+#item4 {
+  top: 143px;
+  left: 0;
+  margin: 1px 1px 1px 0; /* leftmost */
+}
+#item5 {
+  top: 143px;
+  left: 249px;
+  margin: 1px;
+}
+#item6 {
+  top: 143px;
+  left: 498px;
+  margin: 1px;
+}
+#item7 {
+  top: 143px;
+  left: 747px;
+  margin: 1px 0 1px 1px; /* rightmost */
+}
+#item8 {
+  top: 286px;
+  left: 0;
+  margin: 1px 1px 1px 0; /* leftmost */
+}
+#item9 {
+  top: 286px;
+  left: 249px;
+  margin: 1px;
+}
+#item10 {
+  top: 286px;
+  left: 498px;
+  margin: 1px;
+}
+#item11 {
+  top: 286px;
+  left: 747px;
+  margin: 1px 0 1px 1px; /* rightmost */
+}
+#item12 {
+  top: 429px;
+  left: 0;
+  margin: 1px 1px 1px 0; /* leftmost */
+}
+#item13 {
+  top: 429px;
+  left: 249px;
+  margin: 1px;
+}
+#item14 {
+  top: 429px;
+  left: 498px;
+  margin: 1px;
+}
+#item15 {
+  top: 429px;
+  left: 747px;
+  margin: 1px 0 1px 1px; /* rightmost */
+}
+</style>
 <div class="container">
 <br>
 yada yada ... describe how to access content ... maybe a link to an introductory
@@ -41,84 +168,52 @@ video and/or manual and how to info
 <br><br>
 blah blah blah<br><br>
 <div class="panel-group" id="accordion">
+<c:forEach var="userCourse" items="${courses}" >
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-          CPR Basic Certification - Adult Only
+          <c:out value="${userCourse.name}"/> 
         </a>
       </h4>
     </div>
     <div id="collapseOne" class="panel-collapse collapse">
       <div class="panel-body">
       	<div class="row-fluid">
-        	<div class="span8">
-        	Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-        	</div>
-        	<div class="span4" align=left>
-        		<a href="#myVideo"  data-toggle="modal" >This is Video Number 1 in a series of 4</a><br>
-        		<a href="#">Video Link 2</a><br>
-        		<a href="#">Video Link 3</a>
-        	</div>
+        	<div class="flowplayer is-splash is-closeable" data-ratio="0.5625">
+			   <video>
+			      <source type="video/webm" src="">
+			      <source type="video/mp4" src="">
+			      <source type="video/ogg" src="">
+			   </video>
+ 			   <div class="fp-playlist">
+ 			   <c:forEach var="video" items="${userCourse.videos}" >
+ 			   <c:if test="${userCourse.paid == true}">
+			      <a href="${video.url}"  id="${video.videoId}">
+			      <img src="${video.activeThumbnail}">
+			      <center>${video.name}</center></a>
+			   </c:if>   
+ 			   <c:if test="${userCourse.paid == false}">
+			      <a href=""  id="${video.videoId}">
+			      <img src="${video.activeThumbnail}">
+			      <center>${video.name}</center></a>
+			   </c:if>   
+			    </c:forEach>
+			    <c:if test="${userCourse.paid == true}">
+			     	<a href="TakeQuiz.jsp" style="position: relative; left:50px; top:-80px">
+			      		<img src="images/startexam.png" height="60px" border=0>
+			    	 </a>
+			     </c:if>
+			     <c:if test="${userCourse.paid == false}">
+			     	<a href="/payment?courses=${userCourse.courseId}"><center><img src="images/starthere.jpg" height=40px border=0></center></a>
+			     </c:if>
+			   </div>
+			</div>
         </div>	
       </div>
     </div>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-          First Aid Certification
-        </a>
-      </h4>
-    </div>
-    <div id="collapseFour" class="panel-collapse collapse in">
-      <div class="panel-body">
-        <div class="row-fluid">
-        	<div class="span9">
-        	Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.<br>
-        	<span>
-        	<a data-target="#myVideo" data-toggle="modal" href="//www.youtube.com/embed/Pe7-zwQiZBc"><img src="images/ipad1.png" border=0></a>
-        	<a href="#myVideo" data-toggle="modal" ><img src="images/ipad1.png" border=0></a>
-        	</span>
-        	</div>
-        	<div class="span3" align=left>
-        		<a href="index.jsp">
-                	<img src="images/startexam.png" height="80px" border=0>
-                </a>	  		
-        	</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-          CPR and First Aid Certification
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse">
-      <div class="panel-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapsethree">
-          Healthcare Basic Life Support (BLS)
-        </a>
-      </h4>
-    </div>
-    <div id="collapsethree" class="panel-collapse collapse">
-      <div class="panel-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
-    </div>
-  </div>
+</c:forEach>
 </div>
 </div>
 <%@ include file="footer.jsp" %>

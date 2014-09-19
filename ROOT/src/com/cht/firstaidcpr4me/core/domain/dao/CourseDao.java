@@ -7,4 +7,6 @@ public interface CourseDao {
 	
 	public Collection getCourseById(Long courseId);
 	
+	public Collection getCourses();
+	
 }

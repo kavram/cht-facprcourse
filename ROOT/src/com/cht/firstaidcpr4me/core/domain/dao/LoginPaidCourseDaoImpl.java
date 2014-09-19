@@ -30,4 +30,12 @@ public class LoginPaidCourseDaoImpl implements LoginPaidCourseDao {
 		        .list();	
 	}
 
+
+	@Override
+	public Collection<LoginPaidCourse> getLoginPaidCourses(Long loginId) {
+		return sessionFactory.getCurrentSession().createQuery("select p from LoginPaidCourse p where p.loginId = :loginId")
+		        .setLong("loginId", loginId)
+		        .list();	
+	}
+
 }

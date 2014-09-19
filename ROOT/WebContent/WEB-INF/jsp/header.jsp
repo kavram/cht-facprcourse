@@ -11,25 +11,6 @@
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>First Aid Prototype</title>
-<!-- bootstrap 2.3.0 -->
-    <!-- style sheets bootstrap 2.3.0 -->
-    <link href="/content/bootstrap.css" rel="stylesheet" />
-    <link href="/content/bootstrap-responsive.css" rel="stylesheet" />
-    <link href="/css/bootstrapValidator.min.css" rel="stylesheet" />
-	<link href="/content/site.css" rel="stylesheet" />
-    <!-- style sheets End -->
-    <!----======================== Java scripts =============================----->
-    <!-- jQuery (latest version) -->
-    <script src="/js/jquery-1.8.2.js"></script>
-	<script src="/js/jquery-ui-1.8.24.js"></script>
-	<script src="/js/jquery.validate-min.js"></script>
-	<script src="/js/jquery.bxslider.min.js"></script>
-    <!-- bootstrap 2.3.0 -->
-    <script type="text/javascript" src="/js/bootstrap.js"></script>
-    <script type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
-    <script type="text/javascript" src="/js/script.js"></script>
-    <script type="text/javascript" src="/js/utils.js"></script>
-    <!----======================== End =====================================----->
 	<script type="text/javascript" >
 	<c:if test="${user.email == null}">
 		$(document).ready(function() {
@@ -39,6 +20,15 @@
 	    	$('#openBtn').click(function(){
 	    		$('#myRegister').modal({show:true})
 	    	});
+	    	$('#forgotPassButton').click(function(){
+	    		$('#loginModal').modal('hide');
+	    		$('#forgotPassModal').modal({show:true})
+	    	});
+	    	$('#loginButton').click(function(){
+	    		$('#forgotPassModal').modal('hide');
+	    		$('#loginModal').modal({show:true})
+	    	});
+	    	
 		});
 	 </c:if>   
 	 <c:if test="${user.email != null}">
@@ -52,13 +42,12 @@
 	 </c:if>
     </script>
 </head>
-<body>
 <!-- Header -->
     <div class="container">
         <div class="row-fluid">
             <div class="span4">
                 <a href="/">
-                        <img src="images/logo-cross-fa3.png" border=0>
+                        <img src="${domain}/images/logo-cross-fa3.png" border=0>
                 </a>
             </div>
             <div class="span8" align=right>
@@ -79,19 +68,6 @@
             </div>
         </div> 
     </div>   
-	<div style="background-image: url(images/header_bg.jpg)">
-	<div class="container">
-		<ul class="nav nav-pills">
-    		<li class='<%= request.getParameter("menu1")%>'><a href=/>Home</a></li>
-    		<li class='<%= request.getParameter("menu2")%>'><a href=/certify>Pricing</a></li>
-    		<li class='<%= request.getParameter("menu3")%>'><a href=/courses>Training Courses</a></li>
-    		<li class='<%= request.getParameter("menu4")%>'><a href=/faq>FAQ's</a></li>
-    		<li><a href="#myRegister" data-toggle="modal" >Register</a></li>
-    		<li><a href="#myLogin" data-toggle="modal" >Log In</a></li>
-    		<li class='<%= request.getParameter("menu5")%>'><a href=/contact>Contact Us</a></li>
-		</ul>
-	</div>
-	</div>
 <!-- Header End -->
 <!-- Popups -->
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -136,7 +112,7 @@
 		   </div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	
-	<div class="modal fade" id="forogotPassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="forgotPassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
@@ -144,7 +120,7 @@
 		        <h4 class="modal-title"><center>Forgot Password</center></h4>
 		      </div>
 		      <div class="modal-body">
-		          <form id="forogotPassForm" method="post" class="form-horizontal">
+		          <form id="forgotPassForm" method="post" class="form-horizontal">
   					  <div class="form-group">
 	                        <label class="col-md-3 control-label">Email Address</label>
 	                        <div class="col-md-6">
@@ -165,9 +141,6 @@
 	                 </div>
 	              </form>
 	            </div>  
-	              <center>By clicking <b>Login</b>, you agree to our <a href="#">Terms </a>
-	            	and <br>that you have read our <a href="#">Privacy Policy </a>
-				  </center>
 		     </div>
 		   </div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
@@ -198,7 +171,7 @@
 	                 	 <div class="form-group">
 	                        <label class="col-md-3 control-label">Email Address</label>
 	                        <div class="col-md-6">
-	                            <input type="text" class="form-control" name="email" id="email" maxlength="25"/>
+	                            <input type="text" class="form-control" name="email" id="email" maxlength="50"/>
 	                        </div>
 	                 	 </div>
 	                  	 <div class="form-group">

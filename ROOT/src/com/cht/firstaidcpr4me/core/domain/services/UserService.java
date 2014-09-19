@@ -1,6 +1,7 @@
 package com.cht.firstaidcpr4me.core.domain.services;
 
 import com.cht.firstaidcpr4me.core.domain.exceptions.EmailExistException;
+import com.cht.firstaidcpr4me.core.domain.exceptions.EmailValidationKeyNotFoundException;
 import com.cht.firstaidcpr4me.core.domain.exceptions.UserNotFoundException;
 import com.cht.firstaidcpr4me.web.domain.User;
 
@@ -8,7 +9,7 @@ public interface UserService {
 
 	public boolean isLoginExists(String email);
 	
-	public void validateEmail(String validationKey) throws Exception;
+	public void validateEmail(String validationKey) throws EmailValidationKeyNotFoundException;
 	
 	public User registerUser(User user) throws EmailExistException;
 	

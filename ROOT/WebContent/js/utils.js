@@ -39,6 +39,27 @@ function processLoginSubmit(){
 	});
 };
 
+function processForgotPassSubmit(){
+	var data = {"email": $("#email").val()};
+	var str = JSON.stringify(data);
+	$.ajax({
+		type: "GET",
+		url: "/ajax/forgot-password",
+		processData: false,
+		data: "params=" + str,
+		success: function(data, status, jqXHR){
+			if(data.status == "error"){
+				$('#forgotPassAjaxMessages').html('<div class="alert alert-danger" role="alert">' + data.error + '</div>');
+			} 
+			if(data.status == "success"){
+				$('#forgotPassMessages').html('<div class="alert alert-success" role="alert">We sent you an email with a link to reset your password.</div>');
+			}
+		},
+		dataType: "json"
+	});
+};
+
+
 function processRegistrationSubmit(){
 	var data = {"email": $('#registerForm').find("#email").val(), "firstname": $("#firstname").val(), "lastname": $("#lastname").val(), "password": $('#registerForm').find("#password").val()};
 	var str = JSON.stringify(data);
