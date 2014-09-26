@@ -13,7 +13,9 @@
 </jsp:include>
 <jsp:include page="topNav.jsp" />
 <!---=========== Start Content ==============----->
+
 <br><br>
+
 <div class="container">
 	<div class="row-fluid">
 	<h3> CPR Basic</h3>
@@ -40,7 +42,7 @@
     	</center>
     	</div>
     	<div class="span9">
-    		First Aid training at it’s finest in both First Aid and CPR. Designed for people that want to master the science of First Aid and CPR at their own pace. Certification meets all of the necessary AHA or OSHA regulations. Learn what to do in the event of an emergency.  . This course follows the latest American Heart Association, ECC/ILCOR guidelines. 
+    		First Aid training at itâs finest in both First Aid and CPR. Designed for people that want to master the science of First Aid and CPR at their own pace. Certification meets all of the necessary AHA or OSHA regulations. Learn what to do in the event of an emergency.  . This course follows the latest American Heart Association, ECC/ILCOR guidelines. 
 			Topics include: Heimlich maneuver, conscious choking adult, and stroke, Cardiac Arrest, Heart Attack
 			Bite Wounds, puncture wounds, nose bleed, head injury, treatments, fractures, I.C.E., Electrocution, cleaning wounds, stop bleeding, cuts and Scrapes, choking, and burns
 

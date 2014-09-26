@@ -132,9 +132,29 @@
    <bean id="persistenceExceptionTranslationPostProcessor"
       class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
     
-    
    <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
+
+   	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+   		<property name="resourceLoaderPath" value="/WEB-INF/velocity/"/>
+ 	</bean>
+ 	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    	<property name="host" value="${smtpHost}"/>
+		<property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">false</prop>
+                <prop key="mail.smtp.starttls.enable">false</prop>
+                <prop key="mail.debug">true</prop>
+            </props>
+        </property>    	
+	</bean>   	
 	
+	<bean id="emailService" class="com.cht.firstaidcpr4me.core.domain.services.EmailServiceImpl">
+		<property name="siteDomain" value="${siteDomain}" />
+		<property name="fromAddress" value="${fromAddress}" />		
+	</bean>   	
+		
 	
  <tx:annotation-driven transaction-manager="transactionManager" />
 		

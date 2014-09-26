@@ -40,8 +40,7 @@ public class AjaxController extends BaseController {
 		try {
 			JSONObject data = new JSONObject(params);
 			User user = userService.getUserByEmailAndPassword(data.getString("email"), data.getString("password"));
-			setCookie(user, request, response);
-			request.getSession().setAttribute(SiteController.SESSION_ATTRIBUTE_USER, user);
+			setUser(user, request, response);
 			resp = new AjaxResponse("success");
 			resp.setFirstName(user.getFirstName());
 			resp.setLastName(user.getLastName());
@@ -99,8 +98,7 @@ public class AjaxController extends BaseController {
 			user.setLastName(data.getString("lastname"));
 			user.setPassword(data.getString("password"));
 			user = userService.registerUser(user);
-			request.getSession().setAttribute(SiteController.SESSION_ATTRIBUTE_USER, user);
-			setCookie(user, request, response);
+			setUser(user, request, response);
 			resp = new AjaxResponse("success");
 			resp.setFirstName(user.getFirstName());
 			resp.setLastName(user.getLastName());
@@ -115,14 +113,4 @@ public class AjaxController extends BaseController {
 	}
 	
 	
-	private void setCookie(User user, HttpServletRequest request, HttpServletResponse response){
-		Cookie cookie = getCookie(SiteController.UID_COOKIE, request); 
-		if(cookie == null)		
-			cookie = new Cookie(SiteController.UID_COOKIE, null);
-		cookie.setValue(user.getUserHash());
-		int exprInSeconds = 60 * 60 * 24 * 365 * 10;
-		cookie.setPath("/");
-		cookie.setMaxAge(exprInSeconds);
-		response.addCookie(cookie);
-	}
 }

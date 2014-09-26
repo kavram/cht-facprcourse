@@ -2,6 +2,7 @@ package com.cht.firstaidcpr4me.web.controller;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,4 +64,21 @@ public abstract class BaseController {
 		}
 		return cook;
 	}
+
+	protected void setUser(User user, HttpServletRequest request, HttpServletResponse response){
+		request.getSession().setAttribute(SiteController.SESSION_ATTRIBUTE_USER, user);
+		setCookie(user.getUserHash(), request, response);
+	}
+	
+	private void setCookie(String userHash, HttpServletRequest request, HttpServletResponse response){
+		Cookie cookie = getCookie(SiteController.UID_COOKIE, request); 
+		if(cookie == null)		
+			cookie = new Cookie(SiteController.UID_COOKIE, null);
+		cookie.setValue(userHash);
+		int exprInSeconds = 60 * 60 * 24 * 365 * 10;
+		cookie.setPath("/");
+		cookie.setMaxAge(exprInSeconds);
+		response.addCookie(cookie);
+	}
+	
 }

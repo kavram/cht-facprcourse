@@ -1,5 +1,8 @@
 package com.cht.firstaidcpr4me.core.domain.services;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.mail.HtmlEmail;
@@ -8,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cht.firstaidcpr4me.core.domain.dao.LoginForgotPasswordDao;
+import com.cht.firstaidcpr4me.core.domain.exceptions.PasswordResetTokenNotFound;
 import com.cht.firstaidcpr4me.core.domain.exceptions.UserNotFoundException;
 import com.cht.firstaidcpr4me.core.domain.objects.EmailConf;
 import com.cht.firstaidcpr4me.core.domain.objects.LoginForgotPassword;
@@ -22,7 +26,7 @@ public class UserForgotPasswordServiceImpl implements	UserForgotPasswordService 
 	UserService userService;
 	
 	@Autowired
-	private EmailConf emailConf;
+	private EmailService emailService;
 	
 	
 	@Override
@@ -30,44 +34,28 @@ public class UserForgotPasswordServiceImpl implements	UserForgotPasswordService 
 	public void generateLoginForgotPassword(String email) throws UserNotFoundException {
 		User user = userService.getUserByEmail(email);
 		LoginForgotPassword lfp = new LoginForgotPassword();
-		lfp.setKey(UUID.randomUUID().toString());
+		lfp.setToken(UUID.randomUUID().toString());
 		lfp.setLoginId(user.getId());
 		lfp.setStatus(UserForgotPasswordService.ACTIVE);
 		lfp = loginForgotPasswordDao.saveLoginForgotPassword(lfp);
-		sendForgotPasswordEmail(user, lfp);
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("token", lfp.getToken());
+		emailService.sendEmail("passwordReset.vm", email, model);
 	}
 
-	private void sendForgotPasswordEmail(User user, LoginForgotPassword lfp) {
-		String message = "Please click on this link to reset your password: " + emailConf.getSiteDomain() + "/password-reset/" +
-		lfp.getKey() + " Thank you.";
-		try {
-			send(user.getEmail(), "firstaidcprcourse.com password reset", message);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	private void send(String recipient, String subject, String message) throws Exception{
-		HtmlEmail email = new HtmlEmail();
-		email.setHostName(emailConf.getSmtpHost());
-		email.setFrom(emailConf.getFromAddress());
-		email.setSubject(subject);
-		email.setHtmlMsg(message);
-		email.addTo(recipient);
-		email.send();
-	}
-	
 	
 	@Override
-	public LoginForgotPassword getLoginForgotPasswordByKey(String key) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public LoginForgotPassword getLoginForgotPasswordByToken(String token) throws PasswordResetTokenNotFound {
+		Collection coll = loginForgotPasswordDao.getActiveLoginForgotPasswordByToken(token);
+		if(coll.isEmpty())
+			throw new PasswordResetTokenNotFound();
+		return (LoginForgotPassword) coll.toArray()[0];
 	}
 
 	@Override
 	public void deactivateLoginForgotPassword(String key) {
-		// TODO Auto-generated method stub
+		
 
 	}
 

@@ -3,6 +3,7 @@ package com.cht.firstaidcpr4me.core.domain.dao;
 import java.util.Collection;
 
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cht.firstaidcpr4me.core.domain.objects.LoginForgotPassword;
 
@@ -22,9 +23,9 @@ public class LoginForgotPasswordDaoImpl implements LoginForgotPasswordDao {
 	}
 
 	@Override
-	public Collection getActiveLoginForgotPasswordByKey(String key) {
-		return sessionFactory.getCurrentSession().createQuery("select p from LoginForgotPassword p where p.key = :key and p.status = :status")
-		        .setString("key", key)
+	public Collection getActiveLoginForgotPasswordByToken(String token) {
+		return sessionFactory.getCurrentSession().createQuery("select p from LoginForgotPassword p where p.token = :token and p.status = :status")
+		        .setString("token", token)
 		        .setLong("status", 0)
 		        .list();	
 	}

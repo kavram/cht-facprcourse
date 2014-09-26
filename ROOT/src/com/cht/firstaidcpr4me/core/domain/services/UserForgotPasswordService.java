@@ -1,5 +1,6 @@
 package com.cht.firstaidcpr4me.core.domain.services;
 
+import com.cht.firstaidcpr4me.core.domain.exceptions.PasswordResetTokenNotFound;
 import com.cht.firstaidcpr4me.core.domain.exceptions.UserNotFoundException;
 import com.cht.firstaidcpr4me.core.domain.objects.LoginForgotPassword;
 
@@ -10,8 +11,8 @@ public interface UserForgotPasswordService {
 	
 	public void generateLoginForgotPassword(String email) throws UserNotFoundException;
 	
-	public LoginForgotPassword getLoginForgotPasswordByKey(String key);
+	public LoginForgotPassword getLoginForgotPasswordByToken(String token) throws PasswordResetTokenNotFound;
 	
-	public void deactivateLoginForgotPassword(String key);
+	public void deactivateLoginForgotPassword(String token);
 	
 }

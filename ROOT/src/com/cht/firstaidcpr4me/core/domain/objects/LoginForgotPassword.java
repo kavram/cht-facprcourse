@@ -20,8 +20,8 @@ public class LoginForgotPassword {
 	@Column(name="login_id") 
 	private Long loginId;
 	
-	@Column(name="key") 
-	private String key;
+	@Column(name="token") 
+	private String token;
 	
 	@Column(name="status") 
 	private Long status;
@@ -46,20 +46,20 @@ public class LoginForgotPassword {
 		this.loginId = loginId;
 	}
 
-	public String getKey() {
-		return key;
-	}
-
-	public void setKey(String key) {
-		this.key = key;
-	}
-
 	public Long getStatus() {
 		return status;
 	}
 
 	public void setStatus(Long status) {
 		this.status = status;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 

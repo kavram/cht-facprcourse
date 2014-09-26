@@ -13,13 +13,15 @@ public interface UserService {
 	
 	public User registerUser(User user) throws EmailExistException;
 	
-	public User getUserById(Long userId);
+	public User getUserById(Long userId) throws UserNotFoundException;
 	
 	public User getUserByEmailAndPassword(String email, String password) throws UserNotFoundException;
 
-	User getUserBySecurityHash(String hash) throws Exception;
+	public User getUserBySecurityHash(String hash) throws UserNotFoundException;
 
 	public User getUserByEmail(String email) throws UserNotFoundException;
 
 	public User getOrRegisterUser(User user) throws Exception;
+
+	public void updateUser(User user) throws Exception;
 }

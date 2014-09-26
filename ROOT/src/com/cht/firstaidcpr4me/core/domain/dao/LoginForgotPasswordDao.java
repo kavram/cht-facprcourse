@@ -8,7 +8,7 @@ public interface LoginForgotPasswordDao {
 
 	
 	public LoginForgotPassword saveLoginForgotPassword(LoginForgotPassword lfp);
-	public Collection getActiveLoginForgotPasswordByKey(String key);
+	public Collection getActiveLoginForgotPasswordByToken(String token);
 	public void updateLoginForgotPassword(LoginForgotPassword lfp);
 	
 }

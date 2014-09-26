@@ -18,7 +18,7 @@ import com.cht.firstaidcpr4me.core.domain.services.UserService;
 @Controller
 public class EmailValidationController extends BaseController{
 
-	private static final Logger LOG = LoggerFactory.getLogger(EmailValidationController.class);
+	private static final Logger log = LoggerFactory.getLogger(EmailValidationController.class);
 	
 	
 	@Autowired 

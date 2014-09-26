@@ -40,7 +40,7 @@ function processLoginSubmit(){
 };
 
 function processForgotPassSubmit(){
-	var data = {"email": $("#email").val()};
+	var data = {"email": $('#forgotPassForm').find("#email").val()};
 	var str = JSON.stringify(data);
 	$.ajax({
 		type: "GET",
@@ -145,6 +145,47 @@ $(document).ready(function() {
         $('#loginForm').bootstrapValidator('resetForm', true)
                        .find('[name="email"]').focus();
     });
+
+    
+    $('#forgotPassForm').bootstrapValidator({
+        container: '#forgotPassMessages',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: 'The email address is required and cannot be empty'
+                    },
+                    emailAddress: {
+                        message: 'The email address is not valid'
+                    },
+                    callback: {
+                    	callback : function(validator, $field, options) {
+                    		$('#forgotPassAjaxMessages').html('');
+                            return true;
+                    	}
+                    }
+                }
+            }
+        }
+    })
+    .on('success.form.bv', function(e) {
+            // Prevent form submission
+            e.preventDefault();
+            var validator = $(e.target).data('bootstrapValidator');
+            processForgotPassSubmit();
+        });
+
+    $('#forgotPassModal').on('shown.bs.modal', function() {
+    	$('#forgotPassForm').find('#forgotPassAjaxMessages').html('');
+        $('#forgotPassForm').bootstrapValidator('resetForm', true)
+                       .find('[name="email"]').focus();
+    });
+    
     
     $('#registerForm').bootstrapValidator({
         container: '#registerMessages',
