@@ -48,6 +48,23 @@ public class Course implements Serializable {
 	}
 	
 	
+	@OneToMany(
+			targetEntity=com.cht.firstaidcpr4me.core.domain.objects.Question.class,
+					 cascade={CascadeType.PERSIST, CascadeType.MERGE}
+	)
+    @JoinTable(
+            name="fa_quiz_ptr_tb",
+            joinColumns = @JoinColumn(name= "crs_id"),
+            inverseJoinColumns = @JoinColumn( name="que_id")
+    )	
+	private Set<Question> questions;
+
+	public Set<Question> getQuestions(){
+		return questions;
+	}
+
+	
+	
 	
 	public Long getId() {
 		return id;

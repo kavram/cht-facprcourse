@@ -13,8 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 
-
-
 @Controller
 @RequestMapping("/")
 public class SiteController extends BaseController{
@@ -24,11 +22,11 @@ public class SiteController extends BaseController{
 	public static final String UID_COOKIE = "UID";
 	
 	
-	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getHomePage(Model model, HttpServletRequest request) {
 		ModelAndView mv = getModelAndView("index.jsp");
 		mv.addObject("user", getUser(request));
+		
 		return mv;
 	}
 	

@@ -116,6 +116,9 @@
 	<bean id="courseService" class="com.cht.firstaidcpr4me.core.domain.services.CourseServiceImpl">
     </bean>
 
+	<bean id="questionService" class="com.cht.firstaidcpr4me.core.domain.services.QuestionServiceImpl">
+    </bean>
+		
 	<bean id="userForgotPasswordService" class="com.cht.firstaidcpr4me.core.domain.services.UserForgotPasswordServiceImpl">
     </bean>
 	
@@ -123,7 +126,12 @@
     <bean id="courseDao" class="com.cht.firstaidcpr4me.core.domain.dao.CourseDaoImpl">
         <property name="sessionFactory" ref="hibernateSessionFactory"/>
     </bean>    
-		
+
+    <bean id="questionDao" class="com.cht.firstaidcpr4me.core.domain.dao.QuestionDaoImpl">
+        <property name="sessionFactory" ref="hibernateSessionFactory"/>
+    </bean>    
+    
+    		
     <bean id="loginForgotPasswordDao" class="com.cht.firstaidcpr4me.core.domain.dao.LoginForgotPasswordDaoImpl">
         <property name="sessionFactory" ref="hibernateSessionFactory"/>
     </bean>    
