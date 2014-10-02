@@ -34,6 +34,7 @@ import com.cht.firstaidcpr4me.core.domain.services.CourseService;
 import com.cht.firstaidcpr4me.core.domain.services.UserService;
 import com.cht.firstaidcpr4me.web.domain.Payment;
 import com.cht.firstaidcpr4me.web.domain.User;
+import com.cht.firstaidcpr4me.web.domain.UserCourse;
 
 
 
@@ -54,14 +55,14 @@ public class PaymentController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getPaymentForm(@RequestParam(value="courses", required=true) String courses, HttpServletRequest request) {
-		Collection<Course> collCrs = new ArrayList<Course>();
+		Collection<UserCourse> collCrs = new ArrayList<UserCourse>();
 		Double totalAmount = new Double(0.0);
 		String[] cs = courses.split(";");
 		for(int i = 0; i < cs.length; i++){
-			Course course;
+			UserCourse course;
 			try {
 				course = courseService.getCourseById(new Long(cs[i]));
-				totalAmount += course.getPrice();
+				totalAmount += new Double(course.getPrice());
 				collCrs.add(course);
 			} catch (Exception e) {
 				log.error(e.getMessage(), e);

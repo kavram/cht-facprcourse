@@ -9,10 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cht.firstaidcpr4me.core.domain.dao.CourseDao;
 import com.cht.firstaidcpr4me.core.domain.dao.LoginPaidCourseDao;
+import com.cht.firstaidcpr4me.core.domain.objects.Answer;
 import com.cht.firstaidcpr4me.core.domain.objects.Course;
+import com.cht.firstaidcpr4me.core.domain.objects.LoginCompletedCourse;
 import com.cht.firstaidcpr4me.core.domain.objects.LoginPaidCourse;
+import com.cht.firstaidcpr4me.core.domain.objects.Question;
 import com.cht.firstaidcpr4me.core.domain.objects.Video;
+import com.cht.firstaidcpr4me.web.domain.CourseQuestion;
 import com.cht.firstaidcpr4me.web.domain.CourseVideo;
+import com.cht.firstaidcpr4me.web.domain.QAnswer;
 import com.cht.firstaidcpr4me.web.domain.User;
 import com.cht.firstaidcpr4me.web.domain.UserCourse;
 
@@ -27,12 +32,53 @@ public class CourseServiceImpl implements CourseService {
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public Course getCourseById(Long id) throws Exception {
+	public UserCourse getCourseById(Long id) throws Exception {
 		Collection coll = courseDao.getCourseById(id);
 		if(coll.isEmpty())
 			throw new Exception("Course not found for id: " + id);
 		Course course = (Course) coll.toArray()[0];
-		return course;
+		return getUCourse(null, course);
+	}
+
+	private UserCourse getUCourse(User user, Course course){
+		UserCourse uc = new UserCourse();
+		uc.setCourseId(course.getId());
+		uc.setName(course.getName());
+		uc.setPrice(course.getPrice().toString());
+		uc.setVideos(getCourseVideos(course));
+		uc.setQuestions(getCourseQuestions(course));
+		if(user != null){
+			uc.setUser(user);
+			if(loginPaidCourseDao.getLoginPaidCourseById(user.getId(), course.getId()).isEmpty()){
+				uc.setPaid(false);
+			}else
+				uc.setPaid(true);
+		}else
+			uc.setPaid(false);
+
+		return uc;
+	}
+	
+	
+	private Collection<CourseQuestion> getCourseQuestions(Course course) {
+		Collection<CourseQuestion> collQuestions = new ArrayList<CourseQuestion>();
+		for(Question q : course.getQuestions()){
+			CourseQuestion cq = new CourseQuestion();
+			cq.setId(q.getId());
+			cq.setQuestion(q.getQuestion());
+			cq.setNumAnswers(q.getNumAnswers());
+			Collection<QAnswer> collQA = new ArrayList<QAnswer>();
+			for(Answer a : q.getAnswers()){
+				QAnswer qa = new QAnswer();
+				qa.setId(a.getId());
+				qa.setAnswer(a.getAnswer());
+				qa.setCorrectAns(a.getCorrectAns());
+				collQA.add(qa);
+			}
+			cq.setAnswers(collQA);
+			collQuestions.add(cq);
+		}
+		return collQuestions;
 	}
 
 	@Override
@@ -40,21 +86,8 @@ public class CourseServiceImpl implements CourseService {
 	public Collection<UserCourse> getUserCourses(User user) {
 		Collection<UserCourse> collUserCourse = new ArrayList<UserCourse>();
 		Collection<Course> coll = courseDao.getCourses();
-		
 		for(Course course : coll){
-			UserCourse uc = new UserCourse();
-			uc.setCourseId(course.getId());
-			uc.setName(course.getName());
-			uc.setPrice(course.getPrice().toString());
-			uc.setVideos(getCourseVideos(course));
-			if(user != null){
-				if(loginPaidCourseDao.getLoginPaidCourseById(user.getId(), course.getId()).isEmpty()){
-					uc.setPaid(false);
-				}else
-					uc.setPaid(true);
-			}else
-				uc.setPaid(false);
-			collUserCourse.add(uc);
+			collUserCourse.add(getUCourse(user, course));
 		}
 		return collUserCourse;
 	}
@@ -71,6 +104,26 @@ public class CourseServiceImpl implements CourseService {
 			coll.add(cv);
 		}
 		return coll;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public void saveCompletedCourse(UserCourse uCourse) {
+		LoginCompletedCourse lcc = new LoginCompletedCourse();
+		lcc.setCourseId(uCourse.getCourseId());
+		lcc.setLoginId(uCourse.getUser().getId());
+		lcc.setCertIssued(false);
+		courseDao.saveLoginCompletedCourse(lcc);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public UserCourse getPaidCourseById(User user, Long courseId) throws Exception {
+		Collection coll = courseDao.getCourseById(courseId);
+		if(coll.isEmpty())
+			throw new Exception("Course not found for id: " + courseId);
+		Course course = (Course) coll.toArray()[0];
+		return getUCourse(user, course);
 	}
 
 }

@@ -10,6 +10,7 @@ public class UserCourse {
 	private String name;
 	private String price;
 	private Collection<CourseVideo> videos;
+	private Collection<CourseQuestion> questions;
 
 	public boolean isPaid() {
 		return paid;
@@ -57,6 +58,14 @@ public class UserCourse {
 
 	public void setCourseId(Long courseId) {
 		this.courseId = courseId;
+	}
+
+	public Collection<CourseQuestion> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(Collection<CourseQuestion> questions) {
+		this.questions = questions;
 	}
 	
 }

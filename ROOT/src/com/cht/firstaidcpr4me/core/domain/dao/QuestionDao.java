@@ -5,5 +5,7 @@ import java.util.Collection;
 public interface QuestionDao {
 
 	public Collection getQuestions();
+
+	public Collection getQuestionById(Long id);
 	
 }

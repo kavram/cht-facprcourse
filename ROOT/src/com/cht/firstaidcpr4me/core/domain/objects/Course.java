@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,7 +51,7 @@ public class Course implements Serializable {
 	
 	@OneToMany(
 			targetEntity=com.cht.firstaidcpr4me.core.domain.objects.Question.class,
-					 cascade={CascadeType.PERSIST, CascadeType.MERGE}
+					 cascade={CascadeType.PERSIST, CascadeType.MERGE},fetch=FetchType.EAGER
 	)
     @JoinTable(
             name="fa_quiz_ptr_tb",

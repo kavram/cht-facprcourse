@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import org.hibernate.SessionFactory;
 
+import com.cht.firstaidcpr4me.core.domain.objects.LoginCompletedCourse;
+
 public class CourseDaoImpl implements CourseDao {
 
 	private SessionFactory sessionFactory;
@@ -27,6 +29,12 @@ public class CourseDaoImpl implements CourseDao {
 		return this.sessionFactory.getCurrentSession()
                 .createQuery("select c from Course c")
                 .list();	
+	}
+
+	@Override
+	public LoginCompletedCourse saveLoginCompletedCourse(LoginCompletedCourse complCourse) {
+		Long id = (Long) sessionFactory.getCurrentSession().save(complCourse);
+		return complCourse;
 	}
 
 }

@@ -19,4 +19,13 @@ public class QuestionDaoImpl implements QuestionDao {
 		        .list();	
 	}
 
+
+	@Override
+	public Collection getQuestionById(Long id) {
+		return this.sessionFactory.getCurrentSession()
+                .createQuery("select q from Question q where q.id = :id")
+                .setLong("id", id)
+                .list();	
+	}
+
 }
