@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html5/loose.dtd">
 <html>
-<jsp:include page="header.jsp" >
+<head>
+<jsp:include page="resources.jsp" />
+<jsp:include page="header.jsp" />
+</head>
+<body>
+<jsp:include page="topNav.jsp" >
   <jsp:param name="menu1" value="" />
   <jsp:param name="menu2" value="" />
   <jsp:param name="menu3" value="" />
@@ -10,7 +15,6 @@
   <jsp:param name="menu6" value="" />
   <jsp:param name="menu7" value="" />
 </jsp:include>
-<jsp:include page="topNav.jsp" />
 <script>
 $(document).ready( function(){
 	$('#alert1').hide();

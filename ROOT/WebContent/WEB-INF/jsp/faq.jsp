@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html5/loose.dtd">
 <html>
+<head>
 <jsp:include page="resources.jsp" />
-<jsp:include page="header.jsp" >
+<jsp:include page="header.jsp" />
+</head>
+<body>
+<jsp:include page="topNav.jsp" >
   <jsp:param name="menu1" value="" />
   <jsp:param name="menu2" value="" />
   <jsp:param name="menu3" value="" />
@@ -11,53 +15,6 @@
   <jsp:param name="menu6" value="" />
   <jsp:param name="menu7" value="" />
 </jsp:include>
-<jsp:include page="topNav.jsp" />
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Lucida Sans Unicode";
-	panose-1:2 11 6 2 3 5 4 2 2 4;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin-top:0in;
-	margin-right:0in;
-	margin-bottom:10.0pt;
-	margin-left:0in;
-	line-height:115%;
-	font-size:11.0pt;
-	font-family:"Calibri","sans-serif";}
-a:link, span.MsoHyperlink
-	{color:black;
-	text-decoration:none none;}
-a:visited, span.MsoHyperlinkFollowed
-	{color:purple;
-	text-decoration:underline;}
-p
-	{margin-top:0in;
-	margin-right:0in;
-	margin-bottom:.2in;
-	margin-left:0in;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-.MsoChpDefault
-	{font-family:"Calibri","sans-serif";}
-.MsoPapDefault
-	{margin-bottom:10.0pt;
-	line-height:115%;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
--->
-</style>
 <body lang=EN-US link=black vlink=purple>
 <div class=container>
 <center>
@@ -70,11 +27,11 @@ AED training?</span></strong><span style='font-size:9.5pt;font-family:"Lucida Sa
 color:black'><br>
 A: The Occupational Safety and Health Administration (OSHA) is a branch of the
 United States Department of Labor and has standards for first aid training in
-general industry.† For example, section 29 CFR 1910.151(b), provides: †<i>&quot;In
+general industry.  For example, section 29 CFR 1910.151(b), provides:  <i>&quot;In
 the absence of an infirmary, clinic, or hospital in near proximity to the
 workplace which is used for the treatment of all injured employees, a person or
 persons shall be adequately trained to render first aid. Adequate first aid
-supplies shall be readily available.î<br>
+supplies shall be readily available.‚Äù<br>
 </i>Many employers want their employees trained in First Aid, CPR, and AED even
 if it's not explicitly required for their industry. Some industry examples
 include the following: construction workers/foremen, manufacturing, teachers
@@ -83,12 +40,12 @@ captains, Emergency Response Team (ERT) members, church/community groups,
 healthcare workers, and professional rescuers.</span></p>
 
 <p style='background:white'><strong><span style='font-size:9.5pt;font-family:
-"Lucida Sans Unicode","sans-serif";color:black'>Q: Is FirstAidCPRCourse.comís curriculum
+"Lucida Sans Unicode","sans-serif";color:black'>Q: Is FirstAidCPRCourse.com‚Äôs curriculum
 OSHA compliant?</span></strong><span style='font-size:9.5pt;font-family:"Lucida Sans Unicode","sans-serif";
 color:black'><br>
-A: Yes. The American Heart Associationís curriculum meets or exceeds OSHA
+A: Yes. The American Heart Association‚Äôs curriculum meets or exceeds OSHA
 standards. Although AED training is not currently required, it is recommended
-by OSHA.† FirstAidCPRCourse.comís training also meets or exceeds ECC/ILORC
+by OSHA.  FirstAidCPRCourse.com‚Äôs training also meets or exceeds ECC/ILORC
 standards.</span></p>
 
 <p style='background:white'><strong><span style='font-size:9.5pt;font-family:
@@ -96,7 +53,7 @@ standards.</span></p>
 I am certified? </span></strong><span style='font-size:9.5pt;font-family:"Lucida Sans Unicode","sans-serif";
 color:black'><br>
 A. Most professional rescuers have a duty to respond to an emergency where they
-are work assigned. †Response by the same people would be considered a
+are work assigned.  Response by the same people would be considered a
 &quot;Good Samaritan&quot; act when they are off-duty. If you are taking basic
 First Aid, CPR, or AED training for self-improvement,<br>
 you must decide whether or not to render assistance to a victim in need. Good
@@ -106,15 +63,15 @@ matter.</span></p>
 
 <p style='background:white'><strong><span style='font-size:9.5pt;font-family:
 "Lucida Sans Unicode","sans-serif";color:black'>Q: Am I covered by the Good
-Samaritan Law once Iím certified?</span></strong><span style='font-size:9.5pt;
+Samaritan Law once I‚Äôm certified?</span></strong><span style='font-size:9.5pt;
 font-family:"Lucida Sans Unicode","sans-serif";color:black'><br>
-A: This varies a bit by state.† Californiaís Good Samaritan law, for example,
+A: This varies a bit by state.  California‚Äôs Good Samaritan law, for example,
 states from Division 2.5 of the California Health and Safety Code:</span></p>
 
 <p style='background:white'><span style='font-size:9.5pt;font-family:"Lucida Sans Unicode","sans-serif";
 color:black'>1799.102 <i>No person who in good faith, and not for compensation,
 renders emergency care at the scene of an emergency shall be liable for any
-civil damages resulting from any act or omission.† The scene of an emergency
+civil damages resulting from any act or omission.  The scene of an emergency
 shall not include emergency departments and other places where medical care is
 usually offered.</i></span></p>
 
@@ -161,8 +118,9 @@ once payment or purchase order has been received. </span></p>
 style='font-size:9.5pt;font-family:"Lucida Sans Unicode","sans-serif";
 color:black'><br>
 A. Yes we do. If you have a group of five (5) people or more, we provide a 10%
-discount.† Groups of ten (10) or more are eligible for a 15% discount.† Please
+discount.  Groups of ten (10) or more are eligible for a 15% discount.  Please
 contact us for groups of 25 persons or more.</span></p>
+</div>
 <!-- Footer -->
 <%@ include file="footer.jsp" %>
 <!-- Footer End --> 

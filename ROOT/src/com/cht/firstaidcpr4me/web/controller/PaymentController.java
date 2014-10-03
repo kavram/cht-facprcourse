@@ -40,7 +40,7 @@ import com.cht.firstaidcpr4me.web.domain.UserCourse;
 
 @Controller
 @RequestMapping("/payment")
-public class PaymentController {
+public class PaymentController extends BaseController {
 	private static final Logger log = LoggerFactory.getLogger(PaymentController.class);
 	
 	@Autowired
@@ -69,7 +69,7 @@ public class PaymentController {
 				return new ModelAndView("redirect:/");
 			}
 		}
-		ModelAndView mv = new ModelAndView("payment.jsp");
+		ModelAndView mv = getModelAndView("payment.jsp");
 		request.getSession().setAttribute("courses", collCrs);
 		if(request.getSession().getAttribute(SiteController.SESSION_ATTRIBUTE_USER) != null)
 			mv.addObject(SiteController.SESSION_ATTRIBUTE_USER, request.getSession().getAttribute(SiteController.SESSION_ATTRIBUTE_USER));

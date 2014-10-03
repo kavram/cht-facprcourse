@@ -7,6 +7,7 @@ public class UserCourse {
 	private Long courseId;
 	private User user;
 	private boolean paid;
+	private boolean completed;
 	private String name;
 	private String price;
 	private Collection<CourseVideo> videos;
@@ -66,6 +67,14 @@ public class UserCourse {
 
 	public void setQuestions(Collection<CourseQuestion> questions) {
 		this.questions = questions;
+	}
+
+	public boolean isCompleted() {
+		return completed;
+	}
+
+	public void setCompleted(boolean completed) {
+		this.completed = completed;
 	}
 	
 }

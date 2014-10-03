@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html5/loose.dtd">
 <html>
+<head>
 <jsp:include page="resources.jsp" />
-<jsp:include page="header.jsp" >
+<jsp:include page="header.jsp" />
+</head>
+<body>
+<jsp:include page="topNav.jsp" >
   <jsp:param name="menu1" value="" />
   <jsp:param name="menu2" value="active" />
   <jsp:param name="menu3" value="" />
@@ -11,7 +15,7 @@
   <jsp:param name="menu6" value="" />
   <jsp:param name="menu7" value="" />
 </jsp:include>
-<jsp:include page="topNav.jsp" />
+
 <!---=========== Start Content ==============----->
 
 <br><br>
@@ -24,12 +28,12 @@
 			If in the past you have become certified with any of the following companies; American Safety Council, ASHI or Medic First Aid, Red Cross, AHA, you are encouraged to renew your training and certification with this course. This course follows the latest American Heart Association, ECC/ILCOR guidelines. 
 			Medical Emergency, Stroke, Heart Attack, Shock,
 			Cardiac Arrest Training, Adult CPR,
-			AED. Hands-Only CPR Choking Adult Choking- Conscious and Unconscious
+			AED. Hands-Only CPR Choking Adult Choking- Conscious and Unconscious.
 
-    		<h3>Price - $14.95 &nbsp;&nbsp;&nbsp;<a href="payment.jsp"><img src="images/starthere.jpg" height=40px border=0></a></h3>
+    		<h3>Price - $14.95 &nbsp;&nbsp;&nbsp;<a href="payment?courses=4"><img src="images/starthere.jpg" height=40px border=0></a></h3>
     	</div>
     	<div class="span2">
-    		<img src="images/cpr.png" height="120px" border=0>
+    		<img src="images/cpr.jpg" height="120px" border=0>
     	</div>
     </div>
     <div class="clearfix"></div>
@@ -38,7 +42,7 @@
     <div class="row-fluid">
     	<div class="span2">
     	<center>
-    		<img src="images/fa.png" height="120px" border=0>
+    		<img src="images/fa.jpg" height="120px" border=0>
     	</center>
     	</div>
     	<div class="span9">
@@ -46,7 +50,7 @@
 			Topics include: Heimlich maneuver, conscious choking adult, and stroke, Cardiac Arrest, Heart Attack
 			Bite Wounds, puncture wounds, nose bleed, head injury, treatments, fractures, I.C.E., Electrocution, cleaning wounds, stop bleeding, cuts and Scrapes, choking, and burns
 
-    		<h3>Price - $19.95 &nbsp;&nbsp;&nbsp;<a href="payment.jsp"><img src="images/starthere.jpg" height=40px border=0></a></h3>
+    		<h3>Price - $19.95 &nbsp;&nbsp;&nbsp;<a href="payment?courses=1"><img src="images/starthere.jpg" height=40px border=0></a></h3>
     	</div>
     	<div class="clearfix"></div>
     </div>
@@ -55,10 +59,10 @@
 	<h3> CPR and First Aid</h3>
     	<div class="span9">
     		CPR Basic is training in both First Aid and CPR certification that meets all of the necessary AHA or OSHA regulations. Designed for people that want to master the science of First Aid and CPR at their own pace. This course follows the latest American Heart Association, ECC/ILCOR guidelines.
-    		<h3>Price - $29.95 &nbsp;&nbsp;&nbsp;<a href="payment.jsp"><img src="images/starthere.jpg" height=40px border=0></a></h3>
+    		<h3>Price - $29.95 &nbsp;&nbsp;&nbsp;<a href="payment?courses=2"><img src="images/starthere.jpg" height=40px border=0></a></h3>
     	</div>
     	<div class="span2">
-    		<img src="images/fa.png" height="120px" border=0>
+    		<img src="images/facpr.jpg" height="120px" border=0>
     	</div>
     </div>
     <div class="clearfix"></div>
@@ -67,12 +71,15 @@
     <div class="row-fluid">
     	<div class="span2">
     	<center>
-    		<img src="images/fa-cpr.png" height="120px" border=0>
+    		<img src="images/bls.jpg" height="120px" border=0>
     	</center>
     	</div>
     	<div class="span9">
-    		Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.<br>
-    		<h3>Price - $49.95 &nbsp;&nbsp;&nbsp;<a href="payment.jsp"><img src="images/starthere.jpg" height=40px border=0></a></h3>
+    		Learn how to perform CPR on Children, Adults, and Infants. 
+    		In addition you will learn how to respond to a scene with  Adults ( 1 or 2 rescuers) 
+    		as how to use an Automated External Defibrillator (AED). 
+    		You'll also learn about First-Aid and how to  care for wounds, cuts and scrapes, strokes, and seizures.
+    		<h3>Price - $49.95 &nbsp;&nbsp;&nbsp;<a href="payment?courses=3"><img src="images/starthere.jpg" height=40px border=0></a></h3>
     	</div>
     	<div class="clearfix"></div>
     </div>

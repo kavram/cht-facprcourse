@@ -5,8 +5,9 @@ function processLogout(){
 		processData: false,
 		success: function(data, status, jqXHR){
 			if(data.status == "success"){
-				$('#userHead').html('<a href="#registerModal"  data-toggle="modal" data-target="#registerModal"> Not a Member? Join Now For FREE </a> |' + 
-						'<a href="#loginModal"  data-toggle="modal" data-target="#loginModal" >Login</a>');
+				//$('#userHead').html('<a href="#registerModal"  data-toggle="modal" data-target="#registerModal"> Not a Member? Join Now For FREE </a> |' + 
+				//		'<a href="#loginModal"  data-toggle="modal" data-target="#loginModal" >Login</a>');
+				location.reload(true);
 			}
 		},
 		dataType: "json"
@@ -27,12 +28,13 @@ function processLoginSubmit(){
 				$('#loginAjaxMessages').html('<div class="alert alert-danger" role="alert">' + data.error + '</div>');
 			} 
 			if(data.status == "success"){
-				$('#loginModal').modal('hide');
-				$('#userHead').html('Welcome,' + data.firstName + ' ' + data.lastName + ' | <a id="logouta" href="" >Log out</a>');
-				$('#logouta').click(function(e){
-		 			e.preventDefault();	
-		 			processLogout();
-		 		});
+				//$('#loginModal').modal('hide');
+				//$('#userHead').html('Welcome,' + data.firstName + ' ' + data.lastName + ' | <a id="logouta" href="" >Log out</a>');
+				//$('#logouta').click(function(e){
+		 		//	e.preventDefault();	
+		 		//	processLogout();
+		 		//});
+				location.reload(true);
 			}
 		},
 		dataType: "json"

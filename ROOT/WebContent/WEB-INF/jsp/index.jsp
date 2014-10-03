@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html5/loose.dtd">
 <html>
+<head>
 <jsp:include page="resources.jsp" />
-<jsp:include page="header.jsp" >
+<jsp:include page="header.jsp" />
+<link rel="stylesheet" href="//releases.flowplayer.org/5.5.0/skin/minimalist.css">
+<script src="//releases.flowplayer.org/5.5.0/flowplayer.min.js"></script>
+</head>
+<body>
+<jsp:include page="topNav.jsp" >
   <jsp:param name="menu1" value="active" />
   <jsp:param name="menu2" value="" />
   <jsp:param name="menu3" value="" />
@@ -11,8 +17,6 @@
   <jsp:param name="menu6" value="" />
   <jsp:param name="menu7" value="" />
 </jsp:include>
-<body>
-<jsp:include page="topNav.jsp" />
 <!---=========== Start slider ==============----->
 <div class="container">
 	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -75,15 +79,15 @@
         <div class="span4">
             <center><img src="images/title2.png" height=130px border=0></center>
             <ul>
-            	<li>Only pay when you see the quality of the courses</li>
+            	<li>Only pay when you see the quality of the demo videos</li>
             	<li>Register for a login</li>
         	    <li>We do not share email address</li>
-    	        <li>Use this login to complete video content</li>
             </ul>
         </div>
         <div class="span4">
             <center><img src="images/title1.png" height=130px border=0></center>
             <ul>
+            	<li>Pay for the course you wish to take</li>
     	        <li>Use your login to complete course content</li>
             </ul>
         </div>
@@ -94,7 +98,7 @@
         	    <li>Get a passing grade</li>
     	        <li>Retry as many times as required</li>
 				<li>Print temporary card right from your browser</li>
-				<li>Receive a pocket card and wall certificate in 5 to 10 days vis USPS</li>
+				<li>Receive a pocket card and wall certificate in 5 to 10 days via USPS</li>
             </ul>
         </div>
     </div>
@@ -107,58 +111,58 @@
   		<table class="table table-bordered">
 			<tr>
   				<th class="danger"><h4><b>Certifications Available</b></h4></th>
+  				<th class="danger"><h4><b>Sample Video</b></h4></th>
   				<th class="danger"><h4><b>Adult CPR</b></h4></th>
   				<th class="danger"><h4><b>Pediatric<br>CPR </b></h4></th>
   				<th class="danger"><h4><b>First Aid</b></h4></th>
   				<th class="danger"><h4><b>AED</b></h4></th>
   				<th class="danger"><h4><b>Health <br>Care BLS</b></h4></th>
-  				<th class="danger"><h4><b>Course <br>Length</b></h4></th>
   				<th class="danger"><h4><b>Price</b></h4></th>
   				<th class="danger"></th>		
 			</tr>
 			<tr>
-				<td><h4>Companion CPR Basic</h4></td>
+				<td><h4>CPR Basic</h4></td>
+				<td><a href="#myDemo" data-toggle="modal" ><center><img src="images/demovideo.jpg" height=35px border=0></center></a></td>
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
+				<td></td>
+				<td></td>
+				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
+				<td></td>
+				<td><h4>$14.95</h4></td>
+				<td><a href="payment?courses=4"><center><img src="images/starthere.jpg" height=40px border=0></center></a></td>
+			</tr>
+			<tr>
+				<td><h4>First Aid Basic</h4></td>
+				<td><a href="#myDemo" data-toggle="modal" ><center><img src="images/demovideo.jpg" height=35px border=0></center></a></td>
 				<td></td>
 				<td></td>
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
 				<td></td>
 				<td></td>
 				<td><h4>$14.95</h4></td>
-				<td><a href="/payment?courses=2"><center><img src="images/starthere.jpg" height=40px border=0></center></a></td>
+				<td><a href="payment?courses=1"><center><img src="images/starthere.jpg" height=40px border=0></center></a></td>
 			</tr>
 			<tr>
-				<td><h4>Companion First Aid Basic</h4></td>
-				<td></td>
-				<td></td>
+				<td><h4>CPR and First Aid</h4></td>
+				<td><a href="#myDemo" data-toggle="modal" ><center><img src="images/demovideo.jpg" height=35px border=0></center></a></td>
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td><h4>$19.95</h4></td>
-				<td><a href="payment.jsp"><center><img src="images/starthere.jpg" height=40px border=0></center></a></td>
-			</tr>
-			<tr>
-				<td><h4>Companion CPR and First Aid</h4></td>
-				<td></td>
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
-				<td></td>
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
 				<td></td>
 				<td><h4>$29.95</h4></td>
-				<td><a href="payment.jsp"><center><img src="images/starthere.jpg" height=40px border=0></center></a></td>
+				<td><a href="payment?courses=2"><center><img src="images/starthere.jpg" height=40px border=0></center></a></td>
 			</tr>
 			<tr>
 				<td><h4>Healthcare Basic Life Support (BLS) </h4></td>
+				<td><a href="#myDemo" data-toggle="modal" ><center><img src="images/demovideo.jpg" height=35px border=0></center></a></td>
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
-				<td></td>
 				<td><h4>$49.95</h4></td>
-				<td><a href="payment.jsp"><center><img src="images/starthere.jpg" height=40px border=0></center></a></td>
+				<td><a href="payment?courses=3"><center><img src="images/starthere.jpg" height=40px border=0></center></a></td>
 			</tr>
   		</table>
 	</div>

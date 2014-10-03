@@ -38,7 +38,7 @@ $(document).ready(function() {
 			success: function(data, status, jqXHR){
 				if(data.status == "pass"){
 					$('#popup').find('h4').html('<center>Success! You passed the quiz!</center>');
-					$('#bDiv').html('<a href="/printcert"><button type="button" id="printCert" class="btn btn-default">Print Certificate</button></a>');
+					$('#bDiv').html('<a href="/printtempcard"><button type="button" id="printCert" class="btn btn-default">Print Wallet Temp Card</button></a>');
 				}else if(data.status == "fail"){
 					$('#popup').find('h4').html('<center>Sorry, You didn\'t pass the quiz.</center>');
 					$('#bDiv').html('<button type="button" data-dismiss="modal" id="tryAgain" class="btn btn-default">Try Again</button>' +
@@ -119,7 +119,10 @@ $(document).ready(function() {
 			<div id="messageDiv">
 			</div>
 		</center>
-		<center><a href="printtempcert.jsp"><button type="submit" class="btn btn-primary btn-lg">Submit Quiz For Results</button></a></center>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary btn-lg">Submit Quiz For Results</button>
+			<a href="/courses"><button type="button" class="btn btn-primary btn-lg">Cancel</button></a>
+		</div>
 		</form>
 		</div>
 	</div>

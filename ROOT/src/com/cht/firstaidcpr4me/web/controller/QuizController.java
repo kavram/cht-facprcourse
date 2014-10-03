@@ -31,7 +31,7 @@ import com.cht.firstaidcpr4me.web.domain.UserCourse;
 public class QuizController extends BaseController {
 	private static final Logger log = LoggerFactory.getLogger(QuizController.class);
 	
-	public final String COURSE = "course";
+	public final static String COURSE = "course";
 
 	@Autowired
 	private CourseService courseService;
@@ -46,7 +46,7 @@ public class QuizController extends BaseController {
 		try {
 			User user = getUser(request);
 			if(user == null)
-				return new ModelAndView("redirect:index.jsp");
+				return new ModelAndView("redirect:index");
 			UserCourse course = courseService.getPaidCourseById(user, new Long(courses));
 			if(!course.isPaid())
 				return new ModelAndView("redirect:courses");
@@ -92,7 +92,7 @@ public class QuizController extends BaseController {
 	private void completeUserCourse(HttpServletRequest request) {
 		UserCourse uCourse = (UserCourse) request.getSession().getAttribute(COURSE);
 		courseService.saveCompletedCourse(uCourse);
-		
+		uCourse.setCompleted(true);
 	}
 
 	private boolean isAnswerCorrect(Long ansId, Question que){

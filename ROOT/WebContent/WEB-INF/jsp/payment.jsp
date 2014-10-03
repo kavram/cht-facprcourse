@@ -14,6 +14,11 @@
 			processSubmitPayment();
 			event.preventDefault();
 		});
+		var ref = document.referrer;
+		if(document.referrer !== 'undefined')
+			$('#cancelUrl').attr('href', document.referrer);
+		else
+			$('#cancelUrl').attr('href', '${domain}');
 	});
 </script>
 
@@ -192,8 +197,8 @@
           <!-- Submit -->
           <div class="form-group">
             <div class="controls">
-              <button class="btn btn-success" >Pay Now</button>
-              <button class="btn btn-default">Cancel</button>
+              <button type="submit" class="btn btn-success" >Pay Now</button>
+              <a id="cancelUrl" href="#"> <button type="button" class="btn btn-default">Cancel</button></a>
             </div>
           </div>
       </form>

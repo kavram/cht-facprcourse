@@ -37,4 +37,14 @@ public class CourseDaoImpl implements CourseDao {
 		return complCourse;
 	}
 
+	@Override
+	public Collection getLoginCompletedCourse(Long loginId, Long courseId) {
+		return this.sessionFactory.getCurrentSession()
+                .createQuery("select l from LoginCompletedCourse l where l.loginId = :loginId and l.courseId = :courseId")
+                .setLong("loginId", loginId)
+                .setLong("courseId", courseId)
+                .list();
+	}
+	
+	
 }

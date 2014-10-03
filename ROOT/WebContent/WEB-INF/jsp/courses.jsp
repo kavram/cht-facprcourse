@@ -4,10 +4,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <html>
+<head>
 <jsp:include page="resources.jsp" />
 <jsp:include page="header.jsp" />
+</head>
 <jsp:include page="topNav.jsp" >
   <jsp:param name="menu1" value="" />
   <jsp:param name="menu2" value="" />

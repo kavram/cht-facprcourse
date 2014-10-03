@@ -12,5 +12,7 @@ public interface CourseDao {
 	public Collection getCourses();
 	
 	public LoginCompletedCourse saveLoginCompletedCourse(LoginCompletedCourse complCourse);
+
+	public Collection getLoginCompletedCourse(Long loginId, Long courseId);
 	
 }

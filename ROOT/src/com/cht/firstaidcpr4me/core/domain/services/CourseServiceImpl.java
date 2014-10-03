@@ -53,9 +53,14 @@ public class CourseServiceImpl implements CourseService {
 				uc.setPaid(false);
 			}else
 				uc.setPaid(true);
-		}else
+			if(courseDao.getLoginCompletedCourse(user.getId(), course.getId()).isEmpty())
+				uc.setCompleted(false);
+			else
+				uc.setCompleted(true);
+		}else{
 			uc.setPaid(false);
-
+			uc.setCompleted(false);
+		}
 		return uc;
 	}
 	
