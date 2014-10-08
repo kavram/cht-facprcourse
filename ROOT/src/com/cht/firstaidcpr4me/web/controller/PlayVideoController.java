@@ -14,11 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class PlayVideoController extends BaseController{
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView getContact(@RequestParam(value="video", required=true) String video, @RequestParam(value="name", required=true) String name, HttpServletRequest request){
+	public ModelAndView getContact(@RequestParam(value="video", required=true) String video, @RequestParam(value="name", required=true) String name, @RequestParam(value="enabled", required=true) String enabled, HttpServletRequest request){
 		ModelAndView mv = getModelAndView("");
 		mv.setViewName("playvideo.jsp");
 		mv.addObject("video", video);
 		mv.addObject("name", name);
+		mv.addObject("enabled", enabled);
 		return mv;
 	}
 	

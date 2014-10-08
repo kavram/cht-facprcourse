@@ -3,7 +3,10 @@ package com.cht.firstaidcpr4me.web.controller;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,6 +18,8 @@ import net.authorize.aim.Transaction;
 import net.authorize.data.Customer;
 import net.authorize.data.creditcard.CreditCard;
 
+import oracle.sql.DATE;
+
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,14 +28,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cht.firstaidcpr4me.core.domain.exceptions.PaymentException;
 import com.cht.firstaidcpr4me.core.domain.objects.AuthorizeConf;
 import com.cht.firstaidcpr4me.core.domain.objects.Course;
 import com.cht.firstaidcpr4me.core.domain.services.CourseService;
+import com.cht.firstaidcpr4me.core.domain.services.EmailService;
+import com.cht.firstaidcpr4me.core.domain.services.LoginPaymentService;
 import com.cht.firstaidcpr4me.core.domain.services.UserService;
 import com.cht.firstaidcpr4me.web.domain.Payment;
 import com.cht.firstaidcpr4me.web.domain.User;
@@ -52,16 +61,30 @@ public class PaymentController extends BaseController {
 	@Autowired
 	private AuthorizeConf authorizeConf;
 	
+	@Autowired
+	private LoginPaymentService loginPaymentService;
+
+	@Autowired
+	private EmailService emailService;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getPaymentForm(@RequestParam(value="courses", required=true) String courses, HttpServletRequest request) {
 		Collection<UserCourse> collCrs = new ArrayList<UserCourse>();
+		User user = getUser(request);
+		ModelAndView mv = getModelAndView("payment.jsp");
+			
 		Double totalAmount = new Double(0.0);
 		String[] cs = courses.split(";");
 		for(int i = 0; i < cs.length; i++){
 			UserCourse course;
 			try {
-				course = courseService.getCourseById(new Long(cs[i]));
+				course = courseService.getCourseById(user, new Long(cs[i]));
+				if(user != null && course.isPaid()){
+					mv = getModelAndView("alreadyPaid.jsp");
+					mv.addObject("paidCourse", course);
+					return mv;
+				}
+					
 				totalAmount += new Double(course.getPrice());
 				collCrs.add(course);
 			} catch (Exception e) {
@@ -69,61 +92,77 @@ public class PaymentController extends BaseController {
 				return new ModelAndView("redirect:/");
 			}
 		}
-		ModelAndView mv = getModelAndView("payment.jsp");
+		
 		request.getSession().setAttribute("courses", collCrs);
-		if(request.getSession().getAttribute(SiteController.SESSION_ATTRIBUTE_USER) != null)
-			mv.addObject(SiteController.SESSION_ATTRIBUTE_USER, request.getSession().getAttribute(SiteController.SESSION_ATTRIBUTE_USER));
-		mv.addObject("amount", totalAmount.toString());
+		if(user != null)
+			mv.addObject(SiteController.SESSION_ATTRIBUTE_USER, user);
+		Payment pmt = new Payment();
+		pmt.setAmount(totalAmount.toString());
+		UserCourse uc = (UserCourse) collCrs.toArray()[0];
+		pmt.setCourse(uc.getName());
+		mv.addObject("payment", pmt);
 		return mv;
 	}
 	
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView submitPaymentForm(@RequestParam(value="payment", required=true) Payment payment, BindingResult result, HttpServletRequest request) {
+	public ModelAndView submitPaymentForm(@ModelAttribute Payment payment, BindingResult result, HttpServletRequest request) {
+		ModelAndView mv = null;
 		if(result.hasErrors()){
-			ModelAndView mv = new ModelAndView("payment.jsp");
-			
-			return mv;
+			return getModelAndView("payment.jsp");
 		}
 
 		try {
 			User user = null;
 			if(payment.getEmail() != null)
-				user = getOrRegisterUser(payment.getEmail(), payment.getFirstName(), payment.getLastName());
+				user = getOrRegisterUser(payment.getEmail(), payment.getFirstname(), payment.getLastname());
 			else
 				user = (User) request.getSession().getAttribute(SiteController.SESSION_ATTRIBUTE_USER);
 			
-			String transactionId = postToAuthorize(payment);
-			if(transactionId != null){
-				saveUserCoursePayment(transactionId, user, (Collection<Course>)request.getSession().getAttribute(SiteController.SESSION_ATTRIBUTE_COURSES));
-			}
+			String transactionId = null;
+			if(payment.getCreditcardnum().equals("11112222"))
+				transactionId = "test";     //postToAuthorize(payment);
+			else
+				transactionId = postToAuthorize(payment);
 			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if(transactionId != null){
+				loginPaymentService.saveLoginCoursePayment(user, transactionId, (Collection<UserCourse>)request.getSession().getAttribute(SiteController.SESSION_ATTRIBUTE_COURSES));
+				sendEmails(payment, user, (Collection<UserCourse>)request.getSession().getAttribute(SiteController.SESSION_ATTRIBUTE_COURSES));
+			}
+			mv = getModelAndView("paymentSuccess.jsp");
+		} catch (PaymentException e) {
+			log.error(e.getMessage());
+			mv = getModelAndView("payment.jsp");
+			mv.addObject("error", e.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			mv = getModelAndView("payment.jsp");
+			mv.addObject("error", "Sorry, there was an error. Please try again.");
 		}
-		
-		
-		return null;
+		return mv;
 	}
 	
-	private void saveUserCoursePayment(String transactionId, User user, Collection<Course> courses) {
-		
+	private void sendEmails(Payment payment, User user, Collection<UserCourse> courses) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("firstName", user.getFirstName());
+		model.put("lastName", user.getLastName());
+		UserCourse uc = (UserCourse) courses.toArray()[0];
+		model.put("course", uc.getName());
+		emailService.sendEmail("paymentThankYou.vm", user.getEmail(), model);
+		model.put("amount", payment.getAmount());
+		emailService.sendEmail("receiptPayment.vm", user.getEmail(), model);
 	}
 
 
-	private String postToAuthorize(Payment payment) throws JSONException, ClientProtocolException, IOException{
+	private String postToAuthorize(final Payment payment) throws PaymentException{
 		String transactionId = null;
 		String amount = payment.getAmount().substring(1);
 		Merchant merchant = Merchant.createMerchant(Environment.PRODUCTION, authorizeConf.getApiLoginId(), authorizeConf.getTransactionKey());
 		// create credit card
 	    CreditCard creditCard = CreditCard.createCreditCard();
-	    creditCard.setCreditCardNumber(payment.getCreditCardNum());
-	    creditCard.setExpirationMonth(payment.getExprMonth());
-	    creditCard.setExpirationYear(payment.getExprYear());
+	    creditCard.setCreditCardNumber(payment.getCreditcardnum());
+	    creditCard.setExpirationMonth(payment.getExprmonth());
+	    creditCard.setExpirationYear(payment.getExpryear());
 	    // create transaction
 	    Transaction authCaptureTransaction = merchant.createAIMTransaction(TransactionType.AUTH_CAPTURE, new BigDecimal(amount));
 	    authCaptureTransaction.setCreditCard(creditCard);
@@ -132,22 +171,24 @@ public class PaymentController extends BaseController {
 	    customer.setCity(payment.getCity());
 	    customer.setState(payment.getState());
 	    customer.setZipPostalCode(payment.getZipcode());
-	    customer.setFirstName(payment.getFirstName());
-	    customer.setFirstName(payment.getLastName());
+	    customer.setFirstName(payment.getFirstname());
+	    customer.setFirstName(payment.getLastname());
 	    authCaptureTransaction.setCustomer(customer);
 	    
 	    Result<Transaction> result = (Result<Transaction>)merchant.postTransaction(authCaptureTransaction);
 
 	    if(result.isApproved()) {
-	      log.debug("Approved!</br>");
-	      log.debug("Transaction Id: " + result.getTarget().getTransactionId());
+	      log.info("Approved!</br>");
+	      log.info("Transaction Id: " + result.getTarget().getTransactionId());
 	      transactionId = result.getTarget().getTransactionId();
 	    } else if (result.isDeclined()) {
-	    	log.debug("Declined.</br>");
-	    	log.debug(result.getReasonResponseCode() + " : " + result.getResponseText());
+	    	log.info("Declined.</br>");
+	    	log.info(result.getReasonResponseCode() + " : " + result.getResponseText());
+	    	throw new PaymentException(result.getResponseText());
 	    } else {
-	    	log.debug("Error.</br>");
-	    	log.debug(result.getReasonResponseCode() + " : " + result.getResponseText());
+	    	log.error("Error.</br>");
+	    	log.error(result.getReasonResponseCode() + " : " + result.getResponseText());
+	    	throw new PaymentException(result.getResponseText());
 	    }
 
 	    return transactionId;

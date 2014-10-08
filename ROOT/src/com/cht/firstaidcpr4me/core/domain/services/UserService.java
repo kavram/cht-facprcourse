@@ -9,7 +9,7 @@ public interface UserService {
 
 	public boolean isLoginExists(String email);
 	
-	public void validateEmail(String validationKey) throws EmailValidationKeyNotFoundException;
+	public User validateEmail(String validationKey) throws EmailValidationKeyNotFoundException;
 	
 	public User registerUser(User user) throws EmailExistException;
 	

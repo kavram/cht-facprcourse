@@ -32,7 +32,7 @@
     		<div class="item active">
       			<img src="images/header-bg6.png" alt="...">
       			<div class="carousel-caption">
-          		<h2><span>Need To Get Certified For That Perfect Job?</span></h2>
+          		<h2><span>Get Certified For That Perfect Job</span></h2>
       			</div>
     		</div>
     		<div class="item">

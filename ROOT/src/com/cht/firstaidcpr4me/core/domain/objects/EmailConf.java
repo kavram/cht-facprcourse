@@ -5,6 +5,8 @@ public class EmailConf {
 	private String smtpHost;
 	private String siteDomain;
 	private String fromAddress;
+	private String contactMessageRecepient;
+	
 	
 	public EmailConf(){
 		
@@ -29,6 +31,14 @@ public class EmailConf {
 
 	public void setFromAddress(String fromAddress) {
 		this.fromAddress = fromAddress;
+	}
+
+	public String getContactMessageRecepient() {
+		return contactMessageRecepient;
+	}
+
+	public void setContactMessageRecepient(String contactMessageRecepient) {
+		this.contactMessageRecepient = contactMessageRecepient;
 	}
 	
 }

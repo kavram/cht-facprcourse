@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html5/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -8,16 +8,6 @@
 <head>
 <jsp:include page="resources.jsp" />
 <jsp:include page="header.jsp" />
-</head>
-<jsp:include page="topNav.jsp" >
-  <jsp:param name="menu1" value="" />
-  <jsp:param name="menu2" value="" />
-  <jsp:param name="menu3" value="active" />
-  <jsp:param name="menu4" value="" />
-  <jsp:param name="menu5" value="" />
-  <jsp:param name="menu6" value="" />
-  <jsp:param name="menu7" value="" />
-</jsp:include>  
 <link rel="stylesheet" href="//releases.flowplayer.org/5.5.0/skin/minimalist.css">
 <script src="//releases.flowplayer.org/5.5.0/flowplayer.min.js"></script>
 <style>
@@ -81,6 +71,17 @@ $(document).ready(function(){
 	});
 });
 </script>
+</head>
+<body>
+<jsp:include page="topNav.jsp" >
+  <jsp:param name="menu1" value="" />
+  <jsp:param name="menu2" value="" />
+  <jsp:param name="menu3" value="active" />
+  <jsp:param name="menu4" value="" />
+  <jsp:param name="menu5" value="" />
+  <jsp:param name="menu6" value="" />
+  <jsp:param name="menu7" value="" />
+</jsp:include>  
 
 <div class="container">
 <div class="row-fluid">
@@ -92,14 +93,52 @@ $(document).ready(function(){
     		<ul class="nav navbar-nav">
 <c:forEach var="userCourse" items="${courses}" >    		
     			<li class="dropdown">
-      			<a href="#" class="dropdown-toggle" style="color: #1569C7; font-size: 18px; font-weight: bold;" data-toggle="dropdown">${userCourse.name}<b class="caret"></b></a>
+    			<c:if test="${userCourse.paid == true}">
+					<a href="#" class="dropdown-toggle" style="color: green; font-size: 18px; font-weight: bold;" data-toggle="dropdown"><img src="images/checkmark.jpg" height=15px>&nbsp;${userCourse.name}<b class="caret"></b></a>    			
+    			</c:if>
+    			<c:if test="${userCourse.paid == false}">    			
+      				<a href="#" class="dropdown-toggle" style="color: #1569C7; font-size: 18px; font-weight: bold;" data-toggle="dropdown">${userCourse.name}<b class="caret"></b></a>
+      			</c:if>
         		<ul class="dropdown-menu">
+        		<c:if test="${userCourse.paid == true}">
+        			<c:if test="${userCourse.courseId == 1}">
+       					<li><a href="documents/First_Aid_Course_Manual.pdf" target="_blank">Basic First Aid Course Manual</a></li> 			
+        			</c:if>
+        			<c:if test="${userCourse.courseId == 2}">
+						<li><a href="documents/CPR_AED_Course_Manual.pdf" target="_blank" >Basic CPR Course Manual</a></li>
+        				<li><a href="documents/First_Aid_Course_Manual.pdf" target="_blank" >Basic First Aid Course Manual</a></li> 			
+        			</c:if>
+        			<c:if test="${userCourse.courseId == 3}">
+						<li><a href="documents/CPR_AED_Course_Manual.pdf" target="_blank">Basic CPR Course Manual</a></li>
+        				<li><a href="documents/First_Aid_Course_Manual.pdf" target="_blank">Basic First Aid Course Manual</a></li>
+        			</c:if>
+        			<c:if test="${userCourse.courseId == 4}">
+						<li><a href="documents/CPR_AED_Course_Manual.pdf" target="_blank">Basic CPR Course Manual</a></li>
+        			</c:if>
+        		</c:if>
+        		<c:if test="${userCourse.paid == false}">
+        			<c:if test="${userCourse.courseId == 1}">
+       					<li><a target="_blank">Basic First Aid Course Manual</a></li> 			
+        			</c:if>
+        			<c:if test="${userCourse.courseId == 2}">
+						<li><a target="_blank" >Basic CPR Course Manual</a></li>
+        				<li><a target="_blank" >Basic First Aid Course Manual</a></li> 			
+        			</c:if>
+        			<c:if test="${userCourse.courseId == 3}">
+						<li><a target="_blank">Basic CPR Course Manual</a></li>
+        				<li><a target="_blank">Basic First Aid Course Manual</a></li>
+        			</c:if>
+        			<c:if test="${userCourse.courseId == 4}">
+						<li><a target="_blank">Basic CPR Course Manual</a></li>
+        			</c:if>
+        		</c:if>
+        		
         <c:forEach var="video" items="${userCourse.videos}" >
             <c:if test="${userCourse.paid == true}">
-        		<li class="myImenu" course_id=${userCourse.courseId} paid=${userCourse.paid} div_data="playvideo?video=${video.url}&name=${video.name}"><a href="#tab_a" data-toggle="tab" id="tab_data" >${video.name}</a></li>
+        		<li class="myImenu" course_id=${userCourse.courseId} paid=${userCourse.paid} div_data="playvideo?video=${video.url}&name=${video.name}&enabled=true"><a href="#tab_a" data-toggle="tab" id="tab_data" >${video.name}</a></li>
 			</c:if>
  			<c:if test="${userCourse.paid == false}">
-			    <li class="myImenu" course_id=${userCourse.courseId} paid=${userCourse.paid} div_data="${video.activeThumbnail}"><a href="#tab_a" data-toggle="tab" id="tab_data" >${video.name}</a></li>
+			    <li class="myImenu" course_id=${userCourse.courseId} paid=${userCourse.paid} div_data="playvideo?video=${video.url}&name=${video.name}&enabled=false"><a href="#tab_a" data-toggle="tab" id="tab_data" >${video.name}</a></li>
 			</c:if>   
 		</c:forEach>
         		</ul>
@@ -110,7 +149,7 @@ $(document).ready(function(){
 </div>
 <div class="span8" id="videoDiv">
 		<div class="tab-content" id="iframeDiv">
-        	<iframe id="myIframe" name="myIframe" src="playvideo?video=http://drive.flowplayer.org/196963/29518-cprintro.mp4&name=CPR Introduction" frameborder="0" scrolling="no" width="100%" height="500px"></iframe>
+        	<iframe id="myIframe" name="myIframe" src="playvideo?video=http://drive.flowplayer.org/196963/29518-cprintro.mp4&name=CPR Introduction&enabled=true" frameborder="0" scrolling="no" width="100%" height="500px"></iframe>
 		</div><!-- tab content -->
 	</div>
 	<div class="clearfix"></div>

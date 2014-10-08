@@ -10,6 +10,7 @@ import com.cht.firstaidcpr4me.core.domain.dao.LoginPaidCourseDao;
 import com.cht.firstaidcpr4me.core.domain.objects.Course;
 import com.cht.firstaidcpr4me.core.domain.objects.LoginPaidCourse;
 import com.cht.firstaidcpr4me.web.domain.User;
+import com.cht.firstaidcpr4me.web.domain.UserCourse;
 
 public class LoginPaymentServiceImpl implements LoginPaymentService {
 
@@ -19,12 +20,12 @@ public class LoginPaymentServiceImpl implements LoginPaymentService {
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public void saveLoginCoursePayment(User user, String transactionId, Collection<Course> courses) {
-		for(Course cr : courses){
+	public void saveLoginCoursePayment(User user, String transactionId, Collection<UserCourse> courses) {
+		for(UserCourse cr : courses){
 			LoginPaidCourse lpc = new LoginPaidCourse();
 			lpc.setPaymentTransactionId(transactionId);
-			lpc.setAmount(cr.getPrice());
-			lpc.setCourseId(cr.getId());
+			lpc.setAmount(new Double(cr.getPrice()));
+			lpc.setCourseId(new Long(cr.getCourseId()));
 			lpc.setLoginId(user.getId());
 			lpc = lpcDao.save(lpc);
 		}
@@ -40,6 +41,8 @@ public class LoginPaymentServiceImpl implements LoginPaymentService {
 		LoginPaidCourse lp = (LoginPaidCourse) coll.toArray()[0];
 		return lp;
 	}
+
+
 
 
 

@@ -8,11 +8,11 @@ import com.cht.firstaidcpr4me.web.domain.UserCourse;
 
 public interface CourseService {
 
-	public UserCourse getCourseById(Long id) throws Exception;
-
 	public Collection<UserCourse> getUserCourses(User user);
 
 	public void saveCompletedCourse(UserCourse uCourse);
 
 	public UserCourse getPaidCourseById(User user, Long courseId) throws Exception;
+
+	public UserCourse getCourseById(User user, Long id) throws Exception;
 }

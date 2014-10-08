@@ -1,6 +1,9 @@
 package com.cht.firstaidcpr4me.web.controller;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cht.firstaidcpr4me.core.domain.exceptions.EmailExistException;
 import com.cht.firstaidcpr4me.core.domain.exceptions.UserNotFoundException;
+import com.cht.firstaidcpr4me.core.domain.objects.EmailConf;
+import com.cht.firstaidcpr4me.core.domain.services.EmailService;
 import com.cht.firstaidcpr4me.core.domain.services.UserForgotPasswordService;
 import com.cht.firstaidcpr4me.core.domain.services.UserService;
 import com.cht.firstaidcpr4me.web.domain.AjaxResponse;
@@ -33,6 +38,12 @@ public class AjaxController extends BaseController {
 	
 	@Autowired
 	private UserForgotPasswordService userForgotPasswordService; 
+	
+	@Autowired
+	private EmailService emailService;
+	
+	@Autowired
+	private EmailConf emailConf;
 	
 	@RequestMapping("ajax/login")
 	public @ResponseBody AjaxResponse processLoginSubmission(@RequestParam(value="params", required=true) String params, HttpServletRequest request, HttpServletResponse response){
@@ -112,5 +123,22 @@ public class AjaxController extends BaseController {
 		return resp;
 	}
 	
+	@RequestMapping("ajax/contact")
+	public @ResponseBody AjaxResponse processContactUsSubmission(@RequestParam(value="params", required=true) String params, HttpServletRequest request, HttpServletResponse response) {
+		AjaxResponse resp = null;
+		try {
+			JSONObject data = new JSONObject(params);
+			Map<String, Object> model = new HashMap<String, Object>();
+			model.put("name", data.get("name"));
+			model.put("email", data.get("email"));
+			model.put("message", data.get("message"));
+			emailService.sendEmail("contactUs.vm", emailConf.getContactMessageRecepient(), model);
+		} catch (JSONException e) {
+			log.error(e.getMessage(), e);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		}
+		return new AjaxResponse("success");
+	}
 	
 }

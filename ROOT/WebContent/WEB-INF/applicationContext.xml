@@ -55,6 +55,8 @@
 		<property name="smtpHost" value="${smtpHost}" />
 		<property name="siteDomain" value="${siteDomain}" />
 		<property name="fromAddress" value="${fromAddress}" />		
+		<property name="contactMessageRecepient" value="${contactMessageRecepient}" />
+		
 	</bean>
 		
 	

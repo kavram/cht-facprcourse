@@ -32,12 +32,12 @@ public class CourseServiceImpl implements CourseService {
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public UserCourse getCourseById(Long id) throws Exception {
+	public UserCourse getCourseById(User user, Long id) throws Exception {
 		Collection coll = courseDao.getCourseById(id);
 		if(coll.isEmpty())
 			throw new Exception("Course not found for id: " + id);
 		Course course = (Course) coll.toArray()[0];
-		return getUCourse(null, course);
+		return getUCourse(user, course);
 	}
 
 	private UserCourse getUCourse(User user, Course course){

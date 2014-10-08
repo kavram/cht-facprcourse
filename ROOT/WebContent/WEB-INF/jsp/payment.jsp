@@ -6,57 +6,150 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<head>
 <jsp:include page="resources.jsp" />
 <jsp:include page="header.jsp" />
 <script type="text/javascript" >
 	$(document).ready(function(){
-		$("#paymentform").submit(function(event){
-			processSubmitPayment();
-			event.preventDefault();
-		});
 		var ref = document.referrer;
 		if(document.referrer !== 'undefined')
 			$('#cancelUrl').attr('href', document.referrer);
 		else
 			$('#cancelUrl').attr('href', '${domain}');
+		
+		$('#paymentform').bootstrapValidator({
+			container: '#messages',
+		    feedbackIcons: {
+		    	//valid: 'glyphicon glyphicon-ok',
+		        //invalid: 'glyphicon glyphicon-remove',
+		        //validating: 'glyphicon glyphicon-refresh'
+		    },
+		    submitButtons: 'button[type="submit"]',
+		    fields: {
+	            email: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'The email address is required and cannot be empty'
+	                    },
+	                    emailAddress: {
+	                        message: 'The email address is not valid'
+	                    }
+	                }
+	            },
+		       firstname: {
+		       		validators: {
+		            	notEmpty: {
+		                	message: 'The Cardhoder\'s first name is required and cannot be empty.'
+		                }
+		            }
+		       },
+		       lastname: {
+		       		validators: {
+		            	notEmpty: {
+		                	message: 'The Cardhoder\'s last name is required and cannot be empty.'
+		                }
+		            }
+		       },
+		       creditcardnum: {
+		       		validators: {
+		            	notEmpty: {
+		                	message: 'The Credit Card Number is required and cannot be empty.'
+		                }
+		            }
+		       },
+		       exprmonth: {
+		       		validators: {
+		            	notEmpty: {
+		                	message: 'The Credit Card Expiration Month is required.'
+		                }
+		            }
+		       },
+		       expryear: {
+		       		validators: {
+		            	notEmpty: {
+		                	message: 'The Credit Card Expiration Year is required.'
+		                }
+		            }
+		       },
+		       address: {
+		       		validators: {
+		            	notEmpty: {
+		                	message: 'The Billing Address is required and cannot be empty.'
+		                }
+		            }
+		       },
+		       city: {
+		       		validators: {
+		            	notEmpty: {
+		                	message: 'The Billing City is required and cannot be empty.'
+		                }
+		            }
+		       },
+		       state: {
+		       		validators: {
+		            	notEmpty: {
+		                	message: 'The Billing State is required and cannot be empty.'
+		                }
+		            }
+		       },
+		       zipcode: {
+		       		validators: {
+		            	notEmpty: {
+		                	message: 'The Billing Zipcode is required and cannot be empty.'
+		                }
+		            }
+		       }
+		  }
+	});
+	$('#paymentform').bootstrapValidator('resetForm', false).find('[name="firstname"]').focus();
+		
+		
 	});
 </script>
+</head>
 
+<body>
 <!-- Header End -->
 <!-- Payment Form -->
 <div class="container">
 	<div class="row-fluid">
-      <form role="form" id="paymentform" class="form-horizontal" action="" method="get">
+      <form role="form" id="paymentform" modelAttribute="payment" class="form-horizontal" action="" method="post">
+      <input type="hidden" name="amount" value="${payment.amount}" />
+      <input type="hidden" name="course" value="${payment.course}" />
         <br>
           <div id="legend">
             <legend class="">Payment Information</legend>
           </div>   
           <div class="form-group">
-	          <label class="col-sm-2 control-label">Amount</label>
+	          <label class="col-sm-2 control-label">Course</label>
       		 <div class="col-sm-10">
-      			<input type="cardholder" class="form-control" id="amount"  value="$${amount}" disabled >
+      			<input type="cardholder" class="form-control" id="courseName"  value="${payment.course}" disabled >
     		 </div>
   		  </div>
 
-
-          <!-- Name -->
+          <div class="form-group">
+	          <label class="col-sm-2 control-label">Amount</label>
+      		 <div class="col-sm-10">
+      			<input type="cardholder" class="form-control" id="amt" name="amt" value="$${payment.amount}" disabled >
+    		 </div>
+  		  </div>
           <div class="form-group">
 	          <label class="col-sm-2 control-label">Cardholder's First Name</label>
       		 <div class="col-sm-10">
-      			<input type="cardholder" class="form-control" id="firstname" placeholder="card holder first name">
+      			<input type="cardholder" class="form-control" name="firstname" id="firstname" maxlength="15" value="${payment.firstname}">
     		 </div>
   		  </div>
           <div class="form-group">
 	          <label class="col-sm-2 control-label">Cardholder's Last Name</label>
       		 <div class="col-sm-10">
-      			<input type="cardholder" class="form-control" id="lastname" placeholder="card holder last name">
+      			<input type="cardholder" class="form-control" name="lastname" id="lastname" maxlength="15" value="${payment.lastname}">
     		 </div>
   		  </div>
 		  <c:if test="${user == null}">
           	<div class="form-group">
 	          	<label class="col-sm-2 control-label">Email Address</label>
       		 	<div class="col-sm-10">
-      				<input type="cardholder" class="form-control" id="email" placeholder="email address">
+      				<input type="cardholder" class="form-control" name="email" id="email" maxlength="65" value="${payment.email}">
     		 	</div>
   		  	</div>
 		  </c:if>
@@ -64,7 +157,7 @@
 		  <div class="form-group">
      	  	<label class="col-sm-2 control-label">Card Number</label>
     		<div class="col-sm-10">
-      			<input type="cardname" class="form-control" id="cardnumber" placeholder="card number">
+      			<input type="cardname" class="form-control" name="creditcardnum" id="creditcardnum" maxlength="16" value="${payment.creditcardnum}">
     		</div>
   		  </div>  
           <!-- Expiry-->
@@ -72,7 +165,7 @@
           	<label class="col-sm-2 control-label">Card Expiry</label>
           		<div class="control-group">
                     <div style="position:relative; left:17px;" class="controls">
-		    			<select class="span3" name="expiry_month" id="expiry_month">
+		    			<select class="span3" name="exprmonth" id="exprmonth">
 			                <option value="01">Jan (01)</option>
 			                <option value="02">Feb (02)</option>
 			                <option value="03">Mar (03)</option>
@@ -86,8 +179,7 @@
 			                <option value="11">Nov (11)</option>
 			                <option value="12">Dec (12)</option>
 	              		</select>
-	    				<select class="span2" name="expiry_year" id="expiry_year">
-	                		<option value="13">2013</option>
+	    				<select class="span2" name="expryear" id="expryear">
 	                		<option value="14">2014</option>
 	                		<option value="15">2015</option>
 	                		<option value="16">2016</option>
@@ -103,13 +195,14 @@
   		    	</div>
 		  	</div>
 
-          <!-- CVV -->
+          <!-- CVV 
           <div class="form-group">
      	  	<label class="col-sm-2 control-label">Card CVV</label>
     		<div class="col-sm-10">
       			<input type="text" class="form-control" id="cvv_confirm" placeholder="card ccv">
     		</div>
   		  </div> 
+ --> 		  
   		  <!-- Billing Address -->
 		  <div class="form-group">
 		    <label class="control-label"  for="billing">Billing Address</label>
@@ -117,16 +210,15 @@
 		  <div class="form-group">
 		    <label for="billing" class="col-sm-2 control-label">Address</label>
      	  	<div class="col-sm-10">      			
-              	<input type="text" id="address" name="billing" class="form-control" placeholder="Address" class="input-xlarge">
+              	<input type="text" id="address" name="address" class="form-control" value="${payment.address}" class="input-xlarge">
     		</div>
   		  </div> 
-  		  <div class="form-group">
-		    <label for="city" class="col-sm-2 control-label">Address Line 2</label>
+		  <div class="form-group">
+		    <label for="billing" class="col-sm-2 control-label">City</label>
      	  	<div class="col-sm-10">      			
-              	<input type="text" id="city" name="city" class="form-control" placeholder="city" class="input-xlarge">
+              	<input type="text" id="city" name="city" class="form-control" value="${payment.city}" class="input-xlarge">
     		</div>
-  		  </div>
-
+  		  </div> 
           <div class="form-group">
           	<label class="col-sm-2 control-label">State</label>
           		<div class="control-group">
@@ -188,16 +280,22 @@
   		    	</div>
 		  	</div>
           	<div class="form-group">
-		    <label for="zip" class="col-sm-2 control-label">Zip Code</label>
-     	  	<div class="col-sm-10">      			
-              	<input type="text" id="zip" name="zip" class="form-control" placeholder="zip code" class="input-xlarge">
-    		</div>
+		    	<label for="zip" class="col-sm-2 control-label">Zip Code</label>
+     	  		<div class="col-sm-10">      			
+              		<input type="text" id="zipcode" name="zipcode" class="form-control" value="${payment.zipcode}" class="input-xlarge">
+    			</div>
   		  	</div>
-          
+  		  	<c:if test="${error != null}">
+	        	<div class="form-group">
+        			<div class="col-md-9 col-md-offset-3">
+            			<div class="alert alert-danger" role="alert">${error}</div>
+            		</div>	
+        		</div>
+           </c:if>
           <!-- Submit -->
           <div class="form-group">
             <div class="controls">
-              <button type="submit" class="btn btn-success" >Pay Now</button>
+              <button type="submit" class="btn btn-primary" >Pay Now</button>
               <a id="cancelUrl" href="#"> <button type="button" class="btn btn-default">Cancel</button></a>
             </div>
           </div>

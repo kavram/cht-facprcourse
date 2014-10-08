@@ -20,6 +20,60 @@ $(document).ready( function(){
 	$('#alert1').hide();
 	$('#alert2').hide();
 	$('#alert3').hide();
+ 	$('#messageUs').bootstrapValidator({
+ 		container: '#messages',
+ 		feedbackIcons: {
+ 			//valid: 'glyphicon glyphicon-ok',
+ 		    //invalid: 'glyphicon glyphicon-remove',
+ 		    //validating: 'glyphicon glyphicon-refresh'
+ 		    },
+ 		    fields: {
+ 		     	InputName: {
+ 		    	    validators: {
+ 		            	notEmpty: {
+ 		                	message: 'Name is required and cannot be empty.'
+ 		                }
+ 		           	}
+ 		     	},
+ 		     	InputEmail: {
+ 		        	validators: {
+ 		            	notEmpty: {
+ 		                	message: 'Them email address is required and cannot be empty.'
+ 		                },
+ 		                emailAddress: {
+ 		                	message: 'The email address is not valid'
+ 		                }
+ 		           }
+ 		       },
+  		       InputMessage: {
+		       		validators: {
+		            	notEmpty: {
+		                	message: 'Them message is required and cannot be empty.'
+		                }
+		            }
+		      },
+		      InputReal: {
+ 		      	validators: {
+ 		        	notEmpty: {
+ 		            	message: 'The Spam Check is required and cannot be empty'
+ 		            },
+ 		            callback: {
+ 		               	callback : function(validator, $field, options) {
+ 		               		if($('#InputReal').val() == '7')
+ 		                       	return true;
+ 		               		else 
+ 		               			return false;
+ 		               		}
+                    	}
+                	}
+ 		    	}
+ 		      }
+ 		    }).on('success.form.bv', function(e) {
+ 	            e.preventDefault();
+ 	           processContactUsSubmit();
+ 	        });
+ 			
+ 	$("#submitMessage").removeAttr("disabled");
 });
 </script>
         <div class="container">
@@ -32,7 +86,7 @@ $(document).ready( function(){
                                 <strong>Corporate Information </strong>
                             </p>
                             <p>Companion Medical Supply is an organization with offices in California and Hawaii. </p>
-                            <p><strong>Companion Medical Supplies </strong><br>
+                            <p><strong>Companion Medical Supply </strong><br>
                             2059 Camden Ave. #323<br>
                             San Jose, CA 95124   USA</p>
                             <p>Toll Free: (877) 295-0933</p>
@@ -55,11 +109,11 @@ $(document).ready( function(){
 
                 <div class="span7 pull-right">
                 	<h1>Message Us</h1>
-					<div id="alert1" class="alert alert-success"><strong><span class="glyphicon glyphicon-send"></span> Success! Message sent. (If form ok!)</strong></div>	  
-    				<div id="alert2" class="alert alert-danger"><span class="glyphicon glyphicon-alert"></span><strong> Error! Please check the inputs. (If form error!)</strong></div>
+					<div id="alert1" class="alert alert-success"><strong><span class="glyphicon glyphicon-send"></span> Success! Message sent.</strong></div>	  
+    				<div id="alert2" class="alert alert-danger"><span class="glyphicon glyphicon-alert"></span><strong> Error! Please check the inputs.</strong></div>
     				<div id="alert3" class="alert alert-warning"><strong><span class="glyphicon glyphicon-ok form-control-feedback"></span> Required Field</strong></div>
                 	<div>
-					  <form role="form" action="" method="post" >
+					  <form role="form" id="messageUs" action="" method="post" >
 					    <div class="col-lg-8">
 					      <div class="form-group">
 					        <label for="InputName">Your Name</label>
@@ -71,7 +125,7 @@ $(document).ready( function(){
 					      <div class="form-group">
 					        <label for="InputEmail">Your Email</label>
 					        <div class="input-group">
-					          <input type="email" class="form-control" id="InputEmail" name="InputEmail" placeholder="Enter Email" required  >
+					          <input type="text" class="form-control" id="InputEmail" name="InputEmail" placeholder="Enter Email" required  >
 					          <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
 					        </div>
 					      </div>
@@ -88,7 +142,7 @@ $(document).ready( function(){
 					          <input type="text" class="form-control" name="InputReal" id="InputReal" required>
 					          <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span></div>
 					      </div>
-					      <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
+					      <input type="submit" name="submit" id="submitMessage" value="Submit" class="btn btn-info pull-right">
 					    </div>
 					  </form>
                     <!------/.right_box_mar-------->

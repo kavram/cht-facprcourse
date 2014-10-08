@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.mail.internet.MimeMessage;
+
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.MethodInvocationException;
@@ -17,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 
 public class EmailServiceImpl implements EmailService {
 	private static final Logger log = LoggerFactory.getLogger(EmailServiceImpl.class);
@@ -34,26 +38,8 @@ public class EmailServiceImpl implements EmailService {
 	
 	@Override
 	public void sendEmail(final String templateName, final String toAddress, final Map<String, Object> model)  {
-/*
-		MimeMessagePreparator preparator = new MimeMessagePreparator() {
-            public void prepare(MimeMessage mimeMessage) throws Exception {
-            	VelocityContext vc = new VelocityContext();
-            	vc.put("siteDomain", siteDomain);
-            	Set<Entry<String, Object>> set = model.entrySet();
-            	for(Entry<String, Object> entr : set){
-            		vc.put(entr.getKey(), entr.getValue());
-            	}
-            	Writer writer = new StringWriter();
-            	velocityEngine.mergeTemplate(templateName, "UTF-8", vc, writer);
-            	MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-                message.setTo(toAddress);
-                message.setFrom(fromAddress); 
-                message.setSubject((String)vc.get("subject"));
-                message.setText(writer.toString(), true);
-            }
-        };
- */       
-        SimpleMailMessage message = new SimpleMailMessage();
+		MimeMessage message = mailSender.createMimeMessage();
+		
     	VelocityContext vc = new VelocityContext();
     	vc.put("siteDomain", siteDomain);
     	Set<Entry<String, Object>> set = model.entrySet();
@@ -62,11 +48,12 @@ public class EmailServiceImpl implements EmailService {
     	}
     	Writer writer = new StringWriter();
     	try {
+    		MimeMessageHelper helper = new MimeMessageHelper(message, true);
 			velocityEngine.mergeTemplate(templateName, "UTF-8", vc, writer);
-	        message.setTo(toAddress);
-	        message.setFrom(fromAddress); 
-	        message.setSubject((String)vc.get("subject"));
-	        message.setText(writer.toString());
+	        helper.setTo(toAddress);
+	        helper.setFrom(fromAddress); 
+	        helper.setSubject((String)vc.get("subject"));
+	        helper.setText(writer.toString(), true);
 	        mailSender.send(message);		
 		}catch (MailException e) {
 			log.error(e.getMessage(), e);

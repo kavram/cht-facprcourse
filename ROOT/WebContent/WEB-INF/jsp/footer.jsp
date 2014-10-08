@@ -10,7 +10,6 @@
 		<div class="col-lg-2 col-sm-2" style=" line-height: 15px;">
 		<b>COMPANY</b>
 		<br><br><a href="contact">Contact Us</a>
-		<br><br><a href="http://www.homehealthworker.com target="_blank">Home Health Worker</a>
 		</div>
 		<div class="col-lg-2 col-sm-2" style=" line-height: 15px;">
 		<b>COURSES</b>

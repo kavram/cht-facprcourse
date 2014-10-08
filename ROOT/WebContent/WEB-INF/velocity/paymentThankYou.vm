@@ -1,0 +1,10 @@
+#set ($subject = "Thanks for Your Payment")
+
+<html>
+Dear $firstName $lastName!
+<br>
+Thank you for your payment for the $course course.
+<br>
+Thank you.
+
+</html>

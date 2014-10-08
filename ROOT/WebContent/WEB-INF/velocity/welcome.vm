@@ -1,0 +1,10 @@
+#set ($subject = "Welcome to FirstAidCPRCourse.com")
+
+<html>
+Dear $firstName $lastName!
+<br>
+Welcome to FirstAidCPRCourse.com!
+<br>
+Thank you.
+
+</html>

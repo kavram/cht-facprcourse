@@ -1,10 +1,10 @@
 package com.cht.firstaidcpr4me.core.domain.services;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
-import org.apache.commons.mail.Email;
-import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +14,6 @@ import com.cht.firstaidcpr4me.core.domain.dao.LoginEmailValidationDao;
 import com.cht.firstaidcpr4me.core.domain.exceptions.EmailExistException;
 import com.cht.firstaidcpr4me.core.domain.exceptions.EmailValidationKeyNotFoundException;
 import com.cht.firstaidcpr4me.core.domain.exceptions.UserNotFoundException;
-import com.cht.firstaidcpr4me.core.domain.objects.EmailConf;
 import com.cht.firstaidcpr4me.core.domain.objects.Login;
 import com.cht.firstaidcpr4me.core.domain.objects.LoginEmailValidation;
 import com.cht.firstaidcpr4me.web.domain.User;
@@ -26,13 +25,13 @@ public class UserServiceImpl implements UserService {
 	private static final Long USER_EMAIL_VALIDATED = new Long(1);
 
 	@Autowired
-	private EmailConf emailConf;
-	
-	@Autowired
     private LoginDAO loginDao;
 
 	@Autowired
 	private LoginEmailValidationDao loginEmailValidationDao;
+
+	@Autowired
+	private EmailService emailService;
 	
 	@Override
 	public boolean isLoginExists(String email) {
@@ -114,31 +113,15 @@ public class UserServiceImpl implements UserService {
 		lev.setValidationKey(UUID.randomUUID().toString());
 		lev.setValidationStatus(USER_EMAIL_VALIDATION_PENDING);
 		lev = loginEmailValidationDao.save(lev);
-		String message = "Please click on this <a href=\"" + emailConf.getSiteDomain() + "/email-validation/" +
-				lev.getValidationKey() + "\">link</a> to validate your email. Thank you.";
-		try {
-			send(lg.getEmail(), "firstaidcprcourse.com email validation", message);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("token", lev.getValidationKey());
+		emailService.sendEmail("confirmEmail.vm", lg.getEmail(), model);
 	}
 
-	private void send(String recipient, String subject, String message) throws Exception{
-		HtmlEmail email = new HtmlEmail();
-		email.setHostName(emailConf.getSmtpHost());
-		email.setFrom(emailConf.getFromAddress());
-		email.setSubject(subject);
-		email.setHtmlMsg(message);
-		email.addTo(recipient);
-		email.send();
-	}
-	
-	
 	@Override
 	@SuppressWarnings("unchecked")
 	@Transactional(propagation = Propagation.REQUIRES_NEW)	
-	public void validateEmail(String validationKey) throws EmailValidationKeyNotFoundException {
+	public User validateEmail(String validationKey) throws EmailValidationKeyNotFoundException {
 		Collection<LoginEmailValidation> coll = loginEmailValidationDao.getLoginEmailValidationByKey(validationKey, USER_EMAIL_VALIDATION_PENDING);
 		if(coll.isEmpty())
 			throw new EmailValidationKeyNotFoundException();
@@ -150,6 +133,12 @@ public class UserServiceImpl implements UserService {
 		Login login = (Login) collLogin.toArray()[0];
 		login.setLevel(USER_EMAIL_VALIDATED);
 		loginDao.updateLogin(login);
+		User user = new User(login);
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("firstName", login.getFirstName());
+		model.put("lastName", login.getLastName());
+		emailService.sendEmail("welcome.vm", login.getEmail(), model);
+		return user;
 	}
 
 	@Override

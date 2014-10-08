@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -22,6 +27,16 @@
 <!-- include flowplayer -->
 <!-- bootstrap 2.3.0 -->
 <script type="text/javascript" src="${domain}/js/bootstrap.js"></script>
+
+<c:if test="${enabled == false}">
+<script type="text/javascript">
+	$(document).ready(function(){
+	var api = flowplayer();
+	api.disable(true);
+	});
+</script>
+</c:if>
+
 <style>
 @media (min-width: 768px) {
   .navbar-collapse {
@@ -68,7 +83,7 @@
 </head>
 <body>
 <h4 style="position: relative; top: 0px; text-align:center;">${name}</h4>
-<div class="flowplayer" style="width: 100%; height: 460px;">
+<div class="flowplayer is-disabled" style="width: 100%; height: 460px;">
     <video>
         <source type="video/webm" src="${video}">
         <source type="video/mp4"  src="${video}">

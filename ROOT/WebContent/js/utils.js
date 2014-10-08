@@ -41,6 +41,24 @@ function processLoginSubmit(){
 	});
 };
 
+function processContactUsSubmit(){
+	var data = {"email": $('#InputEmail').val(), "name": $('#InputName').val(), "message": $("#InputMessage").val()};
+	var str = JSON.stringify(data);
+	$.ajax({
+		type: "GET",
+		url: "/ajax/contact",
+		processData: false,
+		data: "params=" + str,
+		success: function(data, status, jqXHR){
+			if(data.status == "success"){
+				$('#alert1').show();
+			}
+		},
+		dataType: "json"
+	});
+};
+
+
 function processForgotPassSubmit(){
 	var data = {"email": $('#forgotPassForm').find("#email").val()};
 	var str = JSON.stringify(data);

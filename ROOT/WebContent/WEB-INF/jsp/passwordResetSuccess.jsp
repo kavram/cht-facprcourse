@@ -11,6 +11,9 @@
 					</div>
                 </div>
             </div>
+            <div class="form-group">
+	     	<a href="/"><button type="button" id="ok" class="btn btn-default">OK</button></a>
+  		  </div>
         </div>
         <!-------/.container---------->
 

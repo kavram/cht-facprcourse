@@ -37,8 +37,15 @@
 	 			processLogout();
 	 		});
 	 	});
-	 
 	 </c:if>
+	 	$(document).ready(function(){
+	 		$('#myDemo').on('hidden.bs.modal', function(e){
+	 			var api = flowplayer();
+	 			api.stop();
+
+	 		});
+	 	});
+	 
     </script>
 
 <!-- Header -->
@@ -308,9 +315,9 @@
 		    		<br>
 					<div class="flowplayer" style="width: 100%; height: 460px;">
     					<video>
-        					<source type="video/webm" src="http://drive.flowplayer.org/196963/29518-cprintro.webm">
-        					<source type="video/mp4"  src="http://drive.flowplayer.org/196963/29518-cprintro.mp4">
-        					<source type="video/ogg"  src="http://drive.flowplayer.org/196963/29518-cprintro.ogq">
+        					<source type="video/webm" src="http://drive.flowplayer.org/196963/32547-CPRIntro.webm">
+        					<source type="video/mp4"  src="http://drive.flowplayer.org/196963/32547-CPRIntro.mp4">
+        					<source type="video/ogg"  src="http://drive.flowplayer.org/196963/32547-CPRIntro.ogg">
     					</video>
 					</div>
 					<br>

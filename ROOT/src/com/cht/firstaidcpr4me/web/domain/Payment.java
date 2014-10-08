@@ -1,20 +1,21 @@
 package com.cht.firstaidcpr4me.web.domain;
 
-import java.math.BigDecimal;
+
 
 public class Payment {
 
 	private String amount;
-	private String creditCardNum;
-	private String exprMonth;
-	private String exprYear;
-	private String firstName;
-	private String lastName;
+	private String creditcardnum;
+	private String exprmonth;
+	private String expryear;
+	private String firstname;
+	private String lastname;
 	private String email;
 	private String address;
 	private String city;
 	private String state;
 	private String zipcode;
+	private String course;
 	
 	
 	public Payment(){
@@ -29,44 +30,44 @@ public class Payment {
 		this.amount = amount;
 	}
 
-	public String getCreditCardNum() {
-		return creditCardNum;
+	public String getCreditcardnum() {
+		return creditcardnum;
 	}
 
-	public void setCreditCardNum(String creditCardNum) {
-		this.creditCardNum = creditCardNum;
+	public void setCreditcardnum(String creditcardnum) {
+		this.creditcardnum = creditcardnum;
 	}
 
-	public String getExprMonth() {
-		return exprMonth;
+	public String getExprmonth() {
+		return exprmonth;
 	}
 
-	public void setExprMonth(String exprMonth) {
-		this.exprMonth = exprMonth;
+	public void setExprmonth(String exprmonth) {
+		this.exprmonth = exprmonth;
 	}
 
-	public String getExprYear() {
-		return exprYear;
+	public String getExpryear() {
+		return expryear;
 	}
 
-	public void setExprYear(String exprYear) {
-		this.exprYear = exprYear;
+	public void setExpryear(String expryear) {
+		this.expryear = expryear;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public String getAddress() {
@@ -107,6 +108,14 @@ public class Payment {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getCourse() {
+		return course;
+	}
+
+	public void setCourse(String course) {
+		this.course = course;
 	}
 	
 }

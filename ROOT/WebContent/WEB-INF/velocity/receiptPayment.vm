@@ -1,0 +1,10 @@
+#set ($subject = "FirstAidCPRCourse.com Receipt Payment")
+
+<html>
+Dear $firstName $lastName!
+<br>
+Thank you for your payment of $$amount for the $course course.
+<br>
+Thank you.
+
+</html>

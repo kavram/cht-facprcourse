@@ -1,0 +1,8 @@
+#set ($subject = "FirstAidCPRCourse.com email verification")
+
+<html>
+Please click on this <a href="$siteDomain/email-validation/$token" >link</a> to confirm your email.
+<br>
+Thank you.
+
+</html>

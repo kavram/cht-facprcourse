@@ -1,0 +1,16 @@
+#set ($subject = "FirstAidCPRCourse.com -- Contact Us Message")
+
+<html>
+Hello,
+
+A new message was submitted on $siteDomain/contact page. Please see the message details below.
+
+
+From: $name
+
+Email: $email
+
+Message: $message
+
+
+</html>
