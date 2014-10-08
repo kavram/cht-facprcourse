@@ -1,9 +1,7 @@
 package com.cht.firstaidcpr4me.web.controller;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,11 +16,6 @@ import net.authorize.aim.Transaction;
 import net.authorize.data.Customer;
 import net.authorize.data.creditcard.CreditCard;
 
-import oracle.sql.DATE;
-
-import org.apache.http.client.ClientProtocolException;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +29,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cht.firstaidcpr4me.core.domain.exceptions.PaymentException;
 import com.cht.firstaidcpr4me.core.domain.objects.AuthorizeConf;
-import com.cht.firstaidcpr4me.core.domain.objects.Course;
 import com.cht.firstaidcpr4me.core.domain.services.CourseService;
 import com.cht.firstaidcpr4me.core.domain.services.EmailService;
 import com.cht.firstaidcpr4me.core.domain.services.LoginPaymentService;
