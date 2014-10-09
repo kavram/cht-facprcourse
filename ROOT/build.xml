@@ -85,7 +85,7 @@
 	      	<include name="META-INF/*.*"/>
 	      	<include name="pages/*.*"/>
 	      	<include name="/WEB-INF/velocity/*.*"/>
-	      	<include name="/WEB-INF/*.xml"/>
+	      	<include name="/WEB-INF/*.*"/>
 	      </fileset>
 	      <lib dir="${libraries.dir}">
 	        <include name="*.jar"/>
