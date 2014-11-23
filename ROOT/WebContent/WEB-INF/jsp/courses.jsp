@@ -8,8 +8,7 @@
 <head>
 <jsp:include page="resources.jsp" />
 <jsp:include page="header.jsp" />
-<link rel="stylesheet" href="//releases.flowplayer.org/5.5.0/skin/minimalist.css">
-<script src="//releases.flowplayer.org/5.5.0/flowplayer.min.js"></script>
+<jsp:include page="flowPlayerResources.jsp" />
 <style>
 @media (min-width: 768px) {
   .navbar-collapse {
@@ -60,9 +59,9 @@ $(document).ready(function(){
 		$('#videoDiv').find('a').remove();
 		var aTag = '';
 		if(paid == 'false'){
-			aTag = '<a href="payment?courses=' + $(this).attr('course_id') + '" id="item9" class="pull-right"><img src="images/starthere.jpg" height="60px" border=0 style="float:right"></a>';
+			aTag = '<a href="payment?courses=' + $(this).attr('course_id') + '" id="item9" class="pull-right"><button type="button" class="btn btn-warning"  style="float:right position:relative; top:100;">Pay Now To Proceed</button></a>';
 		}else
-			aTag = '<a href="quiz?courses=' + $(this).attr('course_id') + '" id="item9" class="pull-right"><img src="images/startexam.png" height="60px" border=0 style="float:right"></a>';
+			aTag = '<a href="quiz?courses=' + $(this).attr('course_id') + '" id="item9" class="pull-right"><button type="button" style="float:right position:absolute; top:50;" class="btn btn-success">Take The Quiz</button></a>';
 		$('#iframeDiv').before(aTag);
 		$('#iframeDiv').after(aTag);			
     	var play_url = $(this).attr('div_data');
@@ -149,7 +148,7 @@ $(document).ready(function(){
 </div>
 <div class="span8" id="videoDiv">
 		<div class="tab-content" id="iframeDiv">
-        	<iframe id="myIframe" name="myIframe" src="playvideo?video=http://drive.flowplayer.org/196963/29518-cprintro.mp4&name=CPR Introduction&enabled=true" frameborder="0" scrolling="no" width="100%" height="500px"></iframe>
+        	<iframe id="myIframe" name="myIframe" src="playvideo?video=http://drive.flowplayer.org/196963/32547-CPRIntro.mp4&name=CPR Introduction&enabled=true" frameborder="0" scrolling="no" width="100%" height="500px"></iframe>
 		</div><!-- tab content -->
 	</div>
 	<div class="clearfix"></div>

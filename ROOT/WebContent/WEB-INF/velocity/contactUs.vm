@@ -2,14 +2,15 @@
 
 <html>
 Hello,
-
+<br>
+<br>
 A new message was submitted on $siteDomain/contact page. Please see the message details below.
-
-
+<br>
+<br>
 From: $name
-
+<br>
 Email: $email
-
+<br>
 Message: $message
 
 

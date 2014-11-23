@@ -76,7 +76,7 @@
 	    <delete file="${dist.dir}/${ROOT.war}"/>
 	    <war destfile="${dist.dir}/${ROOT.war}"
 	         webxml="${project.dir}/WEB-INF/web.xml">
-	      <fileset dir="${project.dir}" includes="/WEB-INF/jsp/*.jsp">
+		<fileset dir="${project.dir}" >
 	      	<include name="css/**/*.*"/>
 	      	<include name="content/**/*.*"/>
 	      	<include name="documents/**/*.*"/>
@@ -84,12 +84,13 @@
 	      	<include name="js/**/*.*"/>
 	      	<include name="META-INF/*.*"/>
 	      	<include name="pages/*.*"/>
-	      	<include name="/WEB-INF/velocity/*.*"/>
-	      	<include name="/WEB-INF/*.*"/>
-	      </fileset>
-	      <lib dir="${libraries.dir}">
+	      	<include name="WEB-INF/jsp/*.*"/>
+	      	<include name="WEB-INF/velocity/*.*"/>
+	      	<include name="WEB-INF/*.xml"/>
+	     </fileset>	      
+	     <lib dir="${libraries.dir}">
 	        <include name="*.jar"/>
-	      </lib>
+	     </lib>
 
 	      <classes dir="${classes.dir}">
 			<include name="*.*"/>

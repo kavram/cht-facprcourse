@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cht.firstaidcpr4me.core.domain.dao.CourseDao;
 import com.cht.firstaidcpr4me.core.domain.dao.LoginPaidCourseDao;
+import com.cht.firstaidcpr4me.core.domain.exceptions.CourseNotFoundException;
 import com.cht.firstaidcpr4me.core.domain.objects.Answer;
 import com.cht.firstaidcpr4me.core.domain.objects.Course;
 import com.cht.firstaidcpr4me.core.domain.objects.LoginCompletedCourse;
@@ -32,10 +33,10 @@ public class CourseServiceImpl implements CourseService {
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public UserCourse getCourseById(User user, Long id) throws Exception {
+	public UserCourse getCourseById(User user, Long id) throws CourseNotFoundException {
 		Collection coll = courseDao.getCourseById(id);
 		if(coll.isEmpty())
-			throw new Exception("Course not found for id: " + id);
+			throw new CourseNotFoundException();
 		Course course = (Course) coll.toArray()[0];
 		return getUCourse(user, course);
 	}
@@ -123,10 +124,10 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public UserCourse getPaidCourseById(User user, Long courseId) throws Exception {
+	public UserCourse getPaidCourseById(User user, Long courseId) throws CourseNotFoundException {
 		Collection coll = courseDao.getCourseById(courseId);
 		if(coll.isEmpty())
-			throw new Exception("Course not found for id: " + courseId);
+			throw new CourseNotFoundException();
 		Course course = (Course) coll.toArray()[0];
 		return getUCourse(user, course);
 	}

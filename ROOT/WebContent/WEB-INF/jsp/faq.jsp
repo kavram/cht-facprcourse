@@ -31,7 +31,7 @@ general industry.  For example, section 29 CFR 1910.151(b), provides:  <i>&quot;
 the absence of an infirmary, clinic, or hospital in near proximity to the
 workplace which is used for the treatment of all injured employees, a person or
 persons shall be adequately trained to render first aid. Adequate first aid
-supplies shall be readily available.”<br>
+supplies shall be readily available.&quot;<br>
 </i>Many employers want their employees trained in First Aid, CPR, and AED even
 if it's not explicitly required for their industry. Some industry examples
 include the following: construction workers/foremen, manufacturing, teachers
@@ -40,12 +40,12 @@ captains, Emergency Response Team (ERT) members, church/community groups,
 healthcare workers, and professional rescuers.</span></p>
 
 <p style='background:white'><strong><span style='font-size:9.5pt;font-family:
-"Lucida Sans Unicode","sans-serif";color:black'>Q: Is FirstAidCPRCourse.com’s curriculum
+"Lucida Sans Unicode","sans-serif";color:black'>Q: Is FirstAidCPRCourse.com's curriculum
 OSHA compliant?</span></strong><span style='font-size:9.5pt;font-family:"Lucida Sans Unicode","sans-serif";
 color:black'><br>
-A: Yes. The American Heart Association’s curriculum meets or exceeds OSHA
+A: Yes. The American Heart Association's curriculum meets or exceeds OSHA
 standards. Although AED training is not currently required, it is recommended
-by OSHA.  FirstAidCPRCourse.com’s training also meets or exceeds ECC/ILORC
+by OSHA.  FirstAidCPRCourse.com's training also meets or exceeds ECC/ILORC
 standards.</span></p>
 
 <p style='background:white'><strong><span style='font-size:9.5pt;font-family:
@@ -63,9 +63,9 @@ matter.</span></p>
 
 <p style='background:white'><strong><span style='font-size:9.5pt;font-family:
 "Lucida Sans Unicode","sans-serif";color:black'>Q: Am I covered by the Good
-Samaritan Law once I’m certified?</span></strong><span style='font-size:9.5pt;
+Samaritan Law once I'm certified?</span></strong><span style='font-size:9.5pt;
 font-family:"Lucida Sans Unicode","sans-serif";color:black'><br>
-A: This varies a bit by state.  California’s Good Samaritan law, for example,
+A: This varies a bit by state.  California's Good Samaritan law, for example,
 states from Division 2.5 of the California Health and Safety Code:</span></p>
 
 <p style='background:white'><span style='font-size:9.5pt;font-family:"Lucida Sans Unicode","sans-serif";

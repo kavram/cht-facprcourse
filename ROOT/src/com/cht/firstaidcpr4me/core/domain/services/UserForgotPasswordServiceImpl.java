@@ -40,6 +40,8 @@ public class UserForgotPasswordServiceImpl implements	UserForgotPasswordService 
 		lfp = loginForgotPasswordDao.saveLoginForgotPassword(lfp);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("token", lfp.getToken());
+		model.put("firstName", user.getFirstName());
+		model.put("lastName", user.getLastName());
 		emailService.sendEmail("passwordReset.vm", email, model);
 	}
 

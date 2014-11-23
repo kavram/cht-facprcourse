@@ -27,6 +27,10 @@
 	    		$('#forgotPassModal').modal('hide');
 	    		$('#loginModal').modal({show:true});
 	    	});
+	    	$('#regLogin').click(function(){
+	    		$('#loginModal').modal('hide');
+	    		$('#registerModal').modal({show:true});
+	    	});
 	    	
 		});
 	 </c:if>   
@@ -40,9 +44,7 @@
 	 </c:if>
 	 	$(document).ready(function(){
 	 		$('#myDemo').on('hidden.bs.modal', function(e){
-	 			var api = flowplayer();
-	 			api.stop();
-
+	 			flowplayer().stop();
 	 		});
 	 	});
 	 
@@ -50,32 +52,54 @@
 
 <!-- Header -->
     <div class="container">
-        <div class="row-fluid">
-            <div class="span4">
+        <div class="row">
+            <div class="col-lg-8 col-sm-8">
                 <a href="/">
                         <img src="${domain}/images/logo-cross-fa3.png" border=0>
                 </a>
             </div>
-            <div class="span8" align=right>
-            	<div id="userHead">
+            <div class="col-lg-4 col-sm-4" align=right style="background-image:url(${domain}/images/header-bg.png); background-repeat: no-repeat; background-position: right; color:#ffffff;">
 					<c:if test="${user.email == null}">
-						<a href="#registerModal"  data-toggle="modal" data-target="#registerModal"> Not a Member? Join Now For FREE </a> | 
-						<a href="#loginModal"  data-toggle="modal" data-target="#loginModal" >Login</a>
+						<a href="#registerModal"  data-toggle="modal" data-target="#registerModal" style="color:#ffffff;"> Not a Member? Join Now For FREE </a> | 
+						<a href="#loginModal"  data-toggle="modal" data-target="#loginModal" style="color:#ffffff;">Login</a>
 					</c:if>
 					<c:if test="${user.email != null}">
 	 					Welcome, ${user.firstName} ${user.lastName} | <a id="logouta" href="" >Log out</a>
 	 				</c:if>
-						
-				</div>
 				<br>
 				<span class="glyphicon glyphicon-phone" style="margin-right: 5px;"></span>1-877-295-0933 <br>          
 				Mon - Fri, 9am - 8pm EST <br>  
-    			<div class="clearfix"></div>
             </div>
         </div> 
     </div>   
 <!-- Header End -->
 <!-- Popups -->
+	<div class="modal fade" id="regConfModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		        <h4 class="modal-title"><center>Site Login</center></h4>
+		      </div>
+		      <div class="modal-body">
+					<center>
+						Please confirm your registration by clicking on the &quot;Activate Account&quot; link in
+						the "Please Verify Your FirstaidCPRCourse.com Account Email Address" email.
+		        	</center>		      
+		          <form id="f" method="post" class="form-horizontal">
+	                  <div class="form-group">
+	                        <div class="col-md-5 col-md-offset-3">
+	                            <button type="submit" id="loginSubmit" class="btn btn-default">Login </button>
+	                            <button class="btn btn-default" id="forgotPassButton" data-dismiss="modal" type="button">Forgot Password</button>
+	                        </div>
+	                 </div>
+	              </form>
+	            </div>  
+		     </div>
+		   </div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+
+
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
@@ -84,6 +108,15 @@
 		        <h4 class="modal-title"><center>Site Login</center></h4>
 		      </div>
 		      <div class="modal-body">
+					<center>
+		      			Thank you for your important decision to get trained in the potentially life-saving 
+		      			skills of CPR, First Aid, or Basic Life Support with FirstAidCPRCourse.com.<br><br>
+						Please use your email address and designated password to login below. 
+						If you forgot your password, please select the button below labeled &quot;Forgot Password&quot; to get started.
+		        		<br><br>
+		        	<a id="regLogin"  href="#myRegister"  data-toggle="modal" style="color:#000000;"> Not a Member? Click Here To Join Now For FREE </a> 
+		        	<br><br><br>
+		        	</center>		      
 		          <form id="loginForm" method="post" class="form-horizontal">
   					  <div class="form-group">
 	                        <label class="col-md-3 control-label">Email Address</label>
@@ -161,6 +194,14 @@
 		        	<h4 class="modal-title"><center>Site Registration</center></h4>
 		      	</div>
 		    	<div class="modal-body">
+		    		<center>
+		    			Welcome to FirstAidCPRCourse.com registration.<br><br>
+						Complete the registeration information below and click &quot;Register&quot;. You will then be sent
+						an email to confirm your email address. Once that is complete, you can
+						begin reviewing your training courses available and select one or more to entroll in.<br><br>
+						<b>Note:  Your information is never shared with third parties.<br><br></b>
+		    		</center>
+		    	
 		    		<form id="registerForm" method="post" class="form-horizontal">
 	              	  	<div class="form-group">
 	                        <label class="col-md-3 control-label">First Name</label>
@@ -313,12 +354,13 @@
 		    	</div>
 		    	<div class="modal-body">
 		    		<br>
-					<div class="flowplayer" style="width: 100%; height: 460px;">
-    					<video>
-        					<source type="video/webm" src="http://drive.flowplayer.org/196963/32547-CPRIntro.webm">
-        					<source type="video/mp4"  src="http://drive.flowplayer.org/196963/32547-CPRIntro.mp4">
-        					<source type="video/ogg"  src="http://drive.flowplayer.org/196963/32547-CPRIntro.ogg">
-    					</video>
+					<div class="flowplayer" data-rtmp="rtmp://rtmp.flowplayer.org/cfx/st/" data-ratio="0.5625" data-qualities="216p,360p,720p,1080p" data-default-quality="360p">
+  						<video>
+    						<source type="application/x-mpegurl" src="http://drive.flowplayer.org/196963/32547-CPRIntro.m3u8">
+    						<source type="video/webm" src="http://drive.flowplayer.org/196963/32547-CPRIntro.webm">
+    						<source type="video/mp4" src="http://drive.flowplayer.org/196963/32547-CPRIntro.mp4">
+    						<source type="video/flash" src="mp4:196963/32547-CPRIntro.mp4">
+  						</video>
 					</div>
 					<br>
 					<br>

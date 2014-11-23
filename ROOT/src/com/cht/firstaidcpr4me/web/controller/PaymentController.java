@@ -1,12 +1,15 @@
 package com.cht.firstaidcpr4me.web.controller;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import net.authorize.Environment;
 import net.authorize.Merchant;
@@ -98,7 +101,7 @@ public class PaymentController extends BaseController {
 	
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView submitPaymentForm(@ModelAttribute Payment payment, BindingResult result, HttpServletRequest request) {
+	public ModelAndView submitPaymentForm(@ModelAttribute Payment payment, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = null;
 		if(result.hasErrors()){
 			return getModelAndView("payment.jsp");
@@ -106,9 +109,10 @@ public class PaymentController extends BaseController {
 
 		try {
 			User user = null;
-			if(payment.getEmail() != null)
+			if(payment.getEmail() != null){
 				user = getOrRegisterUser(payment.getEmail(), payment.getFirstname(), payment.getLastname());
-			else
+				setUser(user, request, response);
+			}else
 				user = (User) request.getSession().getAttribute(SiteController.SESSION_ATTRIBUTE_USER);
 			
 			String transactionId = null;
@@ -140,16 +144,19 @@ public class PaymentController extends BaseController {
 		model.put("lastName", user.getLastName());
 		UserCourse uc = (UserCourse) courses.toArray()[0];
 		model.put("course", uc.getName());
-		emailService.sendEmail("paymentThankYou.vm", user.getEmail(), model);
 		model.put("amount", payment.getAmount());
-		emailService.sendEmail("receiptPayment.vm", user.getEmail(), model);
+		SimpleDateFormat dateForm = new SimpleDateFormat("MM/dd/yyyy");
+		Calendar cal = Calendar.getInstance();
+		model.put("orderDate", dateForm.format(cal.getTime()));
+		emailService.sendEmail("paymentThankYou.vm", user.getEmail(), model);
+		//emailService.sendEmail("receiptPayment.vm", user.getEmail(), model);
 	}
 
 
 	private String postToAuthorize(final Payment payment) throws PaymentException{
 		String transactionId = null;
 		String amount = payment.getAmount().substring(1);
-		Merchant merchant = Merchant.createMerchant(Environment.PRODUCTION, authorizeConf.getApiLoginId(), authorizeConf.getTransactionKey());
+		Merchant merchant = Merchant.createMerchant(Environment.PRODUCTION_TESTMODE, authorizeConf.getApiLoginId(), authorizeConf.getTransactionKey());
 		// create credit card
 	    CreditCard creditCard = CreditCard.createCreditCard();
 	    creditCard.setCreditCardNumber(payment.getCreditcardnum());

@@ -14,6 +14,22 @@ function processLogout(){
 	});
 };
 
+function checkUserRegStatus(){
+	$.ajax({
+		type: "GET",
+		url: "/ajax/user-reg-status",
+		processData: false,
+		success: function(data, status, jqXHR){
+			if(data.status != "confirmed"){
+				//$('#userHead').html('<a href="#registerModal"  data-toggle="modal" data-target="#registerModal"> Not a Member? Join Now For FREE </a> |' + 
+				//		'<a href="#loginModal"  data-toggle="modal" data-target="#loginModal" >Login</a>');
+				location.reload(true);
+			}
+		},
+		dataType: "json"
+	});
+};
+
 
 function processLoginSubmit(){
 	var data = {"email": $("#email").val(), "password": $("#password").val()};

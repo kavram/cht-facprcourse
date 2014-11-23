@@ -50,7 +50,10 @@ public class EmailServiceImpl implements EmailService {
     	try {
     		MimeMessageHelper helper = new MimeMessageHelper(message, true);
 			velocityEngine.mergeTemplate(templateName, "UTF-8", vc, writer);
-	        helper.setTo(toAddress);
+			String[] recip = toAddress.split(",");
+			for(int i = 0; i < recip.length; i++)
+				helper.addTo(recip[i]);
+	        //helper.setTo(toAddress);
 	        helper.setFrom(fromAddress); 
 	        helper.setSubject((String)vc.get("subject"));
 	        helper.setText(writer.toString(), true);

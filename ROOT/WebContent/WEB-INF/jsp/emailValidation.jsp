@@ -6,7 +6,7 @@
     <h1>
     <center>
     	Thank you. Your email has been validated.<br>
-    	<a href="/">OK</a>
+    	<a href="/courses">Continue</a>
     </center>
     </h1>
 

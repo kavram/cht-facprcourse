@@ -801,11 +801,10 @@ footer
 }
 #grad1 {
     height: 200px;
-    background: -webkit-linear-gradient(silver, grey); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(silver, grey); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(silver, grey); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(silver, grey); /* Standard syntax (must be last) */
-}
+    background: -webkit-linear-gradient(#777777, #444444); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#777777, #444444); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#777777, #444444); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#777777, #444444); /* Standard syntax (must be last) */}
 a {
   color: #000000;
   text-decoration: none;

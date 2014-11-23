@@ -21,9 +21,6 @@ import com.cht.firstaidcpr4me.web.domain.User;
 
 public class UserServiceImpl implements UserService {
 
-	private static final Long USER_EMAIL_VALIDATION_PENDING = new Long(0);
-	private static final Long USER_EMAIL_VALIDATED = new Long(1);
-
 	@Autowired
     private LoginDAO loginDao;
 
@@ -115,6 +112,8 @@ public class UserServiceImpl implements UserService {
 		lev = loginEmailValidationDao.save(lev);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("token", lev.getValidationKey());
+		model.put("firstName", lg.getFirstName());
+		model.put("lastName", lg.getLastName());
 		emailService.sendEmail("confirmEmail.vm", lg.getEmail(), model);
 	}
 

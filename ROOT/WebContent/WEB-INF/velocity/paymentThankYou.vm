@@ -1,10 +1,26 @@
-#set ($subject = "Thanks for Your Payment")
+#set ($subject = "Your Recent FirstaidCPRCourse.com Purchase")
 
 <html>
-Dear $firstName $lastName!
+Dear $firstName $lastName,
 <br>
-Thank you for your payment for the $course course.
 <br>
-Thank you.
+Thank you for your recent purchase at Companion Medical Supply! Your order has been processed successfully. 
+<br>
+Please find a breakdown of your order below:
+<br>
+Course: 				$course
+<br>
+Order Total:			$$amount
+<br>
+Amount Paid:			$$amount
+<br>
+Date of Purchase:		$orderDate
+<br>
+<br>
+Thanks,
+<br>
+Your Companion Medical Supply Team
+<br>
+The information contained in this electronic message may contain protected health information confidential under applicable law, and is intended only for the use of the individual or entity named above.  If the recipient of this message is not the above-named intended recipient, you are hereby notified that any dissemination, copy or disclosure of this communication is strictly prohibited.  If you have received this communication in error, please notify Companion Medical Supply at support@firstaidcprcourse.com and purge the communication immediately without making any copy or distribution.
 
 </html>

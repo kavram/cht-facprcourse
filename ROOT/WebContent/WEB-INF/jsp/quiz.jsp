@@ -38,7 +38,20 @@ $(document).ready(function() {
 			success: function(data, status, jqXHR){
 				if(data.status == "pass"){
 					$('#popup').find('h4').html('<center>Success! You passed the quiz!</center>');
-					$('#bDiv').html('<a href="/printtempcard"><button type="button" id="printCert" class="btn btn-default">Print Wallet Temp Card</button></a>');
+					$('#bDiv').html(
+					    				'Congratulations, you have passed the course quiz and you can now print your certification. You have two choices for the certificate,' + 
+					    				'a wallet sized certificate or a wall certificate suitable for framing. <br><br>' +
+					    				'After you select a certificate size, we will open a PDF on your desktop that contains a high resolution print image' +
+					    				'of your certificate and start the printing process. Simply select the printer that you wish to use and start the print' +
+					    				'request.<br><br>' +
+					    				'When you have completed the printing process, save the certificate PDF on your computer for future reference.' +
+					    		 		'<br><br>' +
+					  				'<center>' +
+					  				'<p>' +
+					  					'<a href="printtempcard"><button type="button" class="btn btn-primary btn-lg">Print Wallet Certificate</button></a>' +
+					  					'&nbsp;<a href="wall-certificate" target="_blank"><button type="button" class="btn btn-info btn-lg">Print Wall Certificate</button></a>' +
+									'</p>' +
+									'</center>');
 				}else if(data.status == "fail"){
 					$('#popup').find('h4').html('<center>Sorry, You didn\'t pass the quiz.</center>');
 					$('#bDiv').html('<button type="button" data-dismiss="modal" id="tryAgain" class="btn btn-default">Try Again</button>' +
@@ -82,16 +95,7 @@ $(document).ready(function() {
 		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 		        <h4 class="modal-title"></h4>
 		      </div>
-		      <div class="modal-body">
-		      <form id="form" method="post" class="form-horizontal">
-		      	<center>
-            		<div id="message"></div>
-    			</center>
-    			<div class="form-group">
-	            <div id="bDiv" class="col-md-5 col-md-offset-3">
-	            </div>
-	            </div>
-	            </form>
+		      <div id="bDiv" class="modal-body">
 		     </div>
 		   </div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
@@ -99,10 +103,10 @@ $(document).ready(function() {
 </head>
 <body>
 	<div class="container">
-		<h2>${course.name} - Course Quiz</h2>
+		<h2>${courseName} - Course Quiz</h2>
 		<div>
 		<form id="quizForm" method="post" class="form-horizontal">
-		<c:forEach var="question" items="${course.questions}" >
+		<c:forEach var="question" items="${quiz}" >
 			<div class="panel panel-default">
 			<div class="panel-heading" style="font-size:15px; font-weight:bold;">${question.question}</div>
   				<div class="panel-body" id="q-${question.id}">   

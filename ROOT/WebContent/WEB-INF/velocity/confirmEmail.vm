@@ -1,8 +1,29 @@
-#set ($subject = "FirstAidCPRCourse.com email verification")
+#set ($subject = "Please Verify Your FirstaidCPRCourse.com Account Email Address")
 
 <html>
-Please click on this <a href="$siteDomain/email-validation/$token" >link</a> to confirm your email.
+Dear $firstName $lastName,
 <br>
-Thank you.
+<br>
+Please click on the following link to verify your email address to complete your registration with FirstAidCPRCourse.com:
+ <a href="$siteDomain/email-validation/$token" >Activate Account</a>
+<br>
+<br>
+Why email verification?
+<br>
+ - Protects your identity.
+<br>
+ - Allows access to Companion Medical Supply applications and web sites that require verification.
+<br>
+Account Verification Link does not work?
+<br>
+If you are unable to click on the link above, you can complete your email address verification by copying and pasting the following URL into your browser:
+<br>
+$siteDomain/email-validation/$token
+<br>
+Thanks,
+<br>
+Your Companion Medical Supply Support Team
+<br>
+The information contained in this electronic message may contain protected health information confidential under applicable law, and is intended only for the use of the individual or entity named above.  If the recipient of this message is not the above-named intended recipient, you are hereby notified that any dissemination, copy or disclosure of this communication is strictly prohibited.  If you have received this communication in error, please notify Companion Medical Supply at support@firstaidcprcourse.com and purge the communication immediately without making any copy or distribution.
 
 </html>

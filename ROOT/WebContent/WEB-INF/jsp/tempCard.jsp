@@ -21,16 +21,74 @@
 </head>
 <body>
 <div id="myPrint">
-<img src="images/CPRWalletCard.jpg" align=left>
-<div>
-<p style='position: absolute; left: 140px; top: 105px; font-size: 16px; font-weight: bold;' >${user.firstName} ${user.lastName}</p>
-<p style='position: absolute; left: 40px; top: 215px; font-size: 16px; font-weight: bold;'>${issueDate}</p><p style='position: absolute; left: 270px; top: 215px; font-size: 16px; font-weight: bold;'>${renewDate}</p>
-</div>
-<div>
-	<img src="images/bgwalker_signature.gif" height=60px style="position: absolute; left: 425px; top: 150px;">
-<br>
-<br>
-</div>
+<c:if test="${userCourse.courseId == 4}">
+	<img src="images/CPRWalletCard.jpg" align=left>
+	<div>
+		<p style='position: absolute; left: 140px; top: 105px; font-size: 16px; font-weight: bold;' >${user.firstName} ${user.lastName}</p>
+		<p style='position: absolute; left: 40px; top: 215px; font-size: 16px; font-weight: bold;'>${issueDate}</p><p style='position: absolute; left: 270px; top: 215px; font-size: 16px; font-weight: bold;'>${renewDate}</p>
+	</div>
+	<div>
+		<img src="images/bgwalker_signature.gif" height=60px style="position: absolute; left: 425px; top: 150px;">
+	<br>
+	<br>
+	</div>
+	<br>
+	<button onclick="divPrint()" type="button" style="position: absolute; left: 70px; top: 290px;font-size: 16px; font-weight: bold;">Print Temporary Certificate</button>
+</c:if>
+<c:if test="${userCourse.courseId == 1}">
+	<img src="images/FirstAidWallet.jpg" align=left>
+	<div>
+		<p style='position: absolute; left: 140px; top: 105px; font-size: 16px; font-weight: bold;' >${user.firstName} ${user.lastName}</p>
+		<p style='position: absolute; left: 40px; top: 215px; font-size: 16px; font-weight: bold;'>${issueDate}</p><p style='position: absolute; left: 270px; top: 215px; font-size: 16px; font-weight: bold;'>${renewDate}</p>
+	</div>
+	<div>
+		<img src="images/bgwalker_signature.gif" height=60px style="position: absolute; left: 425px; top: 150px;">
+	<br>
+	<br>
+	</div>
+	<br>
+	<button onclick="divPrint()" type="button" style="position: absolute; left: 70px; top: 290px;font-size: 16px; font-weight: bold;">Print Temporary Certificate</button>
+</c:if>
+<c:if test="${userCourse.courseId == 3}">
+	<img src="images/CPRWalletCard.jpg" align=left>
+	<div>
+		<p style='position: absolute; left: 140px; top: 105px; font-size: 16px; font-weight: bold;' >${user.firstName} ${user.lastName}</p>
+		<p style='position: absolute; left: 40px; top: 215px; font-size: 16px; font-weight: bold;'>${issueDate}</p><p style='position: absolute; left: 270px; top: 215px; font-size: 16px; font-weight: bold;'>${renewDate}</p>
+	</div>
+	<div>
+		<img src="images/bgwalker_signature.gif" height=60px style="position: absolute; left: 425px; top: 150px;">
+	<br>
+	<br>
+	</div>
+	<br>
+	<button onclick="divPrint()" type="button" style="position: absolute; left: 70px; top: 290px;font-size: 16px; font-weight: bold;">Print Temporary Certificate</button>
+</c:if>
+<c:if test="${userCourse.courseId == 2}">
+	<img src="images/CPRWalletCard.jpg" align=left>
+	<div>
+		<p style='position: absolute; left: 140px; top: 105px; font-size: 16px; font-weight: bold;' >${user.firstName} ${user.lastName}</p>
+		<p style='position: absolute; left: 40px; top: 215px; font-size: 16px; font-weight: bold;'>${issueDate}</p><p style='position: absolute; left: 270px; top: 215px; font-size: 16px; font-weight: bold;'>${renewDate}</p>
+	</div>
+	<div>
+		<img src="images/bgwalker_signature.gif" height=60px style="position: absolute; left: 425px; top: 150px;">
+	<br>
+	<br>
+	</div>
+	<img src="images/FirstAidWallet.jpg" align=left>
+	<div>
+		<p style='position: absolute; left: 140px; top: 375px; font-size: 16px; font-weight: bold;' >${user.firstName} ${user.lastName}</p>
+		<p style='position: absolute; left: 40px; top: 484px; font-size: 16px; font-weight: bold;'>${issueDate}</p><p style='position: absolute; left: 270px; top: 484px; font-size: 16px; font-weight: bold;'>${renewDate}</p>
+	</div>
+	<div>
+		<img src="images/bgwalker_signature.gif" height=60px style="position: absolute; left: 425px; top: 419px;">
+	<br>
+	<br>
+	</div>
+	<br>
+	<button onclick="divPrint()" type="button" style="position: absolute; left: 70px; top: 550px;font-size: 16px; font-weight: bold;">Print Temporary Certificate</button>
+</c:if>
+
+
 </div>
 <script type="text/javascript">
       function divPrint() {
@@ -38,7 +96,5 @@
         window.location.href = "/";
       }
 </script>
-<br>
-<button onclick="divPrint()" type="button" style="position: absolute; left: 70px; top: 290px;font-size: 16px; font-weight: bold;">Print Temporary Certificate</button>
 </body>
 </html>

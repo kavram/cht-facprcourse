@@ -85,7 +85,7 @@ $(document).ready( function(){
                             <p>
                                 <strong>Corporate Information </strong>
                             </p>
-                            <p>Companion Medical Supply is an organization with offices in California and Hawaii. </p>
+                            <p>Companion Medical Supply is an organization with offices in California. </p>
                             <p><strong>Companion Medical Supply </strong><br>
                             2059 Camden Ave. #323<br>
                             San Jose, CA 95124   USA</p>

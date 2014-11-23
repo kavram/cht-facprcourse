@@ -7,6 +7,9 @@ import com.cht.firstaidcpr4me.web.domain.User;
 
 public interface UserService {
 
+	public static final Long USER_EMAIL_VALIDATION_PENDING = new Long(0);
+	public static final Long USER_EMAIL_VALIDATED = new Long(1);
+	
 	public boolean isLoginExists(String email);
 	
 	public User validateEmail(String validationKey) throws EmailValidationKeyNotFoundException;

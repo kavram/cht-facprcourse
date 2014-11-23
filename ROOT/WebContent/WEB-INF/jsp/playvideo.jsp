@@ -8,20 +8,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-<link rel="stylesheet" href="//releases.flowplayer.org/5.5.0/skin/minimalist.css">
+<title></title>
+
 <script src="${domain}/js/jquery-1.8.2.js"></script>
-<script src="//releases.flowplayer.org/5.5.0/flowplayer.min.js"></script>
-<script src="//embed.flowplayer.org/5.5.0/embed.min.js"></script>
+
+<jsp:include page="flowPlayerResources.jsp" />
+
 <!-- bootstrap 2.3.0 -->
 <!-- style sheets bootstrap 2.3.0 -->
 <link href="${domain}/content/bootstrap.css" rel="stylesheet" />
 <link href="${domain}/content/bootstrap-responsive.css" rel="stylesheet" />
-<link href="${domain}/content/site.css" rel="stylesheet" />
-<!-- player skin -->
-<link rel="stylesheet" href="${domain}/content/minimalist.css">
-<!-- include flowplayer -->
-<script src="${domain}/js/flowplayer.min.js"></script>
 <!-- style sheets End -->
 <!----======================== Java scripts =============================----->
 <!-- include flowplayer -->
@@ -83,7 +79,7 @@
 </head>
 <body>
 <h4 style="position: relative; top: 0px; text-align:center;">${name}</h4>
-<div class="flowplayer is-disabled" style="width: 100%; height: 460px;">
+<div class="flowplayer is-disabled" data-rtmp="rtmp://rtmp.flowplayer.org/cfx/st/" data-ratio="0.5625" data-qualities="216p,360p,720p" data-default-quality="360p" style="width: 100%; height: 460px;">
     <video>
         <source type="video/webm" src="${video}">
         <source type="video/mp4"  src="${video}">

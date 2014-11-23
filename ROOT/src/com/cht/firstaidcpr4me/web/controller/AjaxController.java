@@ -65,6 +65,26 @@ public class AjaxController extends BaseController {
 		return resp;
 	}
 
+	@RequestMapping("ajax/user-reg-status")
+	public @ResponseBody AjaxResponse checkUserRegStatus(HttpServletRequest request, HttpServletResponse response){
+		AjaxResponse resp = new AjaxResponse("pending");
+		try {
+			User user = getUser(request);
+			if(user.getLevel().intValue() != UserService.USER_EMAIL_VALIDATED){
+				user = userService.getUserById(user.getId());
+				if(user.getLevel().intValue() == UserService.USER_EMAIL_VALIDATED){
+					setUser(user, request, response);
+					resp = new AjaxResponse("confirmed");
+				}
+			}else
+				resp = new AjaxResponse("confirmed");
+		} catch (Exception e) {
+			resp = new AjaxResponse("error");
+		}
+		return resp;
+	}
+	
+	
 	@RequestMapping("ajax/forgot-password")
 	public @ResponseBody AjaxResponse processForgotPassword(@RequestParam(value="params", required=true) String params, HttpServletRequest request, HttpServletResponse response){
 		AjaxResponse resp = null;

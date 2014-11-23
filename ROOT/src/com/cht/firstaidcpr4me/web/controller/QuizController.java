@@ -1,5 +1,9 @@
 package com.cht.firstaidcpr4me.web.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,12 +20,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cht.firstaidcpr4me.core.domain.exceptions.CourseNotFoundException;
 import com.cht.firstaidcpr4me.core.domain.exceptions.QuestionNotFoundException;
 import com.cht.firstaidcpr4me.core.domain.objects.Answer;
 import com.cht.firstaidcpr4me.core.domain.objects.Question;
 import com.cht.firstaidcpr4me.core.domain.services.CourseService;
 import com.cht.firstaidcpr4me.core.domain.services.QuestionService;
 import com.cht.firstaidcpr4me.web.domain.AjaxResponse;
+import com.cht.firstaidcpr4me.web.domain.CourseQuestion;
 import com.cht.firstaidcpr4me.web.domain.User;
 import com.cht.firstaidcpr4me.web.domain.UserCourse;
 
@@ -51,15 +57,33 @@ public class QuizController extends BaseController {
 			if(!course.isPaid())
 				return new ModelAndView("redirect:courses");
 			request.getSession().setAttribute(COURSE, course);
-			mv.addObject("course", course);
+			mv.addObject("courseName", course.getName());
+			mv.addObject("quiz", getQuizQuestions(course));
 		} catch (NumberFormatException e) {
 			log.error(e.getMessage(), e);
-		}catch (Exception e) {
+		}catch (CourseNotFoundException e) {
 			log.error(e.getMessage(), e);
+			mv.setViewName("urlNotFound.jsp");
 		}
 		return mv;
 	}
 
+	private Collection<CourseQuestion> getQuizQuestions(UserCourse course){
+		Collection<CourseQuestion> coll = new ArrayList<CourseQuestion>();
+		Object[] arr = course.getQuestions().toArray();
+		Random rGen = new Random();
+		int start = rGen.nextInt(arr.length);
+		for(int i = 0; i < arr.length; i++){
+			if(i >= start)
+				coll.add((CourseQuestion) arr[i]);
+		}
+		int add = 10 - coll.size();
+		for(int i = 0; i < add; i++){
+			coll.add((CourseQuestion) arr[i]);
+		}
+		return coll;
+	}
+	
 	@RequestMapping("/submit")
 	public @ResponseBody AjaxResponse processLoginSubmission(@RequestParam(value="params", required=true) String params, HttpServletRequest request, HttpServletResponse response){
 		AjaxResponse ar = new AjaxResponse();
@@ -73,8 +97,8 @@ public class QuizController extends BaseController {
 				if(isAnswerCorrect(aId, questionService.getQuestionById(qId)))
 					score++;
 			}
-			float res = score / jArr.length() * 100;
-			if(res > 50){
+			float res = (float)score / jArr.length() * 100;
+			if(res >= 70){ //70
 				completeUserCourse(request);
 				ar.setStatus("pass");
 			}else

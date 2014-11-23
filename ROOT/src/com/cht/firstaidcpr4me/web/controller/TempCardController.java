@@ -31,6 +31,7 @@ public class TempCardController extends BaseController {
 			UserCourse course = (UserCourse) request.getSession().getAttribute(QuizController.COURSE);
 			if(course == null || !course.isPaid() || !course.isCompleted())
 				return new ModelAndView("redirect:courses");
+			mv.addObject("userCourse", course);
 			mv.addObject("user", user);
 			SimpleDateFormat dateForm = new SimpleDateFormat("MM/dd/yyyy");
 			Calendar cal = Calendar.getInstance();
