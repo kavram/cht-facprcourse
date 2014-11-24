@@ -283,7 +283,7 @@ hands only" />
 		    	<div class="modal-body">
 					<h4>FirstAidCPRCourse.com Disclaimer/Policy</h4>
 					<p>FirstAidCPRCourse.com's official registered domain name is "www.FirstAidCPRCourse.com", and the organizations official United States web domain address is "http://www.FirstAidCPRCourse.com"
-						While the information and recommendations contained in FirstAidCPRCourse.Com's website have been compiled from sources believed to be reliable, FirstAidCprCourse.Com makes no guarantee as to, and assumes no responsibility for, the correctness, sufficiency, or completeness of such information or recommendations or additional safety measures may be required under particular circumstances.
+						While the information and recommendations contained in FirstAidCPRCourse.com's website have been compiled from sources believed to be reliable, FirstAidCprCourse.Com makes no guarantee as to, and assumes no responsibility for, the correctness, sufficiency, or completeness of such information or recommendations or additional safety measures may be required under particular circumstances.
 						The FirstAidCPRCourse.com logo is a registered trademark. Permission to use FirstAidCPRCourse.com's logo for World Wide Web display must be obtained, in writing from FirstAidCPRCourse.com prior to use. Contact FirstAidCprCourse.Com by sending us an e-mail using the web email address: info@FirstAidCprCourse.com</p> 
 
 					<p>Links made from the FirstAidCPRCourse.com website to another domain on the Web shall not represent an endorsement by FirstAidCPRCourse.com, its members directors, management, divisions, or staff.</p>
