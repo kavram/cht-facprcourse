@@ -49,7 +49,6 @@ $(document).ready(function() {
 					  				'<center>' +
 					  				'<p>' +
 					  					'<a href="printtempcard"><button type="button" class="btn btn-primary btn-lg">Print Wallet Certificate</button></a>' +
-					  					'&nbsp;<a href="wall-certificate" target="_blank"><button type="button" class="btn btn-info btn-lg">Print Wall Certificate</button></a>' +
 									'</p>' +
 									'</center>');
 				}else if(data.status == "fail"){

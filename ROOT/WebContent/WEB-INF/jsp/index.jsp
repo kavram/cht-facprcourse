@@ -6,7 +6,9 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html5/loose.dtd">
 <html>
-<head>
+<head profile="http://www.w3.org/2005/10/profile">
+
+
 <jsp:include page="resources.jsp" />
 <jsp:include page="flowPlayerResources.jsp" />
 <jsp:include page="header.jsp" />

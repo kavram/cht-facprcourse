@@ -21,9 +21,7 @@ function checkUserRegStatus(){
 		processData: false,
 		success: function(data, status, jqXHR){
 			if(data.status != "confirmed"){
-				//$('#userHead').html('<a href="#registerModal"  data-toggle="modal" data-target="#registerModal"> Not a Member? Join Now For FREE </a> |' + 
-				//		'<a href="#loginModal"  data-toggle="modal" data-target="#loginModal" >Login</a>');
-				location.reload(true);
+				$('#regConfModal').modal({show:true});
 			}
 		},
 		dataType: "json"
@@ -112,6 +110,15 @@ function processRegistrationSubmit(){
 				//$('#myRegister').modal('hide');
 				$('#userHead').html('Welcome,' + data.firstName + ' ' + data.lastName + ' | <a href="/logout" >Log out</a>');
 				$('#registerMessages').html('<div class="alert alert-success" role="alert">Thank you. We sent you an email to confirm your registration.</div>');
+		 		$('#crsPmt1').unbind('click');
+		 		$('#crsPmt2').unbind('click');
+		 		$('#crsPmt3').unbind('click');
+		 		$('#crsPmt4').unbind('click');
+		 		
+		 		$('#registerModal').on('hidden.bs.modal', function () {
+		 			location.reload(true);
+		 		});
+
 			}
 		},
 		dataType: "json"

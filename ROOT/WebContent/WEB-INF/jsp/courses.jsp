@@ -58,16 +58,22 @@ $(document).ready(function(){
 		var paid = $(this).attr('paid');
 		$('#videoDiv').find('a').remove();
 		var aTag = '';
-		if(paid == 'false'){
-			aTag = '<a href="payment?courses=' + $(this).attr('course_id') + '" id="item9" class="pull-right"><button type="button" class="btn btn-warning"  style="float:right position:relative; top:100;">Pay Now To Proceed</button></a>';
-		}else
-			aTag = '<a href="quiz?courses=' + $(this).attr('course_id') + '" id="item9" class="pull-right"><button type="button" style="float:right position:absolute; top:50;" class="btn btn-success">Take The Quiz</button></a>';
+		var rUser = $('#regUser');
+		if($('#regUser').length > 0){
+			aTag = '<a data-toggle="modal" data-target="#loginModal"><button type="button" class="btn btn-warning"  style="float:right position:relative; top:100;">Login Now To Proceed</button></a>';
+		}else{
+			if(paid == 'false'){
+				aTag = '<a href="payment?courses=' + $(this).attr('course_id') + '" id="item9" class="pull-right"><button type="button" class="btn btn-warning"  style="float:right position:relative; top:100;">Pay Now To Proceed</button></a>';
+			}else
+				aTag = '<a href="quiz?courses=' + $(this).attr('course_id') + '" id="item9" class="pull-right"><button type="button" style="float:right position:absolute; top:50;" class="btn btn-success">Take The Quiz</button></a>';
+		}
 		$('#iframeDiv').before(aTag);
 		$('#iframeDiv').after(aTag);			
     	var play_url = $(this).attr('div_data');
     	iframe = document.getElementById('myIframe');
     	iframe.src = play_url;
 	});
+	
 });
 </script>
 </head>

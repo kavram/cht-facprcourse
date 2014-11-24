@@ -1,3 +1,4 @@
+    <link rel="icon" type="image/ico" href="${domain}/images/favicon.ico">
     <!-- style sheets bootstrap 2.3.0 -->
     <link href="${domain}/content/bootstrap.css" rel="stylesheet" />
     <link href="${domain}/content/bootstrap-responsive.css" rel="stylesheet" />

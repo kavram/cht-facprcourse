@@ -1,9 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html5/loose.dtd">
 <html>
 <head>
 <jsp:include page="resources.jsp" />
 <jsp:include page="header.jsp" />
+<script type="text/javascript">
+	 <c:if test="${user.email == null}">
+	 	$(document).ready(function(){
+	 		$('#crsPmt1').click(function(e){
+	 			e.preventDefault();
+	 			$('#loginModal').modal({show:true});
+	 		});
+	 		$('#crsPmt2').click(function(e){
+	 			e.preventDefault();
+	 			$('#loginModal').modal({show:true});
+	 		});
+	 		$('#crsPmt3').click(function(e){
+	 			e.preventDefault();
+	 			$('#loginModal').modal({show:true});
+	 		});
+	 		$('#crsPmt4').click(function(e){
+	 			e.preventDefault();
+	 			$('#loginModal').modal({show:true});
+	 		});
+	 	});
+	 </c:if>
+	
+	
+</script>
+
 </head>
 <body>
 <jsp:include page="topNav.jsp" >
@@ -30,7 +60,7 @@
 			Cardiac Arrest Training, Adult CPR,
 			AED. Hands-Only CPR Choking Adult Choking- Conscious and Unconscious.
 
-    		<h3>Price - $14.95 &nbsp;&nbsp;&nbsp;<a href="payment?courses=4"><img src="images/starthere.jpg" height=40px border=0></a></h3>
+    		<h3>Price - $14.95 &nbsp;&nbsp;&nbsp;<a id="crsPmt1" href="payment?courses=4"><img src="images/starthere.jpg" height=40px border=0></a></h3>
     	</div>
     	<div class="span2">
     		<img src="images/cpr.jpg" height="120px" border=0>
@@ -50,7 +80,7 @@
 			Topics include: Heimlich maneuver, conscious choking adult, and stroke, Cardiac Arrest, Heart Attack
 			Bite Wounds, puncture wounds, nose bleed, head injury, treatments, fractures, I.C.E., Electrocution, cleaning wounds, stop bleeding, cuts and Scrapes, choking, and burns
 
-    		<h3>Price - $19.95 &nbsp;&nbsp;&nbsp;<a href="payment?courses=1"><img src="images/starthere.jpg" height=40px border=0></a></h3>
+    		<h3>Price - $19.95 &nbsp;&nbsp;&nbsp;<a id="crsPmt2" href="payment?courses=1"><img src="images/starthere.jpg" height=40px border=0></a></h3>
     	</div>
     	<div class="clearfix"></div>
     </div>
@@ -59,7 +89,7 @@
 	<h3> CPR and First Aid</h3>
     	<div class="span9">
     		CPR Basic is training in both First Aid and CPR certification that meets all of the necessary AHA or OSHA regulations. Designed for people that want to master the science of First Aid and CPR at their own pace. This course follows the latest American Heart Association, ECC/ILCOR guidelines.
-    		<h3>Price - $29.95 &nbsp;&nbsp;&nbsp;<a href="payment?courses=2"><img src="images/starthere.jpg" height=40px border=0></a></h3>
+    		<h3>Price - $29.95 &nbsp;&nbsp;&nbsp;<a id="crsPmt3" href="payment?courses=2"><img src="images/starthere.jpg" height=40px border=0></a></h3>
     	</div>
     	<div class="span2">
     		<img src="images/facpr.jpg" height="120px" border=0>
@@ -79,7 +109,7 @@
     		In addition you will learn how to respond to a scene with  Adults ( 1 or 2 rescuers) 
     		as how to use an Automated External Defibrillator (AED). 
     		You'll also learn about First-Aid and how to  care for wounds, cuts and scrapes, strokes, and seizures.
-    		<h3>Price - $49.95 &nbsp;&nbsp;&nbsp;<a href="payment?courses=3"><img src="images/starthere.jpg" height=40px border=0></a></h3>
+    		<h3>Price - $49.95 &nbsp;&nbsp;&nbsp;<a id="crsPmt4" href="payment?courses=3"><img src="images/starthere.jpg" height=40px border=0></a></h3>
     	</div>
     	<div class="clearfix"></div>
     </div>

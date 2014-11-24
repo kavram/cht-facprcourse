@@ -9,6 +9,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="keywords" content="cpr certification,American Heart Association cpr, American Heart Association cpr, American Heart Association, basic life support certification, bls certification, bls online, bls, cpr certificate, cpr certification online, cpr certify, cpr classes, cpr courses, cpr online renewal, cpr online, cpr recertification, cpr recertify, cpr renewal, cpr test, cpr training,
+First Aid certificate, First Aid certification online, First Aid certify, First Aid classes, First Aid courses, First Aid online renewal, First Aid online, First Aid recertification, First Aid recertify, First Aid renewal, First Aid test, First Aid training, hands only cpr, online cpr certification, online cpr recertification, online cpr renewal, online cpr, online First Aid certification, online First Aid recertification, online First Aid renewal, online First Aid, Red Cross cpr, Red Cross First Aid, 
+hands only" />
+<meta name="robots" content="all" />
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-56821478-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
 <title>First Aid Prototype</title>
 	<script type="text/javascript" >
 	<c:if test="${user.email == null}">
@@ -59,13 +76,15 @@
                 </a>
             </div>
             <div class="col-lg-4 col-sm-4" align=right style="background-image:url(${domain}/images/header-bg.png); background-repeat: no-repeat; background-position: right; color:#ffffff;">
+            	<div id="userHead" >
 					<c:if test="${user.email == null}">
-						<a href="#registerModal"  data-toggle="modal" data-target="#registerModal" style="color:#ffffff;"> Not a Member? Join Now For FREE </a> | 
+						<a id="regUser" href="#registerModal"  data-toggle="modal" data-target="#registerModal" style="color:#ffffff;"> Not a Member? Join Now For FREE </a> | 
 						<a href="#loginModal"  data-toggle="modal" data-target="#loginModal" style="color:#ffffff;">Login</a>
 					</c:if>
 					<c:if test="${user.email != null}">
-	 					Welcome, ${user.firstName} ${user.lastName} | <a id="logouta" href="" >Log out</a>
+	 					Welcome, ${user.firstName} ${user.lastName} | <a id="logouta" href="" style="color:#ffffff;">Log out</a>
 	 				</c:if>
+	 			</div>	
 				<br>
 				<span class="glyphicon glyphicon-phone" style="margin-right: 5px;"></span>1-877-295-0933 <br>          
 				Mon - Fri, 9am - 8pm EST <br>  
@@ -79,18 +98,17 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		        <h4 class="modal-title"><center>Site Login</center></h4>
+		        <h4 class="modal-title"><center>Please Confirm Your Registration</center></h4>
 		      </div>
 		      <div class="modal-body">
 					<center>
 						Please confirm your registration by clicking on the &quot;Activate Account&quot; link in
-						the "Please Verify Your FirstaidCPRCourse.com Account Email Address" email.
+						the &quot;Please Verify Your FirstaidCPRCourse.com Account Email Address&quot; email.
 		        	</center>		      
 		          <form id="f" method="post" class="form-horizontal">
 	                  <div class="form-group">
 	                        <div class="col-md-5 col-md-offset-3">
-	                            <button type="submit" id="loginSubmit" class="btn btn-default">Login </button>
-	                            <button class="btn btn-default" id="forgotPassButton" data-dismiss="modal" type="button">Forgot Password</button>
+	                            <button class="btn btn-default" id="ok" data-dismiss="modal" type="button">OK</button>
 	                        </div>
 	                 </div>
 	              </form>
@@ -264,13 +282,13 @@
 		      	</div>
 		    	<div class="modal-body">
 					<h4>FirstAidCPRCourse.com Disclaimer/Policy</h4>
-					<p>FirstAidCprCourse.Com's official registered domain name is "www.FirstAidCprCourse.com", and the organizations official United States web domain address is "http://www.FirstAidCPRCourse.com"
-						While the information and recommendations contained in FirstAidCprCourse.Com's website have been compiled from sources believed to be reliable, FirstAidCprCourse.Com makes no guarantee as to, and assumes no responsibility for, the correctness, sufficiency, or completeness of such information or recommendations or additional safety measures may be required under particular circumstances.
-						The FirstAidCprCourse.Com logo is a registered trademark. Permission to use FirstAidCprCourse.Com's logo for World Wide Web display must be obtained, in writing from FirstAidCPRCourse.com prior to use. Contact FirstAidCprCourse.Com by sending us an e-mail using the web email address: info@FirstAidCprCourse.com</p> 
+					<p>FirstAidCPRCourse.com's official registered domain name is "www.FirstAidCPRCourse.com", and the organizations official United States web domain address is "http://www.FirstAidCPRCourse.com"
+						While the information and recommendations contained in FirstAidCPRCourse.Com's website have been compiled from sources believed to be reliable, FirstAidCprCourse.Com makes no guarantee as to, and assumes no responsibility for, the correctness, sufficiency, or completeness of such information or recommendations or additional safety measures may be required under particular circumstances.
+						The FirstAidCPRCourse.com logo is a registered trademark. Permission to use FirstAidCPRCourse.com's logo for World Wide Web display must be obtained, in writing from FirstAidCPRCourse.com prior to use. Contact FirstAidCprCourse.Com by sending us an e-mail using the web email address: info@FirstAidCprCourse.com</p> 
 
-					<p>Links made from the FirstAidCprCourse.Com website to another domain on the Web shall not represent an endorsement by FirstAidCprCourse.Com, its members directors, management, divisions, or staff.</p>
-					<p>Information contained within the FirstAidCprCourse.Com website is the property of FirstAidCprCourse.Com. Permission for re-publication in any form must be obtained in writing from: FirstAidCprCourse.Com. See exceptions below.</p>
-					<p>Exceptions to being granted  copyright permission shall include information re-distributed for educational purposes (and must display the credit line: Permission to reprint granted by FirstAidCprCourse.Com, a membership organization dedicated to protecting life and promoting health.) or as expressly authorized along with the information presented.</p>
+					<p>Links made from the FirstAidCPRCourse.com website to another domain on the Web shall not represent an endorsement by FirstAidCPRCourse.com, its members directors, management, divisions, or staff.</p>
+					<p>Information contained within the FirstAidCPRCourse.com website is the property of FirstAidCPRCourse.com. Permission for re-publication in any form must be obtained in writing from: FirstAidCPRCourse.com. See exceptions below.</p>
+					<p>Exceptions to being granted  copyright permission shall include information re-distributed for educational purposes (and must display the credit line: Permission to reprint granted by FirstAidCPRCourse.com, a membership organization dedicated to protecting life and promoting health.) or as expressly authorized along with the information presented.</p>
 				</div>
 			</div>
 		</div>
@@ -308,13 +326,13 @@
 		      	</div>
 		    	<div class="modal-body">
 					<h4>Technological & Privacy</h4>
-					<p>"Cookies" are small pieces of information that are stored by your browser on your computer's hard drive. They allow us to better analyze our site traffic patterns and to provide improved content, advertisements, products and services. They also allow us to refine and enhance visitor registration and to add personalization. Most Web browsers automatically accept cookies, but you can usually change your browser to prevent that if you would rather not store the information for future use. If you decide not to accept cookies, you may encounter a number of difficulties using FirstAidCprCourse.Com.
-					   Third party vendors, including Google, will be displaying our ads to you on other sites across the internet because you have visited www.FirstAidCprCourse.Com. These third party vendors, including Google, use cookies to serve ads based on your prior visits to www.FirstAidCprCourse.Com. 
+					<p>"Cookies" are small pieces of information that are stored by your browser on your computer's hard drive. They allow us to better analyze our site traffic patterns and to provide improved content, advertisements, products and services. They also allow us to refine and enhance visitor registration and to add personalization. Most Web browsers automatically accept cookies, but you can usually change your browser to prevent that if you would rather not store the information for future use. If you decide not to accept cookies, you may encounter a number of difficulties using FirstAidCPRCourse.com.
+					   Third party vendors, including Google, will be displaying our ads to you on other sites across the internet because you have visited www.FirstAidCPRCourse.com. These third party vendors, including Google, use cookies to serve ads based on your prior visits to www.FirstAidCPRCourse.com. 
 					</p>
 					<h4>Personal Information Privacy</h4>
-					<p>Your personal information is used solely by FirstAidCprCourse.Com to allow us to better serve you. We will not sell, rent, or violate  your personal information to any third parties. You may unsubscribe from our weekly e-mail refresher videos at any time by clicking the unsubscribe link at the bottom of the e-mail.</p>
+					<p>Your personal information is used solely by FirstAidCPRCourse.com to allow us to better serve you. We will not sell, rent, or violate  your personal information to any third parties. You may unsubscribe from our weekly e-mail refresher videos at any time by clicking the unsubscribe link at the bottom of the e-mail.</p>
 					<h4>Medical & Instructional Source Authority</h4>	
-					<p>FirstAidCprCourse.Com Programs adhere to the most up-to-date medical and educational guidelines published by nationally recognized authorities. FirstAidCprCourse.Com utilizes the following source authorities:</p>
+					<p>FirstAidCPRCourse.com Programs adhere to the most up-to-date medical and educational guidelines published by nationally recognized authorities. FirstAidCPRCourse.com utilizes the following source authorities:</p>
 					<uL>
 						<li>National Highway Traffic Safety Administration, U.S. Department of Transportation.</li> 
 						<li>JAMA</li>
@@ -322,12 +340,12 @@
 						<li>2010 International Consensus on Cardiopulmonary Resuscitation and Emergency Cardiovascular Care Science with Treatment Recommendations, International Liaison Committee on Resuscitation, Resuscitation, Nov./Dec. 2010, Vol. 67, Nos. 2-3.</li>
 					</uL>
 					<h4>Development of Medical Knowledge</h4>
-					<p>The process of medical knowledge is gained through research and the practice of medicine by licensed physicians, surgeons, paramedics, nurses and other health care professionals. Knowledge gained through medical practice and research is evaluated and debated in formal and informal education settings, peer-reviewed medical journals, consensus conferences, seminars, and through other similar processes. Knowledge is investigated both privately and publicly, with regard to effectiveness, safety, ethical character and cost-effectiveness. Knowledge and medical practices that survive the rigors of debate and consensus-building and meet with widespread agreement among experts eventually become generally accepted within the medical community. Those concepts achieving general medical acceptance are typically published in texts and journals to be relied upon by practicing health care professionals. Academic universities, vocational schools, and other teaming organizations like FirstAidCprCourse.Com develop program content based upon published medical literature and tailor training materials to meet the needs of the target audience.</p>
+					<p>The process of medical knowledge is gained through research and the practice of medicine by licensed physicians, surgeons, paramedics, nurses and other health care professionals. Knowledge gained through medical practice and research is evaluated and debated in formal and informal education settings, peer-reviewed medical journals, consensus conferences, seminars, and through other similar processes. Knowledge is investigated both privately and publicly, with regard to effectiveness, safety, ethical character and cost-effectiveness. Knowledge and medical practices that survive the rigors of debate and consensus-building and meet with widespread agreement among experts eventually become generally accepted within the medical community. Those concepts achieving general medical acceptance are typically published in texts and journals to be relied upon by practicing health care professionals. Academic universities, vocational schools, and other teaming organizations like FirstAidCPRCourse.com develop program content based upon published medical literature and tailor training materials to meet the needs of the target audience.</p>
 					<h4>Instructional Program Acceptance</h4>
-					<p>ILCOR and the ECC publish national consensus guidelines for CPR and First Aid that reputable educators like FirstAidCprCourse.com to follow. It is important to understand that there is no medical authority nor a single organization whom regulates or authorizes CPR and First Aid training programs. Citing any company or corporation in statute or regulation often has the unintended consequence of discouraging enterprising approaches to first aid and CPR training, reducing the number of qualified first aid and CPR training programs available to serve the public. This practice also places government in the position of sanctioning particular programs thus discouraging or eliminating competition. Governments acting in this capacity are put at risk without any supporting public policy rationale.</p>
-					<h4>FirstAidCprCourse.Com Distinctives</h4>
-					<p>FirstAidCprCourse.Com is committed to providing instructional programs, which are participant-centered rather than instructor specific. Using an instructional approach which differs from routine academic education, FirstAidCprCourse.Com's overall strategy for skill development is simplification: regular review, repetition in a relaxed positive environment, self-discovery, cooperative learning, and joint assessment of knowledge and skills are emphasized. Successful completion of FirstAidCprCourse.Com training is based upon reasonable performance of emergency care skills rather than perfection. Flexibility is founded upon the fact that real life emergencies are unexpected and dynamic. Requiring rigidity and 100 percent accuracy in skill performance may contribute unnecessary barriers to taking action. FirstAidCprCourse.Com believes the instructional model provides participants with the tools necessary to act without fear of imperfection. NOTE: FirstAidCprCourse.Com online recertification in CPR for Healthcare Providers does not require hands on performance to prove proficiency for continued education and recertification.
-						FirstAidCprCourse.Com believes initial first aid training must include manikin practice and skill evaluation. FirstAidCprCourse.Com trains facilitators that allow participants to perform manikin practice and have their skills evaluated. Trained facilitators are entered into the registry and issued a revocable certificate authorizing these individuals to conduct skill evaluations for the FirstAidCprCourse.Com programs. FirstAidCprCourse.Com is committed to delivering exemplary first aid and CPR training. In furtherance of this goal, the company promotes a standardized instructional system designed in concert with professionals. The program development process draws upon the talent and experience of recognized experts In the field, outside consultants, and diligent medical research to ensure that program content and medical treatment guidelines used in FirstAidCprCourse.Com programs are safe and meet or exceed current standards and guidelines.</p>
+					<p>ILCOR and the ECC publish national consensus guidelines for CPR and First Aid that reputable educators like FirstAidCPRCourse.com to follow. It is important to understand that there is no medical authority nor a single organization whom regulates or authorizes CPR and First Aid training programs. Citing any company or corporation in statute or regulation often has the unintended consequence of discouraging enterprising approaches to first aid and CPR training, reducing the number of qualified first aid and CPR training programs available to serve the public. This practice also places government in the position of sanctioning particular programs thus discouraging or eliminating competition. Governments acting in this capacity are put at risk without any supporting public policy rationale.</p>
+					<h4>FirstAidCPRCourse.com Distinctives</h4>
+					<p>FirstAidCPRCourse.com is committed to providing instructional programs, which are participant-centered rather than instructor specific. Using an instructional approach which differs from routine academic education, FirstAidCPRCourse.com's overall strategy for skill development is simplification: regular review, repetition in a relaxed positive environment, self-discovery, cooperative learning, and joint assessment of knowledge and skills are emphasized. Successful completion of FirstAidCPRCourse.com training is based upon reasonable performance of emergency care skills rather than perfection. Flexibility is founded upon the fact that real life emergencies are unexpected and dynamic. Requiring rigidity and 100 percent accuracy in skill performance may contribute unnecessary barriers to taking action. FirstAidCPRCourse.com believes the instructional model provides participants with the tools necessary to act without fear of imperfection. NOTE: FirstAidCPRCourse.com online recertification in CPR for Healthcare Providers does not require hands on performance to prove proficiency for continued education and recertification.
+						FirstAidCPRCourse.com believes initial first aid training must include manikin practice and skill evaluation. FirstAidCPRCourse.com trains facilitators that allow participants to perform manikin practice and have their skills evaluated. Trained facilitators are entered into the registry and issued a revocable certificate authorizing these individuals to conduct skill evaluations for the FirstAidCPRCourse.com programs. FirstAidCPRCourse.com is committed to delivering exemplary first aid and CPR training. In furtherance of this goal, the company promotes a standardized instructional system designed in concert with professionals. The program development process draws upon the talent and experience of recognized experts In the field, outside consultants, and diligent medical research to ensure that program content and medical treatment guidelines used in FirstAidCPRCourse.com programs are safe and meet or exceed current standards and guidelines.</p>
 					
 				</div>
 			</div>

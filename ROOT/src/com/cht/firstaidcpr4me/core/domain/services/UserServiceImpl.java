@@ -50,10 +50,8 @@ public class UserServiceImpl implements UserService {
 		lg.setLevel(USER_EMAIL_VALIDATION_PENDING);
 		lg.setSecureHash(UUID.randomUUID().toString());
 		lg = loginDao.saveLogin(lg);
-		user.setId(lg.getId());
-		user.setUserHash(lg.getSecureHash());
 		sendEmailValidation(lg);
-		return user;
+		return new User(lg);
 	}
 
 	@Override 

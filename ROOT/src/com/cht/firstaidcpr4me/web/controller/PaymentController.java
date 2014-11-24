@@ -31,11 +31,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cht.firstaidcpr4me.core.domain.exceptions.PaymentException;
+import com.cht.firstaidcpr4me.core.domain.exceptions.UserNotFoundException;
 import com.cht.firstaidcpr4me.core.domain.objects.AuthorizeConf;
 import com.cht.firstaidcpr4me.core.domain.services.CourseService;
 import com.cht.firstaidcpr4me.core.domain.services.EmailService;
 import com.cht.firstaidcpr4me.core.domain.services.LoginPaymentService;
 import com.cht.firstaidcpr4me.core.domain.services.UserService;
+import com.cht.firstaidcpr4me.web.domain.AjaxResponse;
 import com.cht.firstaidcpr4me.web.domain.Payment;
 import com.cht.firstaidcpr4me.web.domain.User;
 import com.cht.firstaidcpr4me.web.domain.UserCourse;
@@ -63,10 +65,23 @@ public class PaymentController extends BaseController {
 	private EmailService emailService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView getPaymentForm(@RequestParam(value="courses", required=true) String courses, HttpServletRequest request) {
+	public ModelAndView getPaymentForm(@RequestParam(value="courses", required=true) String courses, HttpServletRequest request, HttpServletResponse response) {
 		Collection<UserCourse> collCrs = new ArrayList<UserCourse>();
-		User user = getUser(request);
+		User user = null; 
 		ModelAndView mv = getModelAndView("payment.jsp");
+		try {
+			user = getUser(request);
+			if(user.getLevel().intValue() != UserService.USER_EMAIL_VALIDATED){
+				user = userService.getUserById(user.getId());
+				if(user.getLevel().intValue() != UserService.USER_EMAIL_VALIDATED)
+					return getModelAndView("confirmRegistration.jsp");
+				else
+					setUser(user, request, response);
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new ModelAndView("redirect:/");
+		}
 			
 		Double totalAmount = new Double(0.0);
 		String[] cs = courses.split(";");
@@ -108,12 +123,7 @@ public class PaymentController extends BaseController {
 		}
 
 		try {
-			User user = null;
-			if(payment.getEmail() != null){
-				user = getOrRegisterUser(payment.getEmail(), payment.getFirstname(), payment.getLastname());
-				setUser(user, request, response);
-			}else
-				user = (User) request.getSession().getAttribute(SiteController.SESSION_ATTRIBUTE_USER);
+			User user = getUser(request);
 			
 			String transactionId = null;
 			if(payment.getCreditcardnum().equals("11112222"))
