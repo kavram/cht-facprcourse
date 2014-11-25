@@ -73,6 +73,23 @@ $(document).ready(function(){
     	iframe = document.getElementById('myIframe');
     	iframe.src = play_url;
 	});
+
+	$('li.pdoc').click(function(e){
+		var paid = $(this).attr('paid');
+		$('#videoDiv').find('a').remove();
+		var aTag = '';
+		var rUser = $('#regUser');
+		if($('#regUser').length > 0){
+			aTag = '<a data-toggle="modal" data-target="#loginModal"><button type="button" class="btn btn-warning"  style="float:right position:relative; top:100;">Login Now To Proceed</button></a>';
+		}else{
+			if(paid == 'false'){
+				aTag = '<a href="payment?courses=' + $(this).attr('course_id') + '" id="item9" class="pull-right"><button type="button" class="btn btn-warning"  style="float:right position:relative; top:100;">Pay Now To Proceed</button></a>';
+			}else
+				aTag = '<a href="quiz?courses=' + $(this).attr('course_id') + '" id="item9" class="pull-right"><button type="button" style="float:right position:absolute; top:50;" class="btn btn-success">Take The Quiz</button></a>';
+		}
+		$('#iframeDiv').before(aTag);
+		$('#iframeDiv').after(aTag);			
+	});
 	
 });
 </script>
@@ -107,34 +124,34 @@ $(document).ready(function(){
         		<ul class="dropdown-menu">
         		<c:if test="${userCourse.paid == true}">
         			<c:if test="${userCourse.courseId == 1}">
-       					<li><a href="documents/First_Aid_Course_Manual.pdf" target="_blank">Basic First Aid Course Manual</a></li> 			
+       					<li class="pdoc" paid="true" course_id="1"><a href="documents/First_Aid_Course_Manual.pdf" target="_blank">Basic First Aid Course Manual</a></li> 			
         			</c:if>
         			<c:if test="${userCourse.courseId == 2}">
-						<li><a href="documents/CPR_AED_Course_Manual.pdf" target="_blank" >Basic CPR Course Manual</a></li>
-        				<li><a href="documents/First_Aid_Course_Manual.pdf" target="_blank" >Basic First Aid Course Manual</a></li> 			
+						<li class="pdoc" paid="true" course_id="2"><a href="documents/CPR_AED_Course_Manual.pdf" target="_blank" >Basic CPR Course Manual</a></li>
+        				<li class="pdoc" paid="true" course_id="2"><a href="documents/First_Aid_Course_Manual.pdf" target="_blank" >Basic First Aid Course Manual</a></li> 			
         			</c:if>
         			<c:if test="${userCourse.courseId == 3}">
-						<li><a href="documents/CPR_AED_Course_Manual.pdf" target="_blank">Basic CPR Course Manual</a></li>
-        				<li><a href="documents/First_Aid_Course_Manual.pdf" target="_blank">Basic First Aid Course Manual</a></li>
+						<li class="pdoc" paid="true" course_id="3"><a href="documents/CPR_AED_Course_Manual.pdf" target="_blank">Basic CPR Course Manual</a></li>
+        				<li class="pdoc" paid="true" course_id="3"><a href="documents/First_Aid_Course_Manual.pdf" target="_blank">Basic First Aid Course Manual</a></li>
         			</c:if>
         			<c:if test="${userCourse.courseId == 4}">
-						<li><a href="documents/CPR_AED_Course_Manual.pdf" target="_blank">Basic CPR Course Manual</a></li>
+						<li class="pdoc" paid="true" course_id="4"><a href="documents/CPR_AED_Course_Manual.pdf" target="_blank">Basic CPR Course Manual</a></li>
         			</c:if>
         		</c:if>
         		<c:if test="${userCourse.paid == false}">
         			<c:if test="${userCourse.courseId == 1}">
-       					<li><a target="_blank">Basic First Aid Course Manual</a></li> 			
+       					<li class="pdoc" paid="false" course_id="1"><a target="_blank">Basic First Aid Course Manual</a></li> 			
         			</c:if>
         			<c:if test="${userCourse.courseId == 2}">
-						<li><a target="_blank" >Basic CPR Course Manual</a></li>
-        				<li><a target="_blank" >Basic First Aid Course Manual</a></li> 			
+						<li class="pdoc" paid="false" course_id="2"><a target="_blank" >Basic CPR Course Manual</a></li>
+        				<li class="pdoc" paid="false" course_id="2"><a target="_blank" >Basic First Aid Course Manual</a></li> 			
         			</c:if>
         			<c:if test="${userCourse.courseId == 3}">
-						<li><a target="_blank">Basic CPR Course Manual</a></li>
-        				<li><a target="_blank">Basic First Aid Course Manual</a></li>
+						<li class="pdoc" paid="false" course_id="3"><a target="_blank">Basic CPR Course Manual</a></li>
+        				<li class="pdoc" paid="false" course_id="3"><a target="_blank">Basic First Aid Course Manual</a></li>
         			</c:if>
         			<c:if test="${userCourse.courseId == 4}">
-						<li><a target="_blank">Basic CPR Course Manual</a></li>
+						<li class="pdoc" paid="false" course_id="4"><a target="_blank">Basic CPR Course Manual</a></li>
         			</c:if>
         		</c:if>
         		
