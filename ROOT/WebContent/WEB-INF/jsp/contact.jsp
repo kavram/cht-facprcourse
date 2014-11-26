@@ -11,8 +11,8 @@
   <jsp:param name="menu2" value="" />
   <jsp:param name="menu3" value="" />
   <jsp:param name="menu4" value="" />
-  <jsp:param name="menu5" value="active" />
-  <jsp:param name="menu6" value="" />
+  <jsp:param name="menu5" value="" />
+  <jsp:param name="menu6" value="active" />
   <jsp:param name="menu7" value="" />
 </jsp:include>
 <script>

@@ -8,8 +8,8 @@
 <body>
     <h1>
     <center>
-    	Sorry. This URL has expired or doesn't exist.<br>
-    	<a href="/">OK</a>
+    	Sorry. This URL has expired or doesn't exist.<br><br>
+    	<a href="/">Home Page</a>
     </center>
     </h1>
 <%@ include file="footer.jsp" %>

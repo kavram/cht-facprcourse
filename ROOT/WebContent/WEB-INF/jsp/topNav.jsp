@@ -16,7 +16,8 @@
     			<li><a href="#registerModal"  data-toggle="modal" data-target="#registerModal" >Register</a></li>
     			<li><a href="#loginModal"  data-toggle="modal" data-target="#loginModal" >Log In</a></li>
     		</c:if>
-    		<li class='<%= request.getParameter("menu5")%>'><a href=/contact>Contact Us</a></li>
+    		<li class='<%= request.getParameter("menu5")%>'><a href=/aboutus>About Us</a></li>
+    		<li class='<%= request.getParameter("menu6")%>'><a href=/contact>Contact Us</a></li>
 		</ul>
 	</div>
 	</div>
