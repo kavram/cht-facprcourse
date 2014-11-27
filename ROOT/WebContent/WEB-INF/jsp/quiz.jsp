@@ -48,7 +48,7 @@ $(document).ready(function() {
 					    		 		'<br><br>' +
 					  				'<center>' +
 					  				'<p>' +
-					  					'<a href="printtempcard" target="_blank"><button type="button" class="btn btn-primary btn-lg">Print Wallet Certificate</button></a>&quot;' +
+					  					'<a href="tempcard" target="_blank"><button type="button" class="btn btn-primary btn-lg">Print Wallet Certificate</button></a>&quot;' +
 					  					'<a href="wall-certificate" target="_blank"><button type="button" class="btn btn-primary btn-lg">Print Wall Certificate</button></a>' +
 									'</p>' +
 									'</center>');

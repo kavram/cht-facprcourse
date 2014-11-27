@@ -359,7 +359,7 @@ hands only" />
 		        	<h4 class="modal-title"><center>Refund Policy</center></h4>
 		      	</div>
 		    	<div class="modal-body">
-					<p>If you are not 100% satisfied with your purchase, within 30 days from the purchase date, we will fully refund the cost of your order to your Credit Card. Please all 6 to 10 days to complete the refund process.</p>
+					<p>If you are not 100% satisfied with your purchase, within 30 days from the purchase date, we will fully refund the cost of your order to your Credit Card. Please allow 6 to 10 days to complete the refund process.</p>
 				</div>
 			</div>
 		</div>

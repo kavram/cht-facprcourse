@@ -38,7 +38,14 @@
        		<a href="#"><img src="${domain}/images/g_plus.png" height=25px width=25px></a> 
         	<a href="#" target="_blank"><img src="${domain}/images/youtube.png" height=25px width=25px></a>           
         	<a href="#"><img src="${domain}/images/in.png" height=25px width=25px /></a>
-        	<a href="mailto:info@firstaidcprcourse.com"><img src="${domain}/images/email.png" height=25px width=25px></a> 
+        	<a href="mailto:info@firstaidcprcourse.com"><img src="${domain}/images/email.png" height=25px width=25px></a>
+        	 <br><br>
+        	<!-- (c) 2005, 2014. Authorize.Net is a registered trademark of CyberSource Corporation --> 
+      		<div class="AuthorizeNetSeal"> 
+    			<script type="text/javascript" language="javascript">var ANS_customer_id="7c7bfc97-097a-4385-8375-521f4f2e79a4";</script> 
+    			<script type="text/javascript" language="javascript" src="//verify.authorize.net/anetseal/seal.js" ></script> 
+    			<a href="http://www.authorize.net/" id="AuthorizeNetText" target="_blank"></a> 
+      		</div>
         	</center>
         </div>	
 	</div>

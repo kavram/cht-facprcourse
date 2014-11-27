@@ -1,8 +1,5 @@
 package com.cht.firstaidcpr4me.web.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -16,34 +13,25 @@ import com.cht.firstaidcpr4me.web.domain.User;
 import com.cht.firstaidcpr4me.web.domain.UserCourse;
 
 @Controller
-@RequestMapping("/printtempcard")
+@RequestMapping("/tempcard")
 public class TempCardController extends BaseController {
 	private static final Logger log = LoggerFactory.getLogger(TempCardController.class);
 	
 	
 	@RequestMapping(method = RequestMethod.GET)	
 	public ModelAndView getQuiz(HttpServletRequest request){
-		ModelAndView mv = getModelAndView("tempCard.jsp");
 		try {
 			User user = getUser(request);
 			if(user == null)
-				return new ModelAndView("redirect:index");
+				return new ModelAndView("redirect:/");
 			UserCourse course = (UserCourse) request.getSession().getAttribute(QuizController.COURSE);
 			if(course == null || !course.isPaid() || !course.isCompleted())
-				return new ModelAndView("redirect:courses");
-			mv.addObject("userCourse", course);
-			mv.addObject("user", user);
-			SimpleDateFormat dateForm = new SimpleDateFormat("MM/dd/yyyy");
-			Calendar cal = Calendar.getInstance();
-			mv.addObject("issueDate", dateForm.format(cal.getTime()));
-			cal.add(Calendar.YEAR, 1);
-			mv.addObject("renewDate", dateForm.format(cal.getTime()));
-		} catch (NumberFormatException e) {
-			log.error(e.getMessage(), e);
+				return new ModelAndView("redirect:/courses");
 		}catch (Exception e) {
 			log.error(e.getMessage(), e);
+			return new ModelAndView("redirect:/");
 		}
-		return mv;
+		return new ModelAndView("forward:/gen-temp-cert-pdf");
 	}
 	
 }
