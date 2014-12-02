@@ -41,17 +41,15 @@ $(document).ready(function() {
 					$('#bDiv').html(
 					    				'Congratulations, you have passed the course quiz and you can now print your certification. You have two choices for the certificate,' + 
 					    				'a wallet sized certificate or a wall certificate suitable for framing. <br><br>' +
-					    				'After you select a certificate size, we will open a PDF on your desktop that contains a high resolution print image' +
-					    				'of your certificate and start the printing process. Simply select the printer that you wish to use and start the print' +
-					    				'request.<br><br>' +
-					    				'When you have completed the printing process, save the certificate PDF on your computer for future reference.' +
-					    		 		'<br><br>' +
-					  				'<center>' +
+					    				'After you select a certificate size, we will open a PDF on your desktop that contains a high resolution print image ' +
+    									'of your certificate and start the printing process. Simply select the printer that you wish to use and start the print request.<br><br>' +
+    									'When you have completed the printing process, make sure you save the certificate PDF on your computer for future reference.<br><br>' +
+					  				'</div><div class="panel-footer"><center>' +
 					  				'<p>' +
-					  					'<a href="tempcard" target="_blank"><button type="button" class="btn btn-primary btn-lg">Print Wallet Certificate</button></a>&quot;' +
-					  					'<a href="wall-certificate" target="_blank"><button type="button" class="btn btn-primary btn-lg">Print Wall Certificate</button></a>' +
-									'</p>' +
-									'</center>');
+					  					'<a href="tempcard" target="_blank"><button type="button" class="btn btn-primary btn-lg">Print Wallet Certificate</button></a>&nbsp;' +
+					  					'<a href="wall-certificate" target="_blank"><button type="button" class="btn btn-info btn-lg">Print Wall Certificate</button></a><br><br>' +
+					  					'<a href="courses"><button type="button" class="btn btn-warning btn-lg">Finished Printing</button></a>' +
+									'</p></center>');
 				}else if(data.status == "fail"){
 					$('#popup').find('h4').html('<center>Sorry, You didn\'t pass the quiz.</center>');
 					$('#bDiv').html('<button type="button" data-dismiss="modal" id="tryAgain" class="btn btn-default">Try Again</button>' +

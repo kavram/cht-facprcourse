@@ -74,7 +74,7 @@ public class WallCertGenController extends BaseController {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		PdfWriter writer = PdfWriter.getInstance(document, baos);
 		document.open();
-		FileSystemResource backgrFile = new FileSystemResource("/cht/FirstAidCPRCourse-Blank-Wall-Certificate.jpg");
+		FileSystemResource backgrFile = new FileSystemResource("/cht/FirstAidCPRCourseWallTemplate.jpg");
 		Image bkrnd = Image.getInstance(backgrFile.getURL());
 		bkrnd.scaleToFit(rect);
 		//bkrnd.setAbsolutePosition(0, 100);
@@ -89,14 +89,14 @@ public class WallCertGenController extends BaseController {
 	    over.beginText();
 	    //over.setFontAndSize(bf_helv, 12);
 	    over.setFontAndSize(bf_pal, 12);
-	    over.showTextAligned(Element.ALIGN_CENTER, curDate, 380, 525, 0);
-	    over.showTextAligned(Element.ALIGN_CENTER, expDate, 240, 475, 0);
-	    //over.setFontAndSize(bf_pal, 11);
+	    over.showTextAligned(Element.ALIGN_CENTER, curDate, 390, 525, 0);
+	    over.showTextAligned(Element.ALIGN_CENTER, expDate, 240, 477, 0);
+	    over.setFontAndSize(bf_pal, 11);
 	    setCourseText(course, over);
 	    //Font cour = new Font(FontFamily.TIMES_ROMAN, 15);
 	    //cour.setStyle(Font.BOLD);
 	    //BaseFont bf_cour = cour.getCalculatedBaseFont(false);
-	    over.setFontAndSize(bf_pal, 29);
+	    over.setFontAndSize(bf_pal, 33);
 	    over.showTextAligned(Element.ALIGN_CENTER, user.getFirstName() + " " + user.getLastName(), 295, 637, 0);
 	    over.endText();
 	    over.restoreState();		
