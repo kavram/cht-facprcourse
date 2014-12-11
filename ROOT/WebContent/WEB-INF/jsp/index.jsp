@@ -277,7 +277,7 @@
 				<td></td>
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
 				<td></td>
-				<td><h4>$14.95</h4></td>
+				<td><h4>$17.95</h4></td>
 				<td><a id="crsPmt1" href="payment?courses=4"><center><img src="images/starthere.jpg" height=40px border=0></center></a></td>
 			</tr>
 			<tr>
@@ -288,7 +288,7 @@
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
 				<td></td>
 				<td></td>
-				<td><h4>$19.95</h4></td>
+				<td><h4>$22.95</h4></td>
 				<td><a id="crsPmt2" href="payment?courses=1"><center><img src="images/starthere.jpg" height=40px border=0></center></a></td>
 			</tr>
 			<tr>
@@ -299,7 +299,7 @@
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
 				<td></td>
-				<td><h4>$29.95</h4></td>
+				<td><h4>$31.95</h4></td>
 				<td><a id="crsPmt3" href="payment?courses=2"><center><img src="images/starthere.jpg" height=40px border=0></center></a></td>
 			</tr>
 			<tr>
@@ -310,7 +310,7 @@
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
 				<td><center><img src="images/checkmark.jpg" height=25px border=0></center></td>
-				<td><h4>$49.95</h4></td>
+				<td><h4>$51.95</h4></td>
 				<td><a id="crsPmt4" href="payment?courses=3"><center><img src="images/starthere.jpg" height=40px border=0></center></a></td>
 			</tr>
   		</table>

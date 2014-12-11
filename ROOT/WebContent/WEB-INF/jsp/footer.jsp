@@ -35,9 +35,9 @@
 		<div class="col-lg-2 col-sm-3" style="line-height:15px; color:white">
 			<center>
         	Follow Us On<BR> <BR>
-       		<a href="#"><img src="${domain}/images/g_plus.png" height=25px width=25px></a> 
-        	<a href="#" target="_blank"><img src="${domain}/images/youtube.png" height=25px width=25px></a>           
-        	<a href="#"><img src="${domain}/images/in.png" height=25px width=25px /></a>
+       		<a href="https://plus.google.com/u/0/104044872068298502015/posts" target="_blank"><img src="images/g_plus.png" height=25px width=25px></a> 
+        	<a href="https://www.facebook.com/pages/First-Aid-Cpr-Course/647149218731125" target="_blank"><img src="images/fb.png" height=25px width=25px></a>           
+        	<a href="https://www.linkedin.com/company/4839820?trk=tyah&trkInfo=tarId%3A1417740448409%2Ctas%3Afirstaidcpr%2Cidx%3A1-1-1" target="_blank"><img src="images/in.png" height=25px width=25px /></a>
         	<a href="mailto:info@firstaidcprcourse.com"><img src="${domain}/images/email.png" height=25px width=25px></a>
         	 <br><br>
         	<!-- (c) 2005, 2014. Authorize.Net is a registered trademark of CyberSource Corporation --> 

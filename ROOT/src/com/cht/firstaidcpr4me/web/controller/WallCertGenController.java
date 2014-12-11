@@ -1,6 +1,7 @@
 package com.cht.firstaidcpr4me.web.controller;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
@@ -60,7 +61,21 @@ public class WallCertGenController extends BaseController {
 		return response;
 	}
 
-
+/*
+	private ByteArrayOutputStream usingJetPDF(User user, UserCourse course) throws Exception {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		PDF pdf = new PDF(baos);
+		FileInputStream backgrFile = new FileInputStream("/cht/FirstAidCPRCourseWallTemplate.jpg");
+		Image bckrnd = new Image(pdf, backgrFile, ImageType.JPG);
+		Page page = new Page(pdf, A4.LANDSCAPE);
+		//bckrnd.scaleBy(page.getWidth(), page.getHeight());
+		bckrnd.drawOn(page);
+		pdf.close();
+		return baos;
+	}
+*/	
+	
+	
 	private ByteArrayOutputStream generateCertificatePDF(User user, UserCourse course) throws DocumentException, MalformedURLException, IOException {
 		SimpleDateFormat dateForm = new SimpleDateFormat("MMMMM d, yyyy");
 		Calendar cal = Calendar.getInstance();
@@ -97,7 +112,8 @@ public class WallCertGenController extends BaseController {
 	    //cour.setStyle(Font.BOLD);
 	    //BaseFont bf_cour = cour.getCalculatedBaseFont(false);
 	    over.setFontAndSize(bf_pal, 33);
-	    over.showTextAligned(Element.ALIGN_CENTER, user.getFirstName() + " " + user.getLastName(), 295, 637, 0);
+	    user.getFirstName().substring(0, 1).toUpperCase();
+	    over.showTextAligned(Element.ALIGN_CENTER, user.getFirstName().substring(0, 1).toUpperCase() + user.getFirstName().substring(1).toLowerCase() + " " + user.getLastName().substring(0, 1).toUpperCase() + user.getLastName().substring(1).toLowerCase(), 295, 632, 0);
 	    over.endText();
 	    over.restoreState();		
 		document.close();
