@@ -374,11 +374,11 @@ hands only" />
 		    		<br>
 					<div class="flowplayer" data-rtmp="rtmp://rtmp.flowplayer.org/cfx/st/" data-ratio="0.5625" data-qualities="216p,360p,720p,1080p" data-default-quality="360p">
   						<video>
-    						<source type="application/x-mpegurl" src="http://drive.flowplayer.org/196963/32547-CPRIntro.m3u8">
-    						<source type="video/webm" src="http://drive.flowplayer.org/196963/32547-CPRIntro.webm">
-    						<source type="video/mp4" src="http://drive.flowplayer.org/196963/32547-CPRIntro.mp4">
-    						<source type="video/flash" src="mp4:196963/32547-CPRIntro.mp4">
-  						</video>
+            				<source type="application/x-mpegurl" src="http://drive.flowplayer.org/196963/40013-CPRDemo.m3u8">
+            				<source type="video/webm" src="http://drive.flowplayer.org/196963/40013-CPRDemo.webm">
+            				<source type="video/mp4" src="http://drive.flowplayer.org/196963/40013-CPRDemo.mp4">
+            				<source type="video/flash" src="mp4:196963/40013-CPRDemo.mp4">
+      					</video>
 					</div>
 					<br>
 					<br>
