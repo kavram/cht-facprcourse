@@ -124,16 +124,16 @@ public class PaymentController extends BaseController {
 
 		try {
 			User user = getUser(request);
-			
+			Collection<UserCourse> collUCourse = (Collection<UserCourse>)request.getSession().getAttribute(SiteController.SESSION_ATTRIBUTE_COURSES);
 			String transactionId = null;
 			if(payment.getCreditcardnum().equals("11112222"))
 				transactionId = "test";     //postToAuthorize(payment);
 			else
-				transactionId = postToAuthorize(payment);
+				transactionId = postToAuthorize(payment, (UserCourse)collUCourse.toArray()[0]);
 			
 			if(transactionId != null){
-				loginPaymentService.saveLoginCoursePayment(user, transactionId, (Collection<UserCourse>)request.getSession().getAttribute(SiteController.SESSION_ATTRIBUTE_COURSES));
-				sendEmails(payment, user, (Collection<UserCourse>)request.getSession().getAttribute(SiteController.SESSION_ATTRIBUTE_COURSES));
+				loginPaymentService.saveLoginCoursePayment(user, transactionId, collUCourse);
+				sendEmails(payment, user, collUCourse);
 			}
 			mv = getModelAndView("paymentSuccess.jsp");
 		} catch (PaymentException e) {
@@ -163,17 +163,20 @@ public class PaymentController extends BaseController {
 	}
 
 
-	private String postToAuthorize(final Payment payment) throws PaymentException{
+	private String postToAuthorize(final Payment payment, final UserCourse uc) throws PaymentException{
 		String transactionId = null;
-		String amount = payment.getAmount().substring(1);
-		Merchant merchant = Merchant.createMerchant(Environment.PRODUCTION_TESTMODE, authorizeConf.getApiLoginId(), authorizeConf.getTransactionKey());
+		//String amount = payment.getAmount().substring(1);
+		log.info("Amount submitted on the form: " + payment.getAmount());
+		log.info("Course Amount: " + uc.getPrice());
+		Environment[] env = Environment.values();
+		Merchant merchant = Merchant.createMerchant(Environment.PRODUCTION, authorizeConf.getApiLoginId(), authorizeConf.getTransactionKey());
 		// create credit card
 	    CreditCard creditCard = CreditCard.createCreditCard();
 	    creditCard.setCreditCardNumber(payment.getCreditcardnum());
 	    creditCard.setExpirationMonth(payment.getExprmonth());
 	    creditCard.setExpirationYear(payment.getExpryear());
 	    // create transaction
-	    Transaction authCaptureTransaction = merchant.createAIMTransaction(TransactionType.AUTH_CAPTURE, new BigDecimal(amount));
+	    Transaction authCaptureTransaction = merchant.createAIMTransaction(TransactionType.AUTH_CAPTURE, new BigDecimal(uc.getPrice()));
 	    authCaptureTransaction.setCreditCard(creditCard);
 	    Customer customer = Customer.createCustomer(); 
 	    customer.setAddress(payment.getAddress());
@@ -187,7 +190,7 @@ public class PaymentController extends BaseController {
 	    Result<Transaction> result = (Result<Transaction>)merchant.postTransaction(authCaptureTransaction);
 
 	    if(result.isApproved()) {
-	      log.info("Approved!</br>");
+	      log.info("Approved!");
 	      log.info("Transaction Id: " + result.getTarget().getTransactionId());
 	      transactionId = result.getTarget().getTransactionId();
 	    } else if (result.isDeclined()) {
