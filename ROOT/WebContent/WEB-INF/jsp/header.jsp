@@ -26,7 +26,7 @@ hands only" />
 </script>
 
 
-<title>First Aid Prototype</title>
+<title>FirstAidCPRCourse.com</title>
 	<script type="text/javascript" >
 	<c:if test="${user.email == null}">
 		$(document).ready(function() {
