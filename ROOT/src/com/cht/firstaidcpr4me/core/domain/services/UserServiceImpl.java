@@ -169,5 +169,22 @@ public class UserServiceImpl implements UserService {
 		login.setPassword(user.getPassword());
 		loginDao.updateLogin(login);
 	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public User registerValidatedUser(User user) throws EmailExistException  {
+		if(isLoginExists(user.getEmail())){
+			throw new EmailExistException();
+		}
+		Login lg = new Login();
+		lg.setEmail(user.getEmail());
+		lg.setPassword(user.getPassword());
+		lg.setFirstName(user.getFirstName());
+		lg.setLastName(user.getLastName());
+		lg.setLevel(USER_EMAIL_VALIDATED);
+		lg.setSecureHash(UUID.randomUUID().toString());
+		lg = loginDao.saveLogin(lg);
+		return new User(lg);
+	}
 	
 }

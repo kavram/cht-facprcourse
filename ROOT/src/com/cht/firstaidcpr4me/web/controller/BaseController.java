@@ -18,10 +18,10 @@ public abstract class BaseController {
 
 	
 	@Autowired
-	private UserService userService;
+	protected UserService userService;
 
 	@Autowired
-	private EmailConf emailConf;
+	protected EmailConf emailConf;
 	
 	public BaseController(){
 		

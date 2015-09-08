@@ -163,9 +163,9 @@ $(document).ready(function() {
                         message: 'The password is required and cannot be empty'
                     },
                     stringLength: {
-                        mix: 6,
-                        max: 10,
-                        message: 'The password must be from 6 to 10 characters long'
+                        mix: 5,
+                        max: 70,
+                        message: 'The password must be minimum 5 characters long'
                     },
                     callback: {
                     	callback : function(validator, $field, options) {
@@ -277,9 +277,9 @@ $(document).ready(function() {
                         message: 'The password is required and cannot be empty'
                     },
                     stringLength: {
-                        min: 6,
-                        max: 10,
-                        message: 'The password must be from 6 to 10 characters long'
+                        min: 5,
+                        max: 70,
+                        message: 'The password must be minimum 5 characters long'
                     },
                     callback: {
                     	callback : clearRegFormServerErrorsDiv
@@ -292,9 +292,9 @@ $(document).ready(function() {
                         message: 'The confirm password field is required'
                     },
                     stringLength: {
-                        mix: 6,
-                        max: 10,
-                        message: 'The password must be from 6 to 10 characters long'
+                        mix: 5,
+                        max: 70,
+                        message: 'The password must be minimum 5 characters long'
                     },
                     callback: {
                     	callback : function clearRegFormServerErrorsDiv(validator, $field, options){

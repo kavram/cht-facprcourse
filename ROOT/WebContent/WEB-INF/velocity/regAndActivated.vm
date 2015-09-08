@@ -1,0 +1,20 @@
+#set ($subject = "Your FirstaidCPRCourse.com Account")
+
+<html>
+Dear $firstName $lastName,
+<br>
+<br>
+We completed your registration with <a href="$siteDomain" >FirstAidCPRCourse.com</a>
+<br>
+<br>
+Please use your email address for login and password into your <a href="$siteDomain" >FirstAidCPRCourse.com</a> account. 
+<br>
+<br>
+Thanks,
+<br>
+Your Companion Medical Supply Support Team
+<br>
+<br>
+The information contained in this electronic message may contain protected health information confidential under applicable law, and is intended only for the use of the individual or entity named above.  If the recipient of this message is not the above-named intended recipient, you are hereby notified that any dissemination, copy or disclosure of this communication is strictly prohibited.  If you have received this communication in error, please notify Companion Medical Supply at support@firstaidcprcourse.com and purge the communication immediately without making any copy or distribution.
+
+</html>

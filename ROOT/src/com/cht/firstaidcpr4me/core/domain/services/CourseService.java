@@ -16,4 +16,6 @@ public interface CourseService {
 	public UserCourse getPaidCourseById(User user, Long courseId) throws CourseNotFoundException;
 
 	public UserCourse getCourseById(User user, Long id) throws CourseNotFoundException;
+
+	public Collection<Course> getCourses();
 }

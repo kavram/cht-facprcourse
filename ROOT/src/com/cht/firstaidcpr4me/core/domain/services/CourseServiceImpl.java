@@ -97,6 +97,13 @@ public class CourseServiceImpl implements CourseService {
 		}
 		return collUserCourse;
 	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public Collection<Course> getCourses() {
+		Collection<Course> coll = courseDao.getCourses();
+		return coll;
+	}
 	
 	private Collection<CourseVideo> getCourseVideos(Course course){
 		Collection<CourseVideo> coll = new ArrayList<CourseVideo>();

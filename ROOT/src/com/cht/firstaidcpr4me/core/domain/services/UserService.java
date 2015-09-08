@@ -27,4 +27,6 @@ public interface UserService {
 	public User getOrRegisterUser(User user) throws Exception;
 
 	public void updateUser(User user) throws Exception;
+	
+	public User registerValidatedUser(User user) throws Exception;
 }
