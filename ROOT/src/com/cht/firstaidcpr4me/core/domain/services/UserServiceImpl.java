@@ -182,6 +182,7 @@ public class UserServiceImpl implements UserService {
 		lg.setPassword(user.getPassword());
 		lg.setFirstName(user.getFirstName());
 		lg.setLastName(user.getLastName());
+		lg.setPhoneNum(user.getPhoneNum());
 		lg.setLevel(USER_EMAIL_VALIDATED);
 		lg.setSecureHash(UUID.randomUUID().toString());
 		lg = loginDao.saveLogin(lg);
