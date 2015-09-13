@@ -139,6 +139,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public User getUserByEmail(String email) throws UserNotFoundException {
 		Collection coll = loginDao.getLoginByEmail(email);
 		if(coll.isEmpty())

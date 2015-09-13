@@ -31,6 +31,7 @@ public class User {
 	private String password;
 	private Long level;
 	private String userHash;
+	private String phoneNum;
 	
 	public User(){
 		
@@ -43,6 +44,7 @@ public class User {
 		lastName = login.getLastName();
 		level = login.getLevel();
 		userHash = login.getSecureHash();
+		phoneNum = login.getPhoneNum();
 	}
 
 	public String getEmail() {
@@ -99,6 +101,14 @@ public class User {
 
 	public void setUserHash(String userHash) {
 		this.userHash = userHash;
+	}
+
+	public String getPhoneNum() {
+		return phoneNum;
+	}
+
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
 	}
 	
 	

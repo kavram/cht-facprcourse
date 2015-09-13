@@ -180,7 +180,6 @@
 			                <option value="12">Dec (12)</option>
 	              		</select>
 	    				<select class="span2" name="expryear" id="expryear">
-	                		<option value="14">2014</option>
 	                		<option value="15">2015</option>
 	                		<option value="16">2016</option>
 	                		<option value="17">2017</option>

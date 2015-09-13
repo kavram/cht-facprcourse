@@ -35,6 +35,9 @@ public class Login implements Serializable {
 
 	@Column(name="log_last_name_tx")
 	private String lastName;
+
+	@Column(name="log_phone_num")
+	private String phoneNum;
 	
 	@Column(name="log_level_tx")
 	private Long level;
@@ -104,6 +107,14 @@ public class Login implements Serializable {
 
 	public void setSecureHash(String secureHash) {
 		this.secureHash = secureHash;
+	}
+
+	public String getPhoneNum() {
+		return phoneNum;
+	}
+
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
 	}
 	
 	

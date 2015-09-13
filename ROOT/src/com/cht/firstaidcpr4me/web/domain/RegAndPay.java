@@ -8,6 +8,8 @@ public class RegAndPay {
 	private String email;
 	private String firstName;
 	private String lastName;
+	private String password;
+	private String phoneNum;
 
 	private List<Long> selectedCourses;
 	
@@ -141,6 +143,22 @@ public class RegAndPay {
 
 	public void setSelectedCourses(List<Long> selectedCourses) {
 		this.selectedCourses = selectedCourses;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPhoneNum() {
+		return phoneNum;
+	}
+
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
 	}
 	
 }
