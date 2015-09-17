@@ -45,6 +45,18 @@ public class UserForgotPasswordServiceImpl implements	UserForgotPasswordService 
 		emailService.sendEmail("passwordReset.vm", email, model);
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public String generateForgotPasswordToken(String email) throws UserNotFoundException {
+		User user = userService.getUserByEmail(email);
+		LoginForgotPassword lfp = new LoginForgotPassword();
+		lfp.setToken(UUID.randomUUID().toString());
+		lfp.setLoginId(user.getId());
+		lfp.setStatus(UserForgotPasswordService.ACTIVE);
+		lfp = loginForgotPasswordDao.saveLoginForgotPassword(lfp);
+		return lfp.getToken();
+	}
+	
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -57,8 +69,12 @@ public class UserForgotPasswordServiceImpl implements	UserForgotPasswordService 
 
 	@Override
 	public void deactivateLoginForgotPassword(String key) {
-		
-
+		Collection<LoginForgotPassword> coll = loginForgotPasswordDao.getActiveLoginForgotPasswordByToken(key);
+		if(coll.isEmpty())
+			return;
+		LoginForgotPassword lfp = (LoginForgotPassword) coll.toArray()[0];
+		lfp.setStatus(UserForgotPasswordService.DISABLE);
+		loginForgotPasswordDao.updateLoginForgotPassword(lfp);
 	}
 
 }

@@ -14,5 +14,7 @@ public interface UserForgotPasswordService {
 	public LoginForgotPassword getLoginForgotPasswordByToken(String token) throws PasswordResetTokenNotFound;
 	
 	public void deactivateLoginForgotPassword(String token);
+
+	String generateForgotPasswordToken(String email) throws UserNotFoundException;
 	
 }

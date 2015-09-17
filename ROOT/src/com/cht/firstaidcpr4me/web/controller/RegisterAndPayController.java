@@ -35,6 +35,7 @@ import com.cht.firstaidcpr4me.core.domain.objects.AuthorizeConf;
 import com.cht.firstaidcpr4me.core.domain.services.CourseService;
 import com.cht.firstaidcpr4me.core.domain.services.EmailService;
 import com.cht.firstaidcpr4me.core.domain.services.LoginPaymentService;
+import com.cht.firstaidcpr4me.core.domain.services.UserForgotPasswordService;
 import com.cht.firstaidcpr4me.web.domain.RegAndPay;
 import com.cht.firstaidcpr4me.web.domain.User;
 import com.cht.firstaidcpr4me.web.domain.UserCourse;
@@ -56,6 +57,9 @@ public class RegisterAndPayController extends BaseController {
 	@Autowired
 	private AuthorizeConf authorizeConf;
 	
+	@Autowired
+	private UserForgotPasswordService uFPService;
+	
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getRegisterAndPaymentForm(HttpServletRequest request, HttpServletResponse response) {
@@ -67,6 +71,7 @@ public class RegisterAndPayController extends BaseController {
 	public ModelAndView submitReg(@ModelAttribute RegAndPay regpay, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 		Collection<UserCourse> collCrs = new ArrayList<UserCourse>();
 		ModelAndView mv = getModelAndView("regandpayment.jsp");
+		boolean sendEmail = false;
 		if(result.hasErrors()){
 			mv.addObject("regandpay", regpay);
 			return mv;
@@ -78,8 +83,10 @@ public class RegisterAndPayController extends BaseController {
 			log.info("EmailExistException, email address: " + regpay.getEmail());
 		}
 		try{
-			if(user == null)
+			if(user == null){
 				user = registerValidatedUser(regpay);
+				sendEmail = true;
+			}
 			if(regpay.getSelectedCourses() != null) {
 				for(Long cId : regpay.getSelectedCourses()){
 					UserCourse uc = courseService.getCourseById(user, cId);
@@ -88,12 +95,13 @@ public class RegisterAndPayController extends BaseController {
 				}
 				loginPaymentService.saveLoginCoursePayment(user, "CRM_PAID", collCrs);
 			}
-			sendEmail(user);
 		}catch (Exception e) {
 			log.error(e.getMessage(), e);
 			mv.addObject("error", "Sorry, please try again.");
 			return mv;
 		}
+		if(sendEmail)
+			sendEmail(user);
 		mv.addObject("status", "success");
 		mv.addObject("regandpay", new RegAndPay());
 		return mv;
@@ -103,6 +111,7 @@ public class RegisterAndPayController extends BaseController {
 	public ModelAndView submitRegAndPay(@ModelAttribute RegAndPay regpay, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 		Collection<UserCourse> collCrs = new ArrayList<UserCourse>();
 		BigDecimal totalAmnt = new BigDecimal(0);
+		boolean sendEmail = false;
 		ModelAndView mv = getModelAndView("regandpayment.jsp");
 		if(result.hasErrors()){
 			mv.addObject("regandpay", regpay);
@@ -115,8 +124,10 @@ public class RegisterAndPayController extends BaseController {
 			log.info("EmailExistException, email address: " + regpay.getEmail());
 		}
 		try{
-			if(user == null)
+			if(user == null){
 				user = registerValidatedUser(regpay);
+				sendEmail = true;
+			}
 			for(Long cId : regpay.getSelectedCourses()){
 				UserCourse uc = courseService.getCourseById(user, cId);
 				if(!uc.isPaid()){
@@ -139,6 +150,8 @@ public class RegisterAndPayController extends BaseController {
 			mv.addObject("regandpay", regpay);
 			return mv;
 		}
+		if(sendEmail)
+			sendEmail(user);
 		mv.addObject("status", "success");
 		mv.addObject("regandpay", new RegAndPay());
 		return mv;
@@ -154,6 +167,8 @@ public class RegisterAndPayController extends BaseController {
 	    creditCard.setCreditCardNumber(regpay.getCreditcardnum());
 	    creditCard.setExpirationMonth(regpay.getExprmonth());
 	    creditCard.setExpirationYear(regpay.getExpryear());
+	    if(regpay.getCvv() != null && !regpay.getCvv().isEmpty())
+	    	creditCard.setCardCode(regpay.getCvv());
 	    // create transaction
 	    Transaction authCaptureTransaction = merchant.createAIMTransaction(TransactionType.AUTH_CAPTURE, amnt);
 	    authCaptureTransaction.setCreditCard(creditCard);
@@ -202,6 +217,7 @@ public class RegisterAndPayController extends BaseController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("firstName", user.getFirstName());
 		model.put("lastName", user.getLastName());
+		//model.put("token", uFPService.generateForgotPasswordToken(user.getEmail()));
 		emailService.sendEmail("regAndActivated.vm", user.getEmail(), model);
 		//emailService.sendEmail("receiptPayment.vm", user.getEmail(), model);
 	}

@@ -280,6 +280,14 @@
 	              	</div>
   		    	</div>
 		  	</div>
+          <div class="form-group">
+
+     	  	<label class="col-sm-2 control-label">Card CVV</label>
+    		<div class="col-sm-10">
+      			<input type="text" class="form-control" id="cvv" name="cvv" maxlength="5">
+    		</div>
+  		  </div> 
+
 
   		  <!-- Billing Address -->
 		  <div class="form-group">

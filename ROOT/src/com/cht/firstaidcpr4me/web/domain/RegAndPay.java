@@ -17,6 +17,7 @@ public class RegAndPay {
 	private String creditcardnum;
 	private String exprmonth;
 	private String expryear;
+	private String cvv;
 	private String ccFirstName;
 	private String ccLastName;
 	private String ccEmail;
@@ -159,6 +160,14 @@ public class RegAndPay {
 
 	public void setPhoneNum(String phoneNum) {
 		this.phoneNum = phoneNum;
+	}
+
+	public String getCvv() {
+		return cvv;
+	}
+
+	public void setCvv(String cvv) {
+		this.cvv = cvv;
 	}
 	
 }
