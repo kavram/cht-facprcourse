@@ -168,6 +168,9 @@ public class UserServiceImpl implements UserService {
 			throw new UserNotFoundException();
 		Login login = (Login) coll.toArray()[0];
 		login.setPassword(user.getPassword());
+		login.setFirstName(user.getFirstName());
+		login.setLastName(user.getLastName());
+		login.setPhoneNum(user.getPhoneNum());
 		loginDao.updateLogin(login);
 	}
 

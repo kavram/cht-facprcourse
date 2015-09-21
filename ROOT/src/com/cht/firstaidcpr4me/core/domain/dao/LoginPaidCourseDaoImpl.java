@@ -38,4 +38,11 @@ public class LoginPaidCourseDaoImpl implements LoginPaidCourseDao {
 		        .list();	
 	}
 
+	@Override
+	public void deleteLoginPaidCourses(Long loginId) {
+		sessionFactory.getCurrentSession().createQuery("delete from LoginPaidCourse where loginId = :lId")
+		        .setLong("lId", loginId)
+		        .executeUpdate();
+	}
+	
 }

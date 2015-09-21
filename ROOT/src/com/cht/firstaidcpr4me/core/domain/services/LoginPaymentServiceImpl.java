@@ -42,6 +42,11 @@ public class LoginPaymentServiceImpl implements LoginPaymentService {
 		return lp;
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public void deleteLoginPaidCourse(Long loginId) throws Exception {
+		lpcDao.deleteLoginPaidCourses(loginId);
+	}
 
 
 

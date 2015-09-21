@@ -9,5 +9,6 @@ public interface LoginPaymentService {
 
 	public LoginPaidCourse getLoginCoursePaymentById(Long loginId, Long courseId) throws Exception;
 	public void saveLoginCoursePayment(User user, String transactionId, Collection<UserCourse> courses);
+	void deleteLoginPaidCourse(Long loginId) throws Exception;
 	
 }

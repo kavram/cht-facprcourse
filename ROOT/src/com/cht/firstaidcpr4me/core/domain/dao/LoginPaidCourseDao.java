@@ -9,6 +9,7 @@ public interface LoginPaidCourseDao {
 	public LoginPaidCourse save(LoginPaidCourse lpc);
 	public Collection<LoginPaidCourse> getLoginPaidCourseById(Long loginId, Long courseId);
 	public Collection<LoginPaidCourse> getLoginPaidCourses(Long loginId);
+	void deleteLoginPaidCourses(Long loginId);
 	
 	
 }

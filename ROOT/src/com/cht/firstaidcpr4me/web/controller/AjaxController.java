@@ -142,6 +142,18 @@ public class AjaxController extends BaseController {
 		}
 		return resp;
 	}
+
+	@RequestMapping("ajax/check-useremail")
+	public @ResponseBody AjaxResponse checkUserEmail(@RequestParam(value="email", required=true) String email, HttpServletRequest request, HttpServletResponse response) {
+		AjaxResponse resp = null;
+		try {
+			User usr = userService.getUserByEmail(email);
+			resp = new AjaxResponse(usr.getEmail());
+		} catch (UserNotFoundException e) {
+			resp = new AjaxResponse("notFound");
+		}
+		return resp;
+	}
 	
 	@RequestMapping("ajax/contact")
 	public @ResponseBody AjaxResponse processContactUsSubmission(@RequestParam(value="params", required=true) String params, HttpServletRequest request, HttpServletResponse response) {

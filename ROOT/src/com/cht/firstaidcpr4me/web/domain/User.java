@@ -45,6 +45,7 @@ public class User {
 		level = login.getLevel();
 		userHash = login.getSecureHash();
 		phoneNum = login.getPhoneNum();
+		password = login.getPassword();
 	}
 
 	public String getEmail() {

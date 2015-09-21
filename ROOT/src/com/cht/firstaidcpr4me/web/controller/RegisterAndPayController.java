@@ -78,9 +78,14 @@ public class RegisterAndPayController extends BaseController {
 		}
 		User user = null;
 		try {
-			user = userService.getUserByEmail(regpay.getEmail());
+			user = updateUser(regpay);
 		} catch (UserNotFoundException e1) {
 			log.info("EmailExistException, email address: " + regpay.getEmail());
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			mv.addObject("error", "Sorry, please try again.");
+			mv.addObject("regandpay", regpay);
+			return mv;
 		}
 		try{
 			if(user == null){
@@ -90,8 +95,7 @@ public class RegisterAndPayController extends BaseController {
 			if(regpay.getSelectedCourses() != null) {
 				for(Long cId : regpay.getSelectedCourses()){
 					UserCourse uc = courseService.getCourseById(user, cId);
-					if(!uc.isPaid())
-						collCrs.add(uc);
+					collCrs.add(uc);
 				}
 				loginPaymentService.saveLoginCoursePayment(user, "CRM_PAID", collCrs);
 			}
@@ -107,6 +111,17 @@ public class RegisterAndPayController extends BaseController {
 		return mv;
 	}
 
+	private User updateUser(RegAndPay regpay) throws UserNotFoundException, Exception{
+		User user = null;
+		user = userService.getUserByEmail(regpay.getEmail());
+		loginPaymentService.deleteLoginPaidCourse(user.getId());
+		user.setFirstName(regpay.getFirstName());
+		user.setLastName(regpay.getLastName());
+		user.setPhoneNum(regpay.getPhoneNum());
+		userService.updateUser(user);
+		return user;
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, params = "regandpay")
 	public ModelAndView submitRegAndPay(@ModelAttribute RegAndPay regpay, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 		Collection<UserCourse> collCrs = new ArrayList<UserCourse>();
@@ -119,9 +134,14 @@ public class RegisterAndPayController extends BaseController {
 		}
 		User user = null;
 		try {
-			user = userService.getUserByEmail(regpay.getEmail());
+			user = updateUser(regpay);
 		} catch (UserNotFoundException e1) {
 			log.info("EmailExistException, email address: " + regpay.getEmail());
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			mv.addObject("error", "Sorry, please try again.");
+			mv.addObject("regandpay", regpay);
+			return mv;
 		}
 		try{
 			if(user == null){
@@ -130,15 +150,12 @@ public class RegisterAndPayController extends BaseController {
 			}
 			for(Long cId : regpay.getSelectedCourses()){
 				UserCourse uc = courseService.getCourseById(user, cId);
-				if(!uc.isPaid()){
-					collCrs.add(uc);
-					BigDecimal pr = new BigDecimal(uc.getPrice());
-					totalAmnt = totalAmnt.add(pr);
-				}
+				collCrs.add(uc);
+				BigDecimal pr = new BigDecimal(uc.getPrice());
+				totalAmnt = totalAmnt.add(pr);
 			}
 			String transactionId = processPayment(user, regpay, totalAmnt);
 			loginPaymentService.saveLoginCoursePayment(user, transactionId, collCrs);
-			sendEmail(user);
 		}catch (PaymentException e) {
 			log.error(e.getMessage());
 			mv.addObject("error", e.getMessage());

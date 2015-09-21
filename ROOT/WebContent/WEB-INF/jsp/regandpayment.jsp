@@ -11,7 +11,24 @@
 <script src="${domain}/js/inputmask.js" type="text/javascript"></script>
 <script src="${domain}/js/jquery.inputmask.js" type="text/javascript"></script>
 <script type="text/javascript" >
+	var reg = '';
+	var checked = false;
 	$(document).ready(function(e){
+		$("#userExistModalOK").click(function(e){
+			checked = true;
+			if(reg == "reg"){
+				$("#regSubmit").click();
+			}else if(reg == "regpay"){
+				$("#regandpaySubmit").click();
+			}
+		});
+
+ 		$('#userExistModa').on('hidden.bs.modal', function () {
+ 			reg = '';
+ 			checked = false;
+ 		});
+
+		
 		$('#phoneNum').inputmask("mask", {"mask": "(999) 999-9999"});
 		$("#errorMsg").hide();
 		$("#amount").val("$0.00");
@@ -41,8 +58,15 @@
 				$('#phoneNum').parent().parent().addClass('form-group has-error');
 				pass = false;
 			}
-			if(pass == false)
+			if(pass == false){
 				e.preventDefault();
+				return;
+			}
+			if(!checked){
+				reg = 'reg';
+				checkUserEmail();
+				e.preventDefault();
+			}
 		});
 		$('#regandpaySubmit').click(function(e){
 			var pass = true;
@@ -108,11 +132,46 @@
 				pass = false;
 			}
 
-			if(pass == false)
+			if(pass == false){
 				e.preventDefault();
+				return;
+			}
+			if(!checked){
+				reg = 'regpay';
+				checkUserEmail();
+				e.preventDefault();
+			}
 		});
 	
 	});
+
+	function checkUserEmail(){
+		$.ajax({
+			type: "GET",
+			url: "/ajax/check-useremail",
+			processData: false,
+			data: "email=" + $('#email').val().trim(),
+			success: function(data, status, jqXHR){
+				if(data.status != "notFound"){
+					if(reg == "reg")
+						$("#userExistModalTxt").append("This user is already registered.  Register user with new registration information provided and replace previous registration.");
+					else
+						$("#userExistModalTxt").append("This user is already registered.  Register with new registration information provided, replace previous registration, and pay.");
+					$('#userExistModal').modal({show:true});
+				}else{
+					checked = true;
+					if(reg == "reg"){
+						$("#regSubmit").submit();
+					}else if(reg == "regpay"){
+						$("#regandpaySubmit").submit();
+					}
+				}
+			},
+			dataType: "json"
+		});
+	};
+	
+	
 	
 	<c:if test="${status != null}">
 	 	$(document).ready(function(){
@@ -136,6 +195,28 @@
 	        	<div class="form-group">
 	            	<div class="col-md-5 col-md-offset-3">
 	                	<button class="btn btn-default" id="ok" data-dismiss="modal" type="button">OK</button>
+	                </div>
+	           	</div>
+	       </form>
+	     </div>  
+		</div>
+	  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+<div class="modal fade" id="userExistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+ 		<div class="modal-content">
+			<div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		   </div>
+		   <div class="modal-body">
+			<div id="userExistModalTxt">
+		   	</div>		      
+		   	<form id="f" method="post" class="form-horizontal">
+	        	<div class="form-group">
+	            	<div class="col-md-5 col-md-offset-3">
+	                	<button class="btn btn-default" id="userExistModalOK" data-dismiss="modal" type="button">OK</button>
+	                	<button class="btn btn-default" id="userExistModalCancel" data-dismiss="modal" type="button">Cancel</button>
 	                </div>
 	           	</div>
 	       </form>
